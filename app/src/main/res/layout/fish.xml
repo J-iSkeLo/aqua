@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:elevation="10dp"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#ffffff"
+        android:elevation="10dp"
+        android:background="#03666c"
+        />
+
+    <ListView
+        android:id="@+id/listFish"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="1dp"
+        android:background="#D5D5D5"
+        android:dividerHeight="1dp"
+        android:drawSelectorOnTop="true"
+        android:drawingCacheQuality="high"
+        android:scrollbarThumbVertical="@android:color/darker_gray">
+
+    </ListView>
+
+
+    "
+
+</LinearLayout>

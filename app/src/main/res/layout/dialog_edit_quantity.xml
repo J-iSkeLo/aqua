@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#1F1F1F"
+    android:orientation="vertical"
+
+    app:corner_radius="7dp">
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/edit_quantity_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ИЗМЕНИТЬ КОЛИЧЕСТВО"
+            android:textAlignment="center"
+            android:textColor="#FDFDFD"
+            android:textSize="15sp" />
+    </TableRow>
+
+<!--    <EditText-->
+<!--        android:id="@+id/quantity_edit_dialog"-->
+<!--        style="@android:style/Widget.Material.EditText"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:background="@drawable/background_edit_text"-->
+<!--        android:hint="Укажите количество:"-->
+<!--        android:imeOptions="actionDone"-->
+<!--        android:inputType="number"-->
+<!--        android:maxLength="6"-->
+<!--        android:minEms="1"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/colorPrimaryWhite"-->
+<!--        android:textColorHint="#998B8B8B"-->
+<!--        android:textCursorDrawable="@color/colorPrimaryWhite"-->
+<!--        android:textIsSelectable="false"-->
+<!--        android:textSize="15sp" />-->
+    <EditText
+        android:id="@+id/quantity_edit_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_edit_text"
+        android:hint="Укажите количество:"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLength="6"
+        android:minEms="1"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryWhite"
+        android:textColorHint="#998B8B8B"
+        android:textCursorDrawable="@color/colorPrimaryWhite"
+        android:textIsSelectable="false"
+        android:textSize="15sp" />
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="66dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/cancel_dialog_quantity__btn"
+                android:layout_width="80dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="38dp"
+                android:background="@drawable/btn_black_press_white_dialog"
+                android:padding="5dp"
+                android:text="Отмена"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/edit_quantity_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/edit_quantity_btn"
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="31dp"
+                android:background="@drawable/btn_black_press_white_dialog"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:padding="10dp"
+                android:text="Подтвердить"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cancel_dialog_quantity__btn"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </TableRow>
+</LinearLayout>

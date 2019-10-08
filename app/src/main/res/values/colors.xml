@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#404040</color>
+    <color name="colorPrimaryWhite">#CFCFCF</color>
+    <color name="colorButton">#CFCFCF</color>
+    <color name="colorTimeBar">#069fa8</color>
+    <color name="colorAccent">#069fa8</color>
+    <color name="colorBlueBackground">#03666C</color>
+    <color name="colorTextCart">#181818</color>
+</resources>

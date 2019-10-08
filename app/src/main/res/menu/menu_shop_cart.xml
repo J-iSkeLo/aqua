@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/btn_cart_clear"
+        android:icon="@drawable/remove_cart_shopping"
+        android:foregroundGravity="center_vertical|center|center_horizontal"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orderInCategory="103"
+        android:title="Очистить Корзину"
+        app:showAsAction="always"></item>
+    <item
+        android:id="@+id/app_bar_search_cart"
+        android:icon="@drawable/search_icon"
+        android:title="Search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView"
+        android:orderInCategory="102"/>
+
+
+</menu>
