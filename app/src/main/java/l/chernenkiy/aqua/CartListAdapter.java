@@ -46,8 +46,6 @@ public class CartListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
 
-        final int i1=i;
-
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
@@ -69,9 +67,6 @@ public class CartListAdapter extends BaseAdapter {
 
         return convertView;
     }
-
-
-
 
     public void myFilter (String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
