@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -22,6 +23,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
@@ -56,6 +59,8 @@ public class Fish extends AppCompatActivity {
     MenuItem cartIconMenuItem;
     ImageButton cartImageBtn;
     SearchView searchView;
+    Boolean isInternetPresent = false;
+    ConnectionDetector cd;
 
 
     @Override
@@ -128,13 +133,30 @@ public class Fish extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(true);
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("Загрузка. Пожалуйста подождите..");
 
-        new MyTask().execute();
+        cd = new ConnectionDetector(getApplicationContext());
+        isInternetPresent = cd.ConnectingToInternet();
+        if (isInternetPresent){
+            new AsyncGetPrice().execute();
+        } else{
+            showToastInternetPresent();
+            onBackPressed();
+        }
+
+
 
 
         hideKeyboard();
+    }
+
+    private void showToastInternetPresent() {
+        Toast toast = Toast.makeText
+                (getApplicationContext(),"У Вас нет Интернет соединения",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -222,7 +244,7 @@ public class Fish extends AppCompatActivity {
                             }
                             adapter = new ProductListAdapter(getApplicationContext(), result);
                             lvProduct.setAdapter(adapter);
-                            progressDialog.dismiss();
+
 
 
                             showDialogOnItemClick(result);
@@ -245,7 +267,7 @@ public class Fish extends AppCompatActivity {
         mQueue.add(request);
     }
 
-    class MyTask extends AsyncTask<Void, Void, Void> {
+    class AsyncGetPrice extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -262,6 +284,7 @@ public class Fish extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            progressDialog.dismiss();
 
         }
     }

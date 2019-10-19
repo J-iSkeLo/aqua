@@ -29,6 +29,8 @@ public class Order extends AppCompatActivity {
     private ProgressDialog progressDialog;
     Toolbar toolbar3;
     private ConstraintLayout constraintLayout;
+    Boolean isInternetPresent = false;
+    ConnectionDetector cd;
 
 
     @Override
@@ -69,6 +71,8 @@ public class Order extends AppCompatActivity {
         final EditText phoneNumber = findViewById(R.id.number_phone);
         final EditText commentOrder = findViewById(R.id.comment_order);
 
+        cd = new ConnectionDetector(getApplicationContext());
+
         Button btnSendMail = findViewById(R.id.finish_btn);
         btnSendMail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,12 +87,26 @@ public class Order extends AppCompatActivity {
                     showToast();
                     return;
                 }
-                new AsyncSendMail().execute();
-                showToastSendMail();
-                Intent home = new Intent(Order.this, MainActivity.class);
-                startActivity(home);
+                isInternetPresent = cd.ConnectingToInternet();
+                if (isInternetPresent){
+                    new AsyncSendMail().execute();
+                    showToastSendMail();
+                    Intent home = new Intent(Order.this, MainActivity.class);
+                    startActivity(home);
+                } else{
+                    showToastInternetPresent();
+                    }
+
             }
         });
+
+    }
+
+    private void showToastInternetPresent() {
+        Toast toast = Toast.makeText
+                (getApplicationContext(),"У Вас нет Интернет соединения",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
 
     }
 
