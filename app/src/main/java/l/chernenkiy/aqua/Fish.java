@@ -45,7 +45,6 @@ import java.util.Map;
 
 public class Fish extends AppCompatActivity {
 
-
     private RequestQueue mQueue;
     private ProductListAdapter adapter;
     public static ListView lvProduct;
@@ -126,7 +125,6 @@ public class Fish extends AppCompatActivity {
 
         cartAddItemText = findViewById(R.id.text_item_cart);
 
-
         mQueue = Volley.newRequestQueue(this);
         lvProduct = findViewById(R.id.listFish);
 
@@ -143,10 +141,6 @@ public class Fish extends AppCompatActivity {
             showToastInternetPresent();
             onBackPressed();
         }
-
-
-
-
         hideKeyboard();
     }
 
@@ -155,7 +149,6 @@ public class Fish extends AppCompatActivity {
                 (getApplicationContext(),"У Вас нет Интернет соединения",Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -170,7 +163,6 @@ public class Fish extends AppCompatActivity {
         });
     }
 
-
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         TouchImageView touchImageView;
         ProgressBar progressBar;
@@ -179,18 +171,15 @@ public class Fish extends AppCompatActivity {
         public DownloadImageTask(TouchImageView touchImageView, ProgressBar progressBar) {
             this.touchImageView = touchImageView;
             this.progressBar = progressBar;
-
         }
 
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(progressBar.VISIBLE);
             super.onPreExecute();
-
         }
 
         protected Bitmap doInBackground(String... urls) {
-
             String urlDisplay = urls[0];
             Bitmap mIcon11 = null;
             try {
@@ -237,23 +226,16 @@ public class Fish extends AppCompatActivity {
                                     String image = fishItem.getString("image");
 
                                     result.add(new Product(number, name, size, price, "", image));
-
                                 }
-
                             }
                             adapter = new ProductListAdapter(getApplicationContext(), result);
                             lvProduct.setAdapter(adapter);
 
-
-
                             showDialogOnItemClick(result);
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -261,8 +243,6 @@ public class Fish extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
-
-
         mQueue.add(request);
     }
 
@@ -272,7 +252,6 @@ public class Fish extends AppCompatActivity {
             super.onPreExecute();
             progressDialog.show();
         }
-
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -287,8 +266,6 @@ public class Fish extends AppCompatActivity {
 
         }
     }
-
-
 
     private void showDialogOnItemClick(final ArrayList result) {
         lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -346,26 +323,20 @@ public class Fish extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-
                 dialog.show();
-
             }
 
         });
     }
 
     private void calculateItemsCart(int size) {
-
         cartAddItemText.setVisibility(View.VISIBLE);
         cartAddItemText.setText(String.valueOf(size));
-
     }
-
 
     @Override
     public void onBackPressed() {
         new Intent(Fish.this, MainActivity.class);
         finish();
     }
-
 }
