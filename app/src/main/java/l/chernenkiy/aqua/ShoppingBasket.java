@@ -104,8 +104,6 @@ public class ShoppingBasket extends AppCompatActivity {
         return true;
     }
 
-
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

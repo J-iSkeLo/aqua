@@ -1,7 +1,6 @@
 package l.chernenkiy.aqua;
 
 import androidx.appcompat.app.AppCompatActivity;
-import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;

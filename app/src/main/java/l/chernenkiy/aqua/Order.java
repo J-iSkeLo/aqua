@@ -27,10 +27,10 @@ public class Order extends AppCompatActivity {
     public static HashMap<String, String> clientData = new HashMap<>();
 
     private ProgressDialog progressDialog;
-    Toolbar toolbar3;
+    private Toolbar toolbar3;
     private ConstraintLayout constraintLayout;
-    Boolean isInternetPresent = false;
-    ConnectionDetector cd;
+    private Boolean isInternetPresent = false;
+    private ConnectionDetector cd;
 
 
     @Override

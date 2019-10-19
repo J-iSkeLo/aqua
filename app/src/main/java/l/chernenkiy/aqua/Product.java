@@ -9,9 +9,6 @@ public class Product {
     private String title;
     private String image;
 
-
-
-
     public Product(int number, String name, String size, String price, String title, String image) {
 
         this.number = number;
@@ -20,7 +17,6 @@ public class Product {
         this.price = price;
         this.title = title;
         this.image = image;
-
     }
 
     public int getNumber() {

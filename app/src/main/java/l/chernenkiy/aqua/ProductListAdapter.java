@@ -6,28 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class ProductListAdapter extends BaseAdapter {
 
-
     private Context mContext;
     private List<Product> mProductList;
     private ArrayList<Product> filteredData;
-
 
     public ProductListAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
         this.mProductList = mProductList;
         this.filteredData = new ArrayList<Product>();
         this.filteredData.addAll(mProductList);
-
     }
 
     @Override
@@ -68,8 +62,6 @@ public class ProductListAdapter extends BaseAdapter {
 
             TextView tvTitle = convertView.findViewById(R.id.title_pn);
             tvTitle.setText(mProductList.get(i).getTitle());
-
-
         }
 
         convertView.setTag(mProductList.get(i).getNumber());
@@ -80,7 +72,6 @@ public class ProductListAdapter extends BaseAdapter {
     public boolean hasNotTitle(List<Product> mProductList, int i) {
         return mProductList.get(i).getTitle().isEmpty();
     }
-
 
     public void myFilter (String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
@@ -96,8 +87,5 @@ public class ProductListAdapter extends BaseAdapter {
             }
         }
         notifyDataSetChanged();
-
     }
-
-
 }

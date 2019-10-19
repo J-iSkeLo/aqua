@@ -1,6 +1,5 @@
 package l.chernenkiy.aqua;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
