@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         Button btnContacts = findViewById(R.id.btn_contacts);
         btnContacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,13 +93,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class AsyncDate extends AsyncTask <Void, Void, Void> {
-
         String date = "";
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-
             String url = "https://aqua-m.tk/api/info";
             URL obj;
             try {
