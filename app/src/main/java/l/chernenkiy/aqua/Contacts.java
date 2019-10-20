@@ -11,8 +11,6 @@ public class Contacts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contacts);
 
-
-
     }
 
     @Override
