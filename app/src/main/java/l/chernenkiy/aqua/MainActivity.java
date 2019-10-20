@@ -101,15 +101,11 @@ public class MainActivity extends AppCompatActivity {
             URL obj;
             try {
                 obj = new URL(url);
-
                 HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
-
                 connection.setRequestMethod("GET");
-
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String inputLine;
                 StringBuffer response = new StringBuffer();
-
                 while ((inputLine = in.readLine()) != null) {
                     response.append(inputLine);
                 }
@@ -126,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
             catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             return null;
         }
 

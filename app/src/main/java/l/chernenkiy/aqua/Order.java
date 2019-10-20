@@ -107,7 +107,6 @@ public class Order extends AppCompatActivity {
                 (getApplicationContext(),"У Вас нет Интернет соединения",Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
-
     }
 
     private void putToHashMap(String tvName, String tvCity, String tvNumber, String tvComment) {
@@ -185,6 +184,7 @@ public class Order extends AppCompatActivity {
                 "<th style=\"padding: 5px;border:1px solid #999;\">Название</th>" +
                 "<th style=\"padding: 5px;border:1px solid #999;\">Количество</th>" +
                 "<th style=\"padding: 5px;border:1px solid #999;\">Цена</th>" +
+                "<th style=\"padding: 5px;border:1px solid #999;\">Сумма</th>" +
                 "</tr>";
 
         for (int i = 0, c = 1; i < cartItems.size(); i++, c++) {
@@ -194,10 +194,12 @@ public class Order extends AppCompatActivity {
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("name")+"</td>" +
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("quantity")+"</td>" +
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("price")+"</td>" +
+                "<td style=\"padding: 5px;border:1px solid #999;\">"+CartHelper.itemSum(cartItems.get(i))+ " грн."+"</td>" +
                 "</tr>";
-    }
-
-        return result + "</table>";
+        }
+        return result + "</table>" +
+                "<h3 style=\"margin-top:10px;text-align:right;\">Сумма заказа: "
+                +CartHelper.countFinalSum(cartItems)+" грн.</h3>";
     }
 
     public class AsyncSendMail extends AsyncTask<Void, Void, Void> {

@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static l.chernenkiy.aqua.Fish.cartItems;
-
 public class CartListAdapter extends BaseAdapter {
 
     public static ArrayList<HashMap> cartItems;
