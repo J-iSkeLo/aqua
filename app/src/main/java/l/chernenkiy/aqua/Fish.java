@@ -138,15 +138,15 @@ public class Fish extends AppCompatActivity {
         if (isInternetPresent){
             new AsyncGetPrice().execute();
         } else{
-            showToastInternetPresent();
+            showToastInternetPresent("У Вас нет Интернет соединения");
             onBackPressed();
         }
         hideKeyboard();
     }
 
-    private void showToastInternetPresent() {
+    private void showToastInternetPresent(String msg) {
         Toast toast = Toast.makeText
-                (getApplicationContext(),"У Вас нет Интернет соединения",Toast.LENGTH_LONG);
+                (getApplicationContext(),msg,Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
     }
@@ -214,6 +214,7 @@ public class Fish extends AppCompatActivity {
                             while (keys.hasNext()) {
                                 String key = keys.next();
                                 JSONArray allFish = response.getJSONArray(key);
+
                                 result.add(new Product(0, "", "", "", key, ""));
 
                                 for (int i = 0; i < allFish.length(); i++) {
@@ -237,9 +238,12 @@ public class Fish extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                showToastInternetPresent("Ошибка загрузки данных, попробуйте позже");
+                onBackPressed();
                 error.printStackTrace();
             }
         });
