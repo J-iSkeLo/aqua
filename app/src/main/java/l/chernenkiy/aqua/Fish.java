@@ -200,7 +200,7 @@ public class Fish extends AppCompatActivity {
 
     public void jsonParse() {
 
-        String url = "https://aqua-m.tk/api/price-list";
+        String url = "https://aqua-m.kh.ua/api/price-list";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

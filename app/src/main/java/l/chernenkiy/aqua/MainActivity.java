@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            String url = "https://aqua-m.tk/api/info";
+            String url = "https://aqua-m.kh.ua/api/info";
             URL obj;
             try {
                 obj = new URL(url);

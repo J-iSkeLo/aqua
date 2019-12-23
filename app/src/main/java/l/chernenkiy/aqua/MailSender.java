@@ -32,7 +32,7 @@ public class MailSender extends AppCompatActivity {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
-            String emailTo = "jiskelo91@gmail.com";
+            String emailTo = "office@aqua-m.com.ua";
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
             message.setSubject("Новый заказ!");
             message.setContent(content, "text/html; charset=UTF-8");
