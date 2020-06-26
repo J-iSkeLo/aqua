@@ -33,6 +33,14 @@ public class CartHelper {
         return Double.valueOf(number);
     }
 
+    public static boolean findCartItem(String name, String price, ArrayList<HashMap> cartItems) {
+        for (int i=0; i<cartItems.size(); i++) {
+            if (cartItems.get(i).get("name").equals(name)&&cartItems.get(i).get("price").equals(price)) {
+                return true;
+            }
 
+        }
+        return false;
+    }
 
 }

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="10dp"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     tools:context=".ShoppingBasket">
 
@@ -16,8 +17,9 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/btn_black_press_white_dialog"
+        android:background="@drawable/btn_order"
         android:text="Отправить заказ"
+        android:textColor="#E5F3FC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -37,17 +39,18 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:cursorVisible="true"
             android:hint="*Имя Фамилия"
-            android:imeOptions="actionDone"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords"
             android:maxEms="50"
             android:minEms="2"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextCart"
             android:textColorHighlight="#AE353535"
             android:textColorHint="#998B8B8B"
             android:textColorLink="#00000000"
-            android:textCursorDrawable="@color/colorPrimaryWhite"
             android:textSize="15sp" />
 
         <EditText
@@ -59,14 +62,14 @@
             android:layout_marginEnd="10dp"
             android:hint="*Город:"
             android:imeOptions="actionDone"
-            android:inputType="textPersonName"
+            android:cursorVisible="true"
+            android:inputType="textCapWords"
             android:minEms="2"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextCart"
             android:textColorHighlight="#AE353535"
             android:textColorHint="#998B8B8B"
             android:textColorLink="#00000000"
-            android:textCursorDrawable="@color/colorPrimaryWhite"
             android:textSize="15sp" />
 
         <EditText
@@ -79,13 +82,13 @@
             android:layout_marginEnd="10dp"
             android:hint="*Номер телефона:"
             android:imeOptions="actionDone"
+            android:cursorVisible="true"
             android:inputType="phone"
             android:minEms="10"
             android:textColor="@color/colorTextCart"
             android:textColorHighlight="#AE353535"
             android:textColorHint="#99707070"
             android:textColorLink="#00000000"
-            android:textCursorDrawable="@color/colorPrimaryWhite"
             android:textSize="15sp" />
 
         <EditText
@@ -95,16 +98,16 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:cursorVisible="true"
             android:hint="Комментарий к заказу:"
             android:imeOptions="actionDone"
-            android:inputType="textPersonName"
+            android:inputType="textLongMessage"
             android:maxEms="500"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextCart"
             android:textColorHighlight="#AE353535"
             android:textColorHint="#998B8B8B"
             android:textColorLink="#00000000"
-            android:textCursorDrawable="@color/colorPrimaryWhite"
             android:textSize="15sp" />
 
         <TextView

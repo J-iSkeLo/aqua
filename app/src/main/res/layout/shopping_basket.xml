@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/gradient_background"
     android:elevation="10dp"
     tools:context=".ShoppingBasket">
 
@@ -24,18 +25,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#D5D5D5">
+        android:background="#E5F3FC">
 
         <ListView
             android:id="@+id/shopping_basket_list"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="40dp"
-            android:background="#D5D5D5"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="25dp"
+            android:background="#E5F3FC"
             android:dividerHeight="1dp"
+            android:paddingBottom="50dp"
             android:drawSelectorOnTop="true"
             android:drawingCacheQuality="high"
-            android:padding="10dp"
             android:scrollbarThumbVertical="@android:color/darker_gray"
             app:layout_constraintBottom_toTopOf="@+id/txt_final_sum"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +55,7 @@
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="18sp"
-            android:background="#E4E4E4"
+            android:background="#DCF3FD"
             android:textStyle="bold"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +100,7 @@
             android:background="@drawable/btn_order"
             android:padding="5dp"
             android:text="Оформить заказ"
-            android:textColor="#E4E4E4"
+            android:textColor="#E5F3FC"
             android:textSize="16sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/txt_final_sum"

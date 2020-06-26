@@ -7,8 +7,8 @@ android {
         applicationId "l.chernenkiy.aqua"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 2
-        versionName '1.1'
+        versionCode 7
+        versionName '1.3'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {
@@ -43,4 +43,7 @@ dependencies {
     implementation 'com.sun.mail:android-activation:1.6.2'
     implementation 'com.github.MikeOrtiz:TouchImageView:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }

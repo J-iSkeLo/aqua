@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#D5D5D5"
+    android:background="@drawable/gradient_background"
     android:layout_height="match_parent"
     tools:context=".MyListCart">
 
@@ -23,13 +23,26 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/foab"
+            app:backgroundTint="#03666C"
+            app:layout_constraintBottom_toTopOf="@+id/txt_final_sum_last_shop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_goneMarginEnd="5dp" />
 
         <ListView
             android:id="@+id/myListCart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#D5D5D5"
+            android:background="#E5F3FC"
             android:dividerHeight="1dp"
             android:drawSelectorOnTop="true"
             android:drawingCacheQuality="high"
@@ -47,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:gravity="center"
-            android:background="#E4E4E4"
+            android:background="#DFE6F5"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"

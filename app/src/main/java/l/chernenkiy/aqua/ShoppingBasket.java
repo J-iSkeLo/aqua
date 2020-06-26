@@ -38,7 +38,7 @@ public class ShoppingBasket extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_shop_cart, menu);
         MenuItem searchItem = menu.findItem(R.id.app_bar_search_cart);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint(getString(R.string.mr_chooser_searching));
+        searchView.setQueryHint("Поиск позиции...");
         searchView.setIconifiedByDefault(true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

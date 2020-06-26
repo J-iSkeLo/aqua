@@ -2,12 +2,14 @@ package l.chernenkiy.aqua;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +18,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.gson.Gson;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.mail.MessagingException;
 
 import static l.chernenkiy.aqua.CartListAdapter.cartItems;
 
@@ -84,29 +93,19 @@ public class Order extends AppCompatActivity {
 
                 putToHashMap(tvName, tvCity, tvNumber, tvComment);
                 if(dataIsWrong()){
-                    showToast();
+                    showToast(getError());
                     return;
                 }
                 isInternetPresent = cd.ConnectingToInternet();
                 if (isInternetPresent){
                     new AsyncSendMail().execute();
-                    showToastSendMail();
                     Intent home = new Intent(Order.this, MainActivity.class);
                     startActivity(home);
                 } else{
-                    showToastInternetPresent();
-                    }
-
+                    showToast("У Вас нет Интернет соединения");
+                }
             }
         });
-
-    }
-
-    private void showToastInternetPresent() {
-        Toast toast = Toast.makeText
-                (getApplicationContext(),"У Вас нет Интернет соединения",Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
     }
 
     private void putToHashMap(String tvName, String tvCity, String tvNumber, String tvComment) {
@@ -116,17 +115,9 @@ public class Order extends AppCompatActivity {
         clientData.put("comment", tvComment);
     }
 
-    private void showToast() {
+    private void showToast(String message) {
         Toast toast = Toast.makeText
-                (getApplicationContext(),getError(),Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-
-    }
-
-    private void showToastSendMail() {
-        Toast toast = Toast.makeText
-                (getApplicationContext(),"Спасибо за заказ.\nМенеджеры свяжутся с Вами\nв ближайшее время.",Toast.LENGTH_LONG);
+                (getApplicationContext(),message,Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
 
@@ -205,15 +196,40 @@ public class Order extends AppCompatActivity {
     public class AsyncSendMail extends AsyncTask<Void, Void, Void> {
 
 
+        private int statusCode;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+            saveData();
+        }
+
         @Override
         protected Void doInBackground(Void... voids) {
 
             try {
-                saveData();
-                Fish.cartItems.removeAll(Fish.cartItems);
-                getIntent().removeExtra("cartItems");
-                MailSender.sendMail(generateMailContent(cartItems, clientData));
-            } catch (MessagingException e) {
+                String url = "http://aqua-m.com.ua/mail_order.php";
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setRequestMethod("POST");
+
+                String tableInfo = generateMailContent(cartItems, clientData);
+                String password = "55555";
+
+                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "utf-8"));
+                writer.write("message=" + tableInfo + "&" + "pass=" + password);
+                writer.close();
+                wr.close();
+
+                statusCode = con.getResponseCode();
+
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -221,20 +237,17 @@ public class Order extends AppCompatActivity {
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog.show();
-        }
-
-
-
-
-        @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
 
+            Fish.cartItems.removeAll(Fish.cartItems);
+            getIntent().removeExtra("cartItems");
 
+            if(statusCode == 200)
+                showToast("Спасибо за заказ.\nМенеджеры свяжутся с Вами\nв ближайшее время.");
+            else
+                showToast("Возникла ошибка\nпри оформлении заказа\nПопробуйте позже!");
         }
     }
 
