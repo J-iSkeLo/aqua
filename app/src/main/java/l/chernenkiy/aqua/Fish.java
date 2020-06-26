@@ -1,43 +1,46 @@
 package l.chernenkiy.aqua;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.ortiz.touchview.TouchImageView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.InputStream;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -50,7 +53,6 @@ public class Fish extends AppCompatActivity {
     public static ListView lvProduct;
     public static ArrayList<HashMap> cartItems = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private ProgressBar progressBar;
 
     Toolbar toolbar;
     public static TextView cartAddItemText;
@@ -66,13 +68,15 @@ public class Fish extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu_item, menu);
         cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
-        View actionView = cartIconMenuItem.getActionView();
-        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        final View actionView = cartIconMenuItem.getActionView();
+        final MenuItem searchItem = menu.findItem(R.id.app_bar_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
-        searchView.setQueryHint(getString(R.string.mr_chooser_searching));
+
+        searchView.setQueryHint("Поиск позиции...");
         searchView.setIconifiedByDefault(true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -83,7 +87,9 @@ public class Fish extends AppCompatActivity {
                 adapter.myFilter(newText);
                 return false;
             }
+
         });
+
 
         if (actionView != null) {
             cartAddItemText = actionView.findViewById(R.id.text_item_cart);
@@ -93,6 +99,7 @@ public class Fish extends AppCompatActivity {
                 cartAddItemText.setText(String.valueOf(cartItems.size()));
             }
         }
+
 
         cartImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +135,9 @@ public class Fish extends AppCompatActivity {
         mQueue = Volley.newRequestQueue(this);
         lvProduct = findViewById(R.id.listFish);
 
+
         progressDialog = new ProgressDialog(this);
+        progressDialog.show();
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Загрузка. Пожалуйста подождите..");
@@ -141,6 +150,7 @@ public class Fish extends AppCompatActivity {
             showToastInternetPresent("У Вас нет Интернет соединения");
             onBackPressed();
         }
+
         hideKeyboard();
     }
 
@@ -161,41 +171,6 @@ public class Fish extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        TouchImageView touchImageView;
-        ProgressBar progressBar;
-
-
-        public DownloadImageTask(TouchImageView touchImageView, ProgressBar progressBar) {
-            this.touchImageView = touchImageView;
-            this.progressBar = progressBar;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            progressBar.setVisibility(progressBar.VISIBLE);
-            super.onPreExecute();
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urlDisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urlDisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            progressBar.setVisibility(ProgressBar.INVISIBLE);
-            touchImageView.setImageBitmap(result);
-        }
     }
 
     public void jsonParse() {
@@ -231,11 +206,11 @@ public class Fish extends AppCompatActivity {
                             }
                             adapter = new ProductListAdapter(getApplicationContext(), result);
                             lvProduct.setAdapter(adapter);
-
                             showDialogOnItemClick(result);
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            e.getMessage();
+
                         }
                     }
 
@@ -254,7 +229,6 @@ public class Fish extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog.show();
         }
 
         @Override
@@ -265,9 +239,8 @@ public class Fish extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
             progressDialog.dismiss();
-
+            super.onPostExecute(aVoid);
         }
     }
 
@@ -293,8 +266,12 @@ public class Fish extends AppCompatActivity {
                 priceDialog.setText(product.getPrice() + " грн.");
 
                 TouchImageView touchImageView = dialog.findViewById(R.id.imageTouch);
-                progressBar = dialog.findViewById(R.id.progressBar_image);
-                new DownloadImageTask(touchImageView, progressBar).execute(product.getImage());
+                if(isInternetPresent) {
+                    loadImage(touchImageView, product.getImage());
+                }
+                else{
+                    showToastInternetPresent("Нет интернет соединения для загрузки изображения!");
+                }
 
 
                 Button btnCancel = dialog.findViewById(R.id.cancel_dialog_btn);
@@ -322,15 +299,40 @@ public class Fish extends AppCompatActivity {
                         singleItem.put("size", product.getSize());
                         singleItem.put("price", product.getPrice());
 
-                        cartItems.add((HashMap) singleItem);
-                        calculateItemsCart(cartItems.size());
-                        dialog.dismiss();
+                        boolean hasDuplicate = CartHelper.findCartItem(singleItem.get("name"),singleItem.get("price"), cartItems);
+
+                        if (hasDuplicate) {
+                            Toast toast = Toast.makeText
+                                    (getApplicationContext(),"Позиция уже в Корзине",Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.show();
+                        } else {
+                            cartItems.add((HashMap) singleItem);
+                            calculateItemsCart(cartItems.size());
+                            dialog.dismiss();
+                        }
                     }
                 });
                 dialog.show();
             }
 
         });
+    }
+
+    public void loadImage (TouchImageView touchImageView, String imageURL){
+
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
+        circularProgressDrawable.setStrokeWidth(10f);
+        circularProgressDrawable.setCenterRadius(60f);
+        circularProgressDrawable.setColorSchemeColors(Color.WHITE);
+        circularProgressDrawable.start();
+
+
+
+        Glide.with(this)
+                .load(imageURL)
+                .placeholder(circularProgressDrawable)
+                .into(touchImageView);
     }
 
     private void calculateItemsCart(int size) {
