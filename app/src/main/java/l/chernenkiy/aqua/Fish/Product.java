@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Fish;
 
 public class Product {
 

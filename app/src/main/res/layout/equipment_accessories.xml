@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarEquipAccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#ffffff"
+        android:elevation="10dp"
+        app:title="Категория"
+        android:background="#03666c"
+        />
+
+
+
+    <Button
+        android:id="@+id/btnEquipAcces"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#F0DDEC"
+        android:clickable="false"
+        android:drawableLeft="@drawable/equip_acces_btn"
+        android:drawablePadding="20dp"
+        android:padding="10dp"
+        android:text="Оборудование и Аксессуары"
+        android:textAlignment="textStart" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"/>
+
+</LinearLayout>

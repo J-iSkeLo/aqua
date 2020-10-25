@@ -81,6 +81,14 @@
         В случае форс-мажорных  обстоятельств,  все непредвиденные ситуации обсуждаются  индивидуально.\n\n </string>
 
     <string name="toastFinalShop">Спасибо за заказ.\n Менеджеры свяжутся с Вами\n в ближайшее время.</string>
+    <string name="title_activity_equipment_accessories_">Equipment_accessories_Activity</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
 
 
 </resources>

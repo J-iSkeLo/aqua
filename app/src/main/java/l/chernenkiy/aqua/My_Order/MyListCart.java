@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.My_Order;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,7 +19,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static l.chernenkiy.aqua.CartListAdapter.cartItems;
+import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.Fish.Fish;
+import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.Fish.Order;
+import l.chernenkiy.aqua.R;
+
+import static l.chernenkiy.aqua.My_Order.CartListAdapter.cartItems;
 
 public class MyListCart extends AppCompatActivity {
     public static ListView lvLoadCart;

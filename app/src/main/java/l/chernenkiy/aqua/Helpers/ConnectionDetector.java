@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Helpers;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

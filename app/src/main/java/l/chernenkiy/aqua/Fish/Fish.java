@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Fish;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -40,11 +39,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.R;
 
 public class Fish extends AppCompatActivity {
 

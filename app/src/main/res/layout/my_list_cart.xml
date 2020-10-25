@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
     android:layout_height="match_parent"
-    tools:context=".MyListCart">
+    tools:context=".My_Order.MyListCart">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar6"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/foab"
+            android:src="@drawable/right_arrow"
             app:backgroundTint="#03666C"
             app:layout_constraintBottom_toTopOf="@+id/txt_final_sum_last_shop"
             app:layout_constraintEnd_toEndOf="parent"

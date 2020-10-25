@@ -14,10 +14,14 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name=".EquipmentActivity"></activity>
-        <activity android:name=".Delivery" />
-        <activity android:name=".MyListCart" />
-        <activity android:name=".ShoppingBasket" />
+        <activity
+            android:name=".Equipment.Equipment_accessories_Activity"
+            android:label="@string/title_activity_equipment_accessories_"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Equipment.EquipmentActivity" />
+        <activity android:name=".Delivery.Delivery" />
+        <activity android:name=".My_Order.MyListCart" />
+        <activity android:name=".Fish.ShoppingBasket" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,12 +39,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Fish">
+        <activity android:name=".Fish.Fish">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Order">
+        <activity android:name=".Fish.Order">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -50,9 +54,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Delivery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import l.chernenkiy.aqua.R;
 
 public class Retail extends Fragment {
     private static final String TAG = "Розничным покупателям";

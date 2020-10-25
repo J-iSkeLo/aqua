@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Fish;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import l.chernenkiy.aqua.Fish.Product;
+import l.chernenkiy.aqua.R;
 
 public class ProductListAdapter extends BaseAdapter {
 

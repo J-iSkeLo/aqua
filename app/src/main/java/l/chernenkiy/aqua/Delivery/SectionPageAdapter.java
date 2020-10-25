@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Delivery;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

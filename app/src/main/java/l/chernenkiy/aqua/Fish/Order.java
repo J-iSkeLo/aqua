@@ -1,15 +1,13 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Fish;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +27,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static l.chernenkiy.aqua.CartListAdapter.cartItems;
+import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.R;
+
+import static l.chernenkiy.aqua.My_Order.CartListAdapter.cartItems;
 
 public class Order extends AppCompatActivity {
 
@@ -185,7 +188,7 @@ public class Order extends AppCompatActivity {
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("name")+"</td>" +
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("quantity")+"</td>" +
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("price")+"</td>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+CartHelper.itemSum(cartItems.get(i))+ " грн."+"</td>" +
+                "<td style=\"padding: 5px;border:1px solid #999;\">"+ CartHelper.itemSum(cartItems.get(i))+ " грн."+"</td>" +
                 "</tr>";
         }
         return result + "</table>" +

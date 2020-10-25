@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Delivery;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
+
+import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.R;
 
 public class Delivery extends AppCompatActivity {
     Toolbar toolbar;

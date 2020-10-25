@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.My_Order;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+
+import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.R;
 
 public class CartListAdapter extends BaseAdapter {
 

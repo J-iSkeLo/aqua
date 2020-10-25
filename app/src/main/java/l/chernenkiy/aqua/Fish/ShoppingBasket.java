@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua;
+package l.chernenkiy.aqua.Fish;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -22,8 +22,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static l.chernenkiy.aqua.Fish.cartAddItemText;
-import static l.chernenkiy.aqua.Fish.cartItems;
+import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.My_Order.CartListAdapter;
+import l.chernenkiy.aqua.R;
+
+import static l.chernenkiy.aqua.Fish.Fish.cartAddItemText;
+import static l.chernenkiy.aqua.Fish.Fish.cartItems;
 
 
 public class ShoppingBasket extends AppCompatActivity {
