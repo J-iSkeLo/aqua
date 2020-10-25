@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EquipmentActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarEquip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#ffffff"
+        android:elevation="10dp"
+        android:background="#03666c"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Категория"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorTextCart"
+        android:textSize="36sp" />
+
+    <Button
+        android:id="@+id/btnEquipAcces"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:background="#E6CBE2"
+        android:drawableLeft="@drawable/equip_acces_btn"
+        android:text="Оборудование и Аксессуары"
+        android:textAlignment="textStart"
+        android:drawablePadding="20dp"/>
+
+    <Button
+        android:id="@+id/btnStern"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:background="#F1EEC7"
+        android:drawableLeft="@drawable/stern_btn"
+        android:text="Корма для рыб"
+        android:drawablePadding="20dp"
+        android:textAlignment="viewStart" />
+
+    <Button
+        android:id="@+id/btnChemistry"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:background="#D5F5CF"
+        android:drawableLeft="@drawable/chemistry_btn"
+        android:text="Химия"
+        android:drawablePadding="20dp"
+        android:textAlignment="viewStart" />
+
+    <Button
+        android:id="@+id/btnAquarium"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:background="#ABCDE0"
+        android:drawableLeft="@drawable/aquarium_btn"
+        android:text="Аквариумы и крышки"
+        android:drawablePadding="20dp"
+        android:textAlignment="viewStart" />
+
+</LinearLayout>

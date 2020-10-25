@@ -63,6 +63,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btnEquipment = findViewById(R.id.btnEquip);
+        btnEquipment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent(MainActivity.this, EquipmentActivity.class);
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
         Button btnLastShop = findViewById(R.id.btn_last_shop);
         btnLastShop.setOnClickListener(new View.OnClickListener() {
             @Override
