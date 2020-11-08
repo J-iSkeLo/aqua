@@ -1,6 +1,7 @@
 package l.chernenkiy.aqua.Equipment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -12,13 +13,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ortiz.touchview.TouchImageView;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
+import static l.chernenkiy.aqua.MainActivity.cartItems;
+
+import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.R;
 
@@ -27,24 +29,23 @@ public class CategoryActivity extends AppCompatActivity {
     ConnectionDetector cd;
     ListView lvCategory;
     EquipmentListAdapter adapter;
-    private ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
+        setContentView(R.layout.equipment_category);
 
         cd = new ConnectionDetector(getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
 
-        lvCategory = findViewById(R.id.list_equip2);
-
         ItemCategory itemCategory = (ItemCategory) getIntent().getSerializableExtra("position");
 
+        toolbar(itemCategory);
 
         adapter = new EquipmentListAdapter(getApplicationContext(), itemCategory.getItems());
-
+        lvCategory = findViewById(R.id.list_equip2);
         lvCategory.setAdapter(adapter);
 
 
@@ -81,6 +82,7 @@ public class CategoryActivity extends AppCompatActivity {
                 Button btnCancelDialog = dialog.findViewById(R.id.cancel_dialogEquip_btn);
                 Button btnAddShopBask = dialog.findViewById(R.id.addShopBaskEquip_btn);
 
+
                 btnCancelDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -104,16 +106,39 @@ public class CategoryActivity extends AppCompatActivity {
                         singleEquipItem.put("description", item.getDescription());
                         singleEquipItem.put("quantity", quantityEquip);
 
-                        cartEquipmentItem.add((HashMap) singleEquipItem);
-                        dialog.dismiss();
-                        System.out.println(cartEquipmentItem);
+                        boolean hasDuplicate = CartHelper.findCartItem(singleEquipItem.get("name"),singleEquipItem.get("price"), cartEquipmentItem);
 
+                        if (hasDuplicate)
+                        {
+                            Toast toast = Toast.makeText
+                                    (getApplicationContext(),"Позиция уже в Корзине",Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.show();
+                        }
+                        else
+                            {
+                                cartEquipmentItem.add((HashMap) singleEquipItem);
+                                CartHelper.calculateItemsCart();
+                                dialog.dismiss();
+                            }
                     }
                 });
 
                 dialog.show();
             }
         });
+    }
+
+    private void toolbar(ItemCategory itemCategory){
+
+        Toolbar toolbar = findViewById(R.id.toolbarEquipCategory2);
+        setSupportActionBar(toolbar);
+        try {
+            toolbar.setTitle(itemCategory.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void showToastInternetPresent(String msg) {

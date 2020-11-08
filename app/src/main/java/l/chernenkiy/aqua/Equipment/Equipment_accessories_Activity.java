@@ -7,14 +7,18 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.Request;
@@ -29,11 +33,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.R;
+
+import static l.chernenkiy.aqua.MainActivity.cartItems;
+
 
 public class Equipment_accessories_Activity extends AppCompatActivity {
 
@@ -42,9 +49,36 @@ public class Equipment_accessories_Activity extends AppCompatActivity {
     private RequestQueue mQueue;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
+    MenuItem cartIconMenuItem;
     private ProgressDialog progressDialog;
     private CategoryAdapter adapter;
-    public static ArrayList<HashMap> cartItems = new ArrayList<>();
+    SearchView searchView;
+    ImageButton cartImageBtn;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_item, menu);
+        cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
+        final View actionView = cartIconMenuItem.getActionView();
+        final MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+
+        if (actionView != null) {
+            cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
+        }
+
+
+        cartImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View actionView) {
+                Intent intent = new Intent(Equipment_accessories_Activity.this, ShoppingBasket.class);
+                intent.putExtra("cartItems", cartItems);
+                startActivity(intent);
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
 
 
@@ -64,6 +98,7 @@ public class Equipment_accessories_Activity extends AppCompatActivity {
                 finish();
             }
         });
+
 
 
         mQueue = Volley.newRequestQueue(this);

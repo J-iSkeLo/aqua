@@ -14,6 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
 import l.chernenkiy.aqua.Equipment.EquipmentActivity;
@@ -22,6 +24,9 @@ import l.chernenkiy.aqua.My_Order.MyListCart;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    public static ArrayList<HashMap> cartItems = new ArrayList<>();
+    public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,13 +1,8 @@
 package l.chernenkiy.aqua.Equipment;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
-
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,11 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import l.chernenkiy.aqua.Fish.Fish;
-import l.chernenkiy.aqua.Fish.ShoppingBasket;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 
@@ -27,7 +18,7 @@ public class EquipmentActivity extends AppCompatActivity {
 
     MenuItem cartIconMenuItem;
     ImageButton cartImageBtn;
-    public static ArrayList<HashMap> cartEquipment = new ArrayList<>();
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,7 +46,7 @@ public class EquipmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_equipment);
+        setContentView(R.layout.equipment_activity);
 
         Toolbar toolbar = findViewById(R.id.toolbarEquip);
         setSupportActionBar(toolbar);

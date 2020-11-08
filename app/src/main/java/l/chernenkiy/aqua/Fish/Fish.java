@@ -48,19 +48,22 @@ import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
+
+import static l.chernenkiy.aqua.MainActivity.cartItems;
+
 
 public class Fish extends AppCompatActivity {
 
     private RequestQueue mQueue;
     private ProductListAdapter adapter;
     public static ListView lvProduct;
-    public static ArrayList<HashMap> cartItems = new ArrayList<>();
     private ProgressDialog progressDialog;
 
     Toolbar toolbar;
     public static TextView cartAddItemText;
     MenuItem cartIconMenuItem;
-    ImageButton cartImageBtn;
+    ImageButton btnBask;
     SearchView searchView;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
@@ -96,15 +99,14 @@ public class Fish extends AppCompatActivity {
 
         if (actionView != null) {
             cartAddItemText = actionView.findViewById(R.id.text_item_cart);
-            cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
+            btnBask = actionView.findViewById(R.id.btn_image_cart);
             if (!cartItems.isEmpty()) {
-                cartAddItemText.setVisibility(View.VISIBLE);
-                cartAddItemText.setText(String.valueOf(cartItems.size()));
+                CartHelper.calculateItemsCart();
             }
         }
 
 
-        cartImageBtn.setOnClickListener(new View.OnClickListener() {
+        btnBask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
                 Intent intent = new Intent(Fish.this, ShoppingBasket.class);
@@ -128,7 +130,8 @@ public class Fish extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Intent(Fish.this, MainActivity.class);
+                Intent intent = new Intent(Fish.this, MainActivity.class);
+                intent.putExtra("cartItems", cartItems);
                 finish();
             }
         });
@@ -317,7 +320,7 @@ public class Fish extends AppCompatActivity {
                             toast.show();
                         } else {
                             cartItems.add((HashMap) singleItem);
-                            calculateItemsCart(cartItems.size());
+                            CartHelper.calculateItemsCart();
                             dialog.dismiss();
                         }
                     }
@@ -344,14 +347,10 @@ public class Fish extends AppCompatActivity {
                 .into(touchImageView);
     }
 
-    private void calculateItemsCart(int size) {
-        cartAddItemText.setVisibility(View.VISIBLE);
-        cartAddItemText.setText(String.valueOf(size));
-    }
-
     @Override
     public void onBackPressed() {
-        new Intent(Fish.this, MainActivity.class);
+        Intent intent = new Intent(Fish.this, MainActivity.class);
+        intent.putExtra("cartItems", cartItems);
         finish();
     }
 }

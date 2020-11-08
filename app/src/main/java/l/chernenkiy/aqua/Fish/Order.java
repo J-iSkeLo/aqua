@@ -31,6 +31,7 @@ import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.My_Order.CartListAdapter.cartItems;
 
@@ -244,7 +245,7 @@ public class Order extends AppCompatActivity {
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
 
-            Fish.cartItems.removeAll(Fish.cartItems);
+            MainActivity.cartItems.removeAll( MainActivity.cartItems);
             getIntent().removeExtra("cartItems");
 
             if(statusCode == 200)

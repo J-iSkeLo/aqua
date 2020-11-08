@@ -22,7 +22,7 @@
         <activity android:name=".Equipment.EquipmentActivity" />
         <activity android:name=".Delivery.Delivery" />
         <activity android:name=".My_Order.MyListCart" />
-        <activity android:name=".Fish.ShoppingBasket" />
+        <activity android:name=".ShoppingBasket.ShoppingBasket" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

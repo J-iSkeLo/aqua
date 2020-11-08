@@ -7,6 +7,21 @@
     android:orientation="vertical"
     tools:context=".Equipment.CategoryActivity">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarEquipCategory2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#ffffff"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:foregroundGravity="center"
+        android:elevation="10dp"
+        app:title="Название категории"
+        android:background="#03666c"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        />
+
     <ListView
         android:id="@+id/list_equip2"
         android:layout_width="match_parent"

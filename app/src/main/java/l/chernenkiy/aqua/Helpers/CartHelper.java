@@ -1,8 +1,15 @@
 package l.chernenkiy.aqua.Helpers;
 
 
+import android.view.View;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static l.chernenkiy.aqua.Fish.Fish.cartAddItemText;
+import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
+import static l.chernenkiy.aqua.MainActivity.cartItems;
 
 public class CartHelper {
 
@@ -35,14 +42,19 @@ public class CartHelper {
         return Double.valueOf(number);
     }
 
-    public static boolean findCartItem(String name, String price, ArrayList<HashMap> cartItems) {
-        for (int i=0; i<cartItems.size(); i++) {
-            if (cartItems.get(i).get("name").equals(name)&&cartItems.get(i).get("price").equals(price)) {
+    public static boolean findCartItem(String name, String price, ArrayList<HashMap> arrayList) {
+        for (int i=0; i<arrayList.size(); i++) {
+            if (arrayList.get(i).get("name").equals(name)&&arrayList.get(i).get("price").equals(price)) {
                 return true;
             }
 
         }
         return false;
+    }
+
+    public static void calculateItemsCart() {
+        cartAddItemText.setVisibility(View.VISIBLE);
+        cartAddItemText.setText(String.valueOf(cartItems.size() + cartEquipmentItem.size()));
     }
 
 

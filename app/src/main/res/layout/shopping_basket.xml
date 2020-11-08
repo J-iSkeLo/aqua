@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
     android:elevation="10dp"
-    tools:context=".Fish.ShoppingBasket">
+    tools:context=".ShoppingBasket.ShoppingBasket">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"

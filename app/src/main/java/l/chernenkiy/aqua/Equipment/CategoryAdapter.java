@@ -75,10 +75,10 @@ public class CategoryAdapter extends BaseAdapter {
 //        if (charText.length() == 0) {
 //            mItemCategory.addAll(filteredData);
 //        } else {
-//            for (ItemEquipment mItemCategory : filteredData) {
-//                if (itemEquipment.getName().toLowerCase(Locale.getDefault())
+//            for (ItemCategory mItemCategory : filteredData) {
+//                if (mItemCategory.getName().toLowerCase(Locale.getDefault())
 //                        .contains(charText)) {
-//                    mItemEquipmentList.add(itemEquipment);
+//                    mItemCategory.add(mItemCategory);
 //                }
 //            }
 //        }
