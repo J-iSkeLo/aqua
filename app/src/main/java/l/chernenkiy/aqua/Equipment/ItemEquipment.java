@@ -1,68 +1,50 @@
 package l.chernenkiy.aqua.Equipment;
 
-public class ItemEquipment {
+import java.io.Serializable;
 
-    private String category;
-    private int vendorCode;
+public class ItemEquipment implements Serializable {
+
+    private String article;
     private String name;
     private String description;
-    private String manufacturer;
+    private String producer;
     private String price;
+    private String image;
 
-    public ItemEquipment(String category, int vendorCode, String producer, String name, String description, String manufacturer, String price) {
-        this.category = category;
-        this.vendorCode = vendorCode;
+
+
+    public ItemEquipment(String article, String name, String description,
+                         String producer, String price, String image) {
+        this.article = article;
         this.name = name;
         this.description = description;
-        this.manufacturer = manufacturer;
+        this.producer = producer;
         this.price = price;
+        this.image = image;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public int getVendorCode() {
-        return vendorCode;
-    }
-
-    public void setVendorCode(int vendorCode) {
-        this.vendorCode = vendorCode;
+    public String getArticle() {
+        return article;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
-        return description;
+            return description;
+
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public String getProducer() {
+        return producer;
     }
 
     public String getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public String getImage() {
+        return image;
     }
 }

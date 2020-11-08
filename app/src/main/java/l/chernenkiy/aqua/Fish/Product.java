@@ -23,9 +23,6 @@ public class Product {
         return number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
 
     public String getName() {
         return name;
@@ -55,15 +52,9 @@ public class Product {
         return price;
     }
 
-    public void setPrice(String image) {
-        this.price = price;
-    }
 
     public String getImage() {
         return image;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-}
+ }

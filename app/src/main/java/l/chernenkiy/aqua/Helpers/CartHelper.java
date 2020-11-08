@@ -6,11 +6,11 @@ import java.util.HashMap;
 
 public class CartHelper {
 
-    public static double countFinalSum(ArrayList<HashMap> cartItems){
+    public static double countFinalSum(ArrayList<HashMap> arrayList){
       double result = 0;
 
-      for (int i=0; i<cartItems.size(); i++){
-          result += itemSum(cartItems.get(i));
+      for (int i=0; i<arrayList.size(); i++){
+          result += itemSum(arrayList.get(i));
       }
 
       return result;
@@ -22,6 +22,8 @@ public class CartHelper {
         return price * quantity;
 
     }
+
+
 
     public static Double convertDoublePoint(String number){
         if (number.contains(",")){
@@ -42,5 +44,7 @@ public class CartHelper {
         }
         return false;
     }
+
+
 
 }

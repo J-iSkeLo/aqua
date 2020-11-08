@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1F1F1F"
+    android:orientation="vertical"
+
+    app:corner_radius="7dp">
+
+
+    <LinearLayout
+        android:id="@+id/eqipLayouts"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/dialog_producer_equip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#D3D3D3"
+            android:textSize="15sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_marginTop="20dp">
+
+            <ProgressBar
+                android:id="@+id/progressBarEquip_image"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:layout_marginBottom="39dp"
+                android:background="#00FF0000"
+                android:max="100"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.ortiz.touchview.TouchImageView
+                android:id="@+id/imageTouchEquip"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/name_dialog_equip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#FDFDFD"
+                android:textSize="15sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/article_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#D3D3D3"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/priceEquip_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textColor="#D3D3D3"
+                android:textSize="13sp" />
+
+        </TableRow>
+
+        <TextView
+            android:id="@+id/dialog_description_equip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#D3D3D3"
+            android:textSize="13sp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/quantity_equip_dialog"
+            style="@android:style/Widget.Material.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_edit_text"
+            android:hint="Укажите количество:"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="6"
+            android:minEms="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryWhite"
+            android:textColorHighlight="#00808080"
+            android:textColorHint="#998B8B8B"
+            android:textColorLink="#00000000"
+            android:textCursorDrawable="@color/colorPrimaryWhite"
+            android:textIsSelectable="false"
+            android:textSize="15sp"
+            tools:text="" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp">
+
+                <Button
+                    android:id="@+id/cancel_dialogEquip_btn"
+                    android:layout_width="90dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/btn_black_press_white_dialog"
+                    android:padding="5dp"
+                    android:text="Отмена"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/addShopBask_btn"
+                    app:layout_constraintEnd_toStartOf="@+id/addShopBask_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/addShopBask_btn" />
+
+                <Button
+                    android:id="@+id/addShopBaskEquip_btn"
+                    android:layout_width="90dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="36dp"
+                    android:background="@drawable/btn_black_press_white_dialog"
+                    android:gravity="center|center_horizontal|center_vertical"
+                    android:padding="10dp"
+                    android:text="В корзину"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cancel_dialog_btn"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </TableRow>
+
+    </LinearLayout>
+    <![CDATA[
+
+    />+
+
+
+]]>
+</androidx.constraintlayout.widget.ConstraintLayout>

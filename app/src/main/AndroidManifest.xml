@@ -14,10 +14,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
+        <activity android:name=".Equipment.CategoryActivity"></activity>
         <activity
             android:name=".Equipment.Equipment_accessories_Activity"
             android:label="@string/title_activity_equipment_accessories_"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Equipment.EquipmentActivity" />
         <activity android:name=".Delivery.Delivery" />
         <activity android:name=".My_Order.MyListCart" />
@@ -54,9 +55,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
 </manifest>

@@ -223,10 +223,16 @@ public class Fish extends AppCompatActivity {
                 showToastInternetPresent("Ошибка загрузки данных, попробуйте позже");
                 onBackPressed();
                 error.printStackTrace();
+
             }
         });
+
         mQueue.add(request);
+
+
     }
+
+
 
     class AsyncGetPrice extends AsyncTask<Void, Void, Void> {
         @Override

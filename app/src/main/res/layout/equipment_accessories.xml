@@ -29,7 +29,8 @@
         android:text="Оборудование и Аксессуары"
         android:textAlignment="textStart" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
+        android:id="@+id/lv_equipment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="15dp"
