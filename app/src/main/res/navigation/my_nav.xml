@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/mainActivity2">
+
+    <activity
+        android:id="@+id/fish"
+        android:name="l.chernenkiy.aqua.Fish.Fish"
+        android:label="fish"
+        tools:layout="@layout/fish" />
+    <activity
+        android:id="@+id/equipment_accessories_Activity"
+        android:name="l.chernenkiy.aqua.Equipment.Equipment_accessories_Activity"
+        android:label="equipment_accessories"
+        tools:layout="@layout/equipment_accessories" />
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="l.chernenkiy.aqua.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+
+</navigation>

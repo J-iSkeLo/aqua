@@ -1,15 +1,22 @@
 package l.chernenkiy.aqua.Equipment;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,18 +24,74 @@ import com.ortiz.touchview.TouchImageView;
 import java.util.HashMap;
 import java.util.Map;
 
+import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
 public class CategoryActivity extends AppCompatActivity {
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
     ListView lvCategory;
     EquipmentListAdapter adapter;
+    MenuItem cartIconMenuItem;
+    SearchView searchView;
+    ImageButton btnBask;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_item, menu);
+        cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
+        final View actionView = cartIconMenuItem.getActionView();
+        final MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+
+        if (actionView != null) {
+            cartAddItemText = actionView.findViewById(R.id.text_item_cart);
+            btnBask = actionView.findViewById(R.id.btn_image_cart);
+            CartHelper.calculateItemsCart();
+        }
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+
+        searchView.setQueryHint("Поиск позиции...");
+        searchView.setIconifiedByDefault(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.myFilter(newText);
+                return false;
+            }
+
+        });
+
+
+        btnBask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View actionView) {
+
+                try{Intent intent = new Intent(CategoryActivity.this, ShopBaskTest.class);
+                    intent.putExtra("cartItems", cartItems);
+                    intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
 
 
@@ -36,6 +99,7 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.equipment_category);
+
 
         cd = new ConnectionDetector(getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
@@ -50,12 +114,12 @@ public class CategoryActivity extends AppCompatActivity {
 
 
 
-        lvOnItemCliclListener(itemCategory);
+        lvOnItemClickListener(itemCategory);
 
 
     }
 
-    public void lvOnItemCliclListener(final ItemCategory itemCategory){
+    public void lvOnItemClickListener(final ItemCategory itemCategory){
         lvCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -133,8 +197,17 @@ public class CategoryActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarEquipCategory2);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         try {
             toolbar.setTitle(itemCategory.getName());
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new Intent(CategoryActivity.this, Equipment_accessories_Activity.class);
+                    finish();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

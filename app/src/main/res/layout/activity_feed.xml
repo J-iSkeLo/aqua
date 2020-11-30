@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Equipment.Feed">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarFeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#ffffff"
+        android:elevation="10dp"
+        app:title="Категория"
+        android:background="#03666c"
+        />
+
+
+
+    <Button
+        android:id="@+id/screenFeed"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#F1EEC7"
+        android:clickable="false"
+        android:drawableLeft="@drawable/feed_btn"
+        android:drawablePadding="20dp"
+        android:padding="10dp"
+        android:text="Корма для рыб"
+        android:textAlignment="textStart" />
+
+    <ListView
+        android:id="@+id/lv_feed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EBEBEB"
+        />
+
+</LinearLayout>

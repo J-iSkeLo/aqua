@@ -48,9 +48,11 @@ import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
+import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
+import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 
 
 public class Fish extends AppCompatActivity {
@@ -61,7 +63,6 @@ public class Fish extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     Toolbar toolbar;
-    public static TextView cartAddItemText;
     MenuItem cartIconMenuItem;
     ImageButton btnBask;
     SearchView searchView;
@@ -100,7 +101,7 @@ public class Fish extends AppCompatActivity {
         if (actionView != null) {
             cartAddItemText = actionView.findViewById(R.id.text_item_cart);
             btnBask = actionView.findViewById(R.id.btn_image_cart);
-            if (!cartItems.isEmpty()) {
+            if (!cartItems.isEmpty() || !cartEquipmentItem.isEmpty()) {
                 CartHelper.calculateItemsCart();
             }
         }
@@ -109,9 +110,14 @@ public class Fish extends AppCompatActivity {
         btnBask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
-                Intent intent = new Intent(Fish.this, ShoppingBasket.class);
-                intent.putExtra("cartItems", cartItems);
-                startActivity(intent);
+
+                try{Intent intent = new Intent(Fish.this, ShopBaskTest.class);
+                    intent.putExtra("cartItems", cartItems);
+                    intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 

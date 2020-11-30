@@ -27,4 +27,9 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <style name="ColorTextFinalSumOrder">
+        <item name="android:textColor">#CAEEEC</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

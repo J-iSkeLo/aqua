@@ -4,33 +4,49 @@ package l.chernenkiy.aqua.Helpers;
 import android.view.View;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static l.chernenkiy.aqua.Fish.Fish.cartAddItemText;
+import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 
 public class CartHelper {
 
     public static double countFinalSum(ArrayList<HashMap> arrayList){
-      double result = 0;
+        double result = 0;
 
-      for (int i=0; i<arrayList.size(); i++){
+        for (int i=0; i<arrayList.size(); i++){
           result += itemSum(arrayList.get(i));
-      }
-
-      return result;
+        }
+        return result;
     }
 
-    public static double itemSum(HashMap<String, String> cartItem){
-        Double quantity = convertDoublePoint((String) cartItem.get("quantity"));
-        Double price = convertDoublePoint((String) cartItem.get("price"));
+    public static double itemSum(HashMap<String, String> cartItems){
+        Double quantity = convertDoublePoint(cartItems.get("quantity"));
+        Double price = convertDoublePoint(cartItems.get("price"));
         return price * quantity;
 
     }
 
+    public static double countFinalSumEquip(ArrayList<HashMap> arrayList){
+        double result = 0;
 
+        for (int i=0; i<arrayList.size(); i++){
+            result += itemSumEquip(arrayList.get(i));
+        }
+
+        return result;
+    }
+
+    public static double itemSumEquip(HashMap<String, String> cartEquipmentItem){
+        Double quantity = convertDoublePoint(cartEquipmentItem.get("quantity"));
+        Double price = convertDoublePoint(cartEquipmentItem.get("price"));
+        return price * quantity;
+
+    }
 
     public static Double convertDoublePoint(String number){
         if (number.contains(",")){
@@ -40,6 +56,20 @@ public class CartHelper {
             number = "0";
         }
         return Double.valueOf(number);
+    }
+
+    public static BigDecimal finalSumOrder (){
+        double finalSumOrder;
+
+        double fish = CartHelper.countFinalSum(cartItems);
+        double equipment = CartHelper.countFinalSumEquip(cartEquipmentItem);
+
+        finalSumOrder = fish + equipment;
+
+        BigDecimal bigDecimal = new BigDecimal(finalSumOrder);
+        bigDecimal = bigDecimal.setScale(2, RoundingMode.CEILING);
+
+        return bigDecimal;
     }
 
     public static boolean findCartItem(String name, String price, ArrayList<HashMap> arrayList) {
@@ -53,8 +83,13 @@ public class CartHelper {
     }
 
     public static void calculateItemsCart() {
-        cartAddItemText.setVisibility(View.VISIBLE);
-        cartAddItemText.setText(String.valueOf(cartItems.size() + cartEquipmentItem.size()));
+        if (!cartItems.isEmpty() || !cartEquipmentItem.isEmpty()){
+            cartAddItemText.setVisibility(View.VISIBLE);
+            cartAddItemText.setText(String.valueOf(cartItems.size() + cartEquipmentItem.size()));
+
+        }else {
+            cartAddItemText.setVisibility(View.INVISIBLE);
+        }
     }
 
 

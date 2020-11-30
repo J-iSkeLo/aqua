@@ -22,14 +22,14 @@ import java.util.HashMap;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.MainActivity;
-import l.chernenkiy.aqua.Fish.Order;
 import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.ShoppingBasket.ShopBaskFishAdapter;
 
-import static l.chernenkiy.aqua.My_Order.CartListAdapter.cartItems;
+import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskFishAdapter.cartItems;
 
 public class MyListCart extends AppCompatActivity {
     public static ListView lvLoadCart;
-    public CartListAdapter cartListAdapter;
+    public ShopBaskFishAdapter shopBaskFishAdapter;
     private boolean flag;
 
     @SuppressLint("RestrictedApi")
@@ -54,10 +54,10 @@ public class MyListCart extends AppCompatActivity {
         TextView TvLastShop = findViewById(R.id.txt_last_shop);
         TextView TvCommonToCatalog = findViewById(R.id.txt_common_to_catalog);
 
-        cartListAdapter = new CartListAdapter(getApplicationContext(), cartItems);
+        shopBaskFishAdapter = new ShopBaskFishAdapter(getApplicationContext(), cartItems);
 
         lvLoadCart = findViewById(R.id.myListCart);
-        lvLoadCart.setAdapter(cartListAdapter);
+        lvLoadCart.setAdapter(shopBaskFishAdapter);
 
         final FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {

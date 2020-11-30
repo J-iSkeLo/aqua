@@ -1,5 +1,8 @@
 package l.chernenkiy.aqua.Equipment;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,19 +10,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,77 +31,39 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
-import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
-import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
-import static l.chernenkiy.aqua.MainActivity.cartItems;
+public class Feed extends AppCompatActivity {
 
-
-public class Equipment_accessories_Activity extends AppCompatActivity {
-
-    public static ListView lvEquipment;
     private RequestQueue mQueue;
-    Boolean isInternetPresent = false;
-    ConnectionDetector cd;
-    MenuItem cartIconMenuItem;
+    private static ListView lvFeed;
     private ProgressDialog progressDialog;
+    ConnectionDetector cd;
+    Boolean isInternetPresent = false;
     private CategoryAdapter adapter;
-    SearchView searchView;
-    ImageButton cartImageBtn;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_item, menu);
-        cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
-        final View actionView = cartIconMenuItem.getActionView();
-        final MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-
-        if (actionView != null) {
-            cartAddItemText = actionView.findViewById(R.id.text_item_cart);
-            cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
-            CartHelper.calculateItemsCart();
-        }
-
-
-        cartImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View actionView) {
-                Intent intent = new Intent(Equipment_accessories_Activity.this, ShopBaskTest.class);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                startActivity(intent);
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.equipment_accessories);
-
-        Toolbar toolbar = findViewById(R.id.toolbarEquipAccess);
+        setContentView(R.layout.activity_feed);
+        Toolbar toolbar = findViewById(R.id.toolbarFeed);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Intent(Equipment_accessories_Activity.this, EquipmentActivity.class);
+                new Intent(Feed.this, EquipmentActivity.class);
                 finish();
             }
         });
 
+
+
         mQueue = Volley.newRequestQueue(this);
-        lvEquipment = findViewById(R.id.lv_equipment);
+        lvFeed = findViewById(R.id.lv_feed);
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.show();
@@ -129,8 +87,7 @@ public class Equipment_accessories_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Equipment_accessories_Activity.this, EquipmentActivity.class);
-        startActivity(intent);
+        new Intent(Feed.this, EquipmentActivity.class);
         finish();
     }
 
@@ -143,7 +100,7 @@ public class Equipment_accessories_Activity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void hideKeyboard() {
-        lvEquipment.setOnTouchListener(new View.OnTouchListener() {
+        lvFeed.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -174,7 +131,7 @@ public class Equipment_accessories_Activity extends AppCompatActivity {
 
     public void jsonParse() {
 
-        String url = "https://aqua-m.kh.ua/api/equipment";
+        String url = "https://aqua-m.kh.ua/api/feed";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -187,27 +144,27 @@ public class Equipment_accessories_Activity extends AppCompatActivity {
 
                             while (keys.hasNext()) {
                                 String category = keys.next();
-                                JSONArray allEquipment = response.getJSONArray(category);
-                                ArrayList resultChildrenCategory = new ArrayList<ItemEquipment>();
+                                JSONArray allFeed = response.getJSONArray(category);
+                                ArrayList resultChildrenCategory = new ArrayList<ItemFeed>();
 
-                                for (int i = 0; i < allEquipment.length(); i++) {
-                                    JSONObject equipItem = allEquipment.getJSONObject(i);
+                                for (int i = 0; i < allFeed.length(); i++) {
+                                    JSONObject feedItem = allFeed.getJSONObject(i);
 
-                                    String article = equipItem.getString("article");
-                                    String name = equipItem.getString("name");
-                                    String description = equipItem.getString("description");
-                                    String producer = equipItem.getString("producer");
-                                    String price = equipItem.getString("price");
-                                    String image = equipItem.getString("image");
+                                    String article = feedItem.getString("article");
+                                    String name = feedItem.getString("name");
+                                    String description = feedItem.getString("description");
+                                    String weight = feedItem.getString("weight");
+                                    String price = feedItem.getString("price");
+                                    String image = feedItem.getString("image");
 
-                                    resultChildrenCategory.add(new ItemEquipment(article, name, description, producer,  price, image));
+                                    resultChildrenCategory.add(new ItemEquipment(article, name, description, weight,  price, image));
                                 }
 
                                 resultEquip.add(new ItemCategory(category, resultChildrenCategory));
                             }
 
                             adapter = new CategoryAdapter(getApplicationContext(), resultEquip);
-                            lvEquipment.setAdapter(adapter);
+                            lvFeed.setAdapter(adapter);
 
                             openNewActivity(resultEquip);
 
@@ -228,7 +185,7 @@ public class Equipment_accessories_Activity extends AppCompatActivity {
     }
 
     private void openNewActivity (final ArrayList<ItemCategory> resultEuip){
-        lvEquipment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvFeed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
@@ -239,6 +196,5 @@ public class Equipment_accessories_Activity extends AppCompatActivity {
             }
         });
     }
-
 
 }

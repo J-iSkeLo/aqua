@@ -41,13 +41,13 @@
         android:textAlignment="textStart" />
 
     <Button
-        android:id="@+id/btnStern"
+        android:id="@+id/btnFeed"
         android:layout_width="match_parent"
         android:padding="10dp"
         android:layout_height="70dp"
         android:layout_marginBottom="10dp"
         android:background="#F1EEC7"
-        android:drawableLeft="@drawable/stern_btn"
+        android:drawableLeft="@drawable/feed_btn"
         android:drawableRight="@drawable/right_arrow"
         android:text="Корма для рыб"
         android:drawablePadding="20dp"

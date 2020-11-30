@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.Fish;
+package l.chernenkiy.aqua.My_Order;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -31,9 +31,9 @@ import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
+import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
-import static l.chernenkiy.aqua.My_Order.CartListAdapter.cartItems;
+import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskFishAdapter.cartItems;
 
 public class Order extends AppCompatActivity {
 
@@ -58,7 +58,7 @@ public class Order extends AppCompatActivity {
         toolbar3.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Intent(Order.this, ShoppingBasket.class);
+                new Intent(Order.this, ShopBaskTest.class);
                 finish();
             }
         });
@@ -220,10 +220,12 @@ public class Order extends AppCompatActivity {
 
                 String tableInfo = generateMailContent(cartItems, clientData);
                 String password = "55555";
+                String subject = "Приложение - " + clientData.get("name");
 
                 DataOutputStream wr = new DataOutputStream(con.getOutputStream());
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "utf-8"));
-                writer.write("message=" + tableInfo + "&" + "pass=" + password);
+                writer.write("message=" + tableInfo + "&pass=" + password + "&subject=" + subject);
+                System.out.println("message=" + tableInfo + "&pass=" + password + "&subject=" + subject);
                 writer.close();
                 wr.close();
 

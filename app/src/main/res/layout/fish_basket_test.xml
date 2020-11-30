@@ -7,20 +7,8 @@
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
     android:elevation="10dp"
-    tools:context=".ShoppingBasket.ShoppingBasket">
+    tools:context=".ShoppingBasket.ShopBaskTest">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="match_parent"
-        android:layout_height="63dp"
-        android:background="#03666c"
-        app:layout_constraintBottom_toTopOf="@+id/txt_final_sum"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/Title"
-        android:elevation="10dp"
-        app:titleTextColor="#ffffff" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

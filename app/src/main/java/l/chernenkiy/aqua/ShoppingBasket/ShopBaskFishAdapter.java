@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.My_Order;
+package l.chernenkiy.aqua.ShoppingBasket;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,23 +14,23 @@ import java.util.Locale;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.R;
 
-public class CartListAdapter extends BaseAdapter {
+public class ShopBaskFishAdapter extends BaseAdapter {
 
     public static ArrayList<HashMap> cartItems;
     private Context context;
     private ArrayList<HashMap> filteredData;
 
 
-    public CartListAdapter(Context context, ArrayList<HashMap> cartItems){
+    public ShopBaskFishAdapter(Context context, ArrayList<HashMap> cartItems){
         this.cartItems = cartItems;
         this.context = context;
-        this.filteredData = new ArrayList<HashMap>();
-        this.filteredData.addAll(cartItems);
+//        this.filteredData = new ArrayList<HashMap>();
+//        this.filteredData.addAll(cartItems);
     }
 
     @Override
     public int getCount() {
-        return cartItems.size();
+        return (cartItems == null) ? 0 : cartItems.size();
     }
 
     @Override

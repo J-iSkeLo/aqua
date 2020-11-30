@@ -14,13 +14,17 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name=".Equipment.CategoryActivity"></activity>
+        <activity android:name=".Equipment.Aquariums"></activity>
+        <activity android:name=".Equipment.Chemistry" />
+        <activity android:name=".Equipment.Feed" />
+        <activity android:name=".Equipment.CategoryActivity" />
         <activity
             android:name=".Equipment.Equipment_accessories_Activity"
             android:label="@string/title_activity_equipment_accessories_"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Equipment.EquipmentActivity" />
         <activity android:name=".Delivery.Delivery" />
+        <activity android:name=".ShoppingBasket.ShopBaskTest" />
         <activity android:name=".My_Order.MyListCart" />
         <activity android:name=".ShoppingBasket.ShoppingBasket" />
         <activity android:name=".MainActivity">
@@ -45,7 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Fish.Order">
+        <activity android:name=".My_Order.Order">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

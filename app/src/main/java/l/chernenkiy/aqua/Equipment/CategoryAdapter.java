@@ -60,8 +60,7 @@ public class CategoryAdapter extends BaseAdapter {
         TextView tvNumbEquip = convertView.findViewById(R.id.numb_category);
 
 
-        tvCategory.setText(mItemCategory.get(i).getName().substring(0,1).toUpperCase()
-                + mItemCategory.get(i).getName().substring(1).toLowerCase());
+        tvCategory.setText(mItemCategory.get(i).getName());
         tvNumbEquip.setText(mItemCategory.get(i).getItems().size() + " позиций");
 
 

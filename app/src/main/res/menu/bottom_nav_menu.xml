@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainActivity2"
+        android:title="Home"
+        android:icon="@drawable/delivery_icon_logo_btn" />
+    <item
+        android:id="@+id/fish"
+        android:title="Fish"
+        android:icon="@drawable/catalog_icon_btn" />
+    <item
+        android:id="@+id/equipment_accessories_Activity"
+        android:title="Equipment"
+        android:icon="@drawable/equip_icon_btn" />
+
+
+</menu>
