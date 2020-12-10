@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Equipment.Chemistry">
+
+
+    <ListView
+        android:id="@+id/lv_chemistry"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#EBEBEB"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarChemistry" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarChemistry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="#ffffff"
-        android:elevation="10dp"
-        app:title="Категория"
         android:background="#03666c"
-        />
+        android:elevation="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Категория"
+        app:titleTextColor="#ffffff" />
 
-
-
-    <Button
-        android:id="@+id/screenChemistry"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_bar_bottom"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="#D5F5CF"
-        android:clickable="false"
-        android:drawableLeft="@drawable/chemistry_btn"
-        android:drawablePadding="20dp"
-        android:padding="10dp"
-        android:text="Химия"
-        android:textAlignment="textStart" />
+        android:layout_height="wrap_content"
+        android:background="#ffff"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
-    <ListView
-        android:id="@+id/lv_chemistry"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EBEBEB"
-        />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

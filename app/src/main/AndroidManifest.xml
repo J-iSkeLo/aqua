@@ -19,10 +19,9 @@
         <activity android:name=".Equipment.Feed" />
         <activity android:name=".Equipment.CategoryActivity" />
         <activity
-            android:name=".Equipment.Equipment_accessories_Activity"
+            android:name=".Equipment.EquipmentAccessActivity"
             android:label="@string/title_activity_equipment_accessories_"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Equipment.EquipmentActivity" />
         <activity android:name=".Delivery.Delivery" />
         <activity android:name=".ShoppingBasket.ShopBaskTest" />
         <activity android:name=".My_Order.MyListCart" />

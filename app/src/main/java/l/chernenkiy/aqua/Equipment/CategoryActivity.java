@@ -28,6 +28,9 @@ import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 
+import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
+import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.R;
@@ -139,7 +142,7 @@ public class CategoryActivity extends AppCompatActivity {
 
                 nameEquip.setText(item.getName());
                 articleEquip.setText("Артикул: " + item.getArticle());
-                producerEquip.setText(item.getProducer());
+                producerEquip.setText(item.getGeneralColKey ());
                 priceEquip.setText(item.getPrice() + " грн.");
                 descriptionEquip.setText(item.getDescription());
 
@@ -165,7 +168,7 @@ public class CategoryActivity extends AppCompatActivity {
                         Map <String, String> singleEquipItem = new HashMap<>();
                         singleEquipItem.put("name", item.getName());
                         singleEquipItem.put("article", item.getArticle());
-                        singleEquipItem.put("producer", item.getProducer());
+                        singleEquipItem.put("producer", item.getGeneralColKey ());
                         singleEquipItem.put("price", item.getPrice());
                         singleEquipItem.put("description", item.getDescription());
                         singleEquipItem.put("quantity", quantityEquip);
@@ -204,7 +207,7 @@ public class CategoryActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new Intent(CategoryActivity.this, Equipment_accessories_Activity.class);
+                    new Intent(CategoryActivity.this, EquipmentAccessActivity.class);
                     finish();
                 }
             });
@@ -223,7 +226,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new Intent(CategoryActivity.this, Equipment_accessories_Activity.class);
+        new Intent(CategoryActivity.this, EquipmentAccessActivity.class);
         finish();
     }
 }

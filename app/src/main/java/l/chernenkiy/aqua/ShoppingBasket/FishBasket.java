@@ -20,16 +20,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Fish.Fish;
+import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.My_Order.Order;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
+import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 
 public class FishBasket extends Fragment {
@@ -37,21 +40,27 @@ public class FishBasket extends Fragment {
     ShopBaskFishAdapter shopBaskFishAdapter;
     TextView viewFinalSum;
     public static ListView lvShopBasket;
+    public Button btnOrder;
+    public View v;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fish_basket_test, container, false);
+        v = inflater.inflate(R.layout.shoppin_basket_test, container, true);
 
         lvShopBasket = view.findViewById(R.id.shopping_basket_list);
         final ArrayList<HashMap> cartItemsShop = (ArrayList<HashMap>) getActivity().getIntent().getExtras().get("cartItems");
         viewFinalSum = view.findViewById(R.id.txt_final_sum);
         final TextView tvNotItemsCart = view.findViewById(R.id.txt_not_item_cart);
         final TextView tvBackToCatalog = view.findViewById(R.id.txt_back_to_catalog);
+        btnOrder = v.findViewById (R.id.btnOrder);
+
 
         if(!cartItems.isEmpty()){
             tvNotItemsCart.setVisibility(View.INVISIBLE);
             tvBackToCatalog.setVisibility(View.INVISIBLE);
+
         }
         tvBackToCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +81,8 @@ public class FishBasket extends Fragment {
         shopBaskFishAdapter = new ShopBaskFishAdapter(getActivity(), cartItemsShop);
         System.out.println(lvShopBasket);
 
+
+
         lvShopBasket.setAdapter(shopBaskFishAdapter);
         calcAndSetFinalSum(view);
         cartItemOnClick(view);
@@ -79,6 +90,7 @@ public class FishBasket extends Fragment {
         lvShopBasket.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+
                 final Dialog dialogDeleteItem = new Dialog(getActivity(), R.style.FullHeightDialog);
                 dialogDeleteItem.setContentView(R.layout.dialog_delete_item);
                 Button btnDeleteCancel = dialogDeleteItem.findViewById(R.id.cancel_btn_dialog_deleteItem);
@@ -91,6 +103,7 @@ public class FishBasket extends Fragment {
                 btnDeleteItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         cartItems.remove(i);
                         calcAndSetFinalSum(view);
                         shopBaskFishAdapter = new ShopBaskFishAdapter(getContext(), cartItems);
@@ -98,12 +111,15 @@ public class FishBasket extends Fragment {
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
                         String newCartItemText = String.valueOf((cartItemText-1));
                         cartAddItemText.setText(newCartItemText);
-                        if(!cartItems.isEmpty()){
-                            tvNotItemsCart.setVisibility(View.INVISIBLE);
-                            tvBackToCatalog.setVisibility(View.INVISIBLE);
+                        if(cartItems.isEmpty()){
+                            tvNotItemsCart.setVisibility(View.VISIBLE);
+                            tvBackToCatalog.setVisibility(View.VISIBLE);
+                            btnOrder.setVisibility (View.INVISIBLE);
                         }
-                        Button btnOrder = view.findViewById(R.id.btn_order);
-                        if (cartItems.isEmpty())btnOrder.setVisibility(View.INVISIBLE);
+                        if (cartEquipmentItem.isEmpty() && cartItems.isEmpty ())
+                        {
+                            System.out.println (btnOrder);
+                        }
                         dialogDeleteItem.dismiss();
                     }
                 });
@@ -113,16 +129,6 @@ public class FishBasket extends Fragment {
                 return true;
             }
         });
-
-//        Button btnOrder = view.findViewById(R.id.btn_order);
-//        if (!cartItems.isEmpty())btnOrder.setVisibility(View.VISIBLE);
-//        btnOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), Order.class);
-//                startActivity(intent);
-//            }
-//        });
 
         hideKeyboard();
 

@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.Equipment;
+package l.chernenkiy.aqua.Equipment.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
+import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.R;
 
 public class CategoryAdapter extends BaseAdapter {

@@ -1,6 +1,5 @@
 package l.chernenkiy.aqua;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,12 +7,13 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
@@ -27,9 +27,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
-import l.chernenkiy.aqua.Equipment.EquipmentActivity;
-import l.chernenkiy.aqua.Equipment.Equipment_accessories_Activity;
-import l.chernenkiy.aqua.Fish.Fish;
+import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
+import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.Helpers.JsonRequest;
+import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.My_Order.MyListCart;
 
 
@@ -39,11 +40,24 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<HashMap> cartItems = new ArrayList<>();
     public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
 
+    public static ArrayList listFish = new ArrayList ();
+    public static ArrayList listEquip = new ArrayList ();
+    public static ArrayList listFeed = new ArrayList ();
+    public static ArrayList listChemistry = new ArrayList ();
+    public static ArrayList listAquariums = new ArrayList ();
+
+    public RequestQueue mQueue;
+
+    CategoryAdapter adapter;
+    Boolean isInternetPresent = false;
+    ConnectionDetector cd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mQueue = Volley.newRequestQueue(this);
 
         Button btnAboutUs = findViewById(R.id.btn_about_us);
         btnAboutUs.setOnClickListener(new View.OnClickListener() {
@@ -66,32 +80,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, Contacts.class);
                     startActivity(intent);
                     finish();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        Button btnFish = findViewById(R.id.btnFish);
-        btnFish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, Fish.class);
-                    startActivity(intent);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        Button btnEquipment = findViewById(R.id.btnEquip);
-        btnEquipment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, EquipmentActivity.class);
-                    startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -124,59 +112,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        new AsyncDate().execute();
+        cd = new ConnectionDetector (getApplicationContext());
+        isInternetPresent = cd.ConnectingToInternet();
 
-
+        if (isInternetPresent)
+        {
+            new AsyncRequestHttp ().execute();
+        }else{
+            showToastInternetPresent("У Вас нет Интернет соединения");
+        }
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
-        navigation.setSelectedItemId(R.id.mainActivity2);
-
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.fish:
-                        startActivity(new Intent(getApplicationContext(), Fish.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.equipment_accessories_Activity:
-                        startActivity(new Intent(getApplicationContext(), Equipment_accessories_Activity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.mainActivity2:
-                        return true;
-                }
-
-                return false;
-            }
-        });
-
-
-
-
+        NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
+        overridePendingTransition (0, 0);
     }
 
-    public class AsyncDate extends AsyncTask <Void, Void, Void> {
+    public class AsyncRequestHttp extends AsyncTask <Void, Void, Void> {
         private String date = "";
         private int statusCode;
+        JsonRequest jsonRequest = new JsonRequest ();
 
         @Override
         protected Void doInBackground(Void... voids) {
             String url = "https://aqua-m.kh.ua/api/info";
-            URL obj;
             try {
-                obj = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
-                connection.setRequestMethod("GET");
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
-                date = response.toString();
-                statusCode = connection.getResponseCode();
+                updatePriceDate (url);
+
+                requestAll ( );
 
             }
             catch (MalformedURLException e) {
@@ -189,6 +151,30 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        private void requestAll() {
+            listEquip = jsonRequest.makeEquipRequest (mQueue);
+            listFeed = jsonRequest.makeFeedRequest (mQueue);
+            listChemistry = jsonRequest.makeChemistryRequest (mQueue);
+            listAquariums = jsonRequest.makeAquariumsRequest (mQueue);
+            listFish = jsonRequest.makeFishRequest (mQueue);
+        }
+
+        private void updatePriceDate(String url) throws IOException {
+            URL obj;
+            obj = new URL (url);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("GET");
+            BufferedReader in = new BufferedReader(new InputStreamReader (connection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            date = response.toString();
+            statusCode = connection.getResponseCode();
         }
 
         @Override
@@ -208,9 +194,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showToast(String message) {
+    private void showToastInternetPresent(String msg) {
         Toast toast = Toast.makeText
-                (getApplicationContext(),message,Toast.LENGTH_LONG);
+                (getApplicationContext(),msg,Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
     }

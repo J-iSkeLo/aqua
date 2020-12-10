@@ -1,24 +1,24 @@
-package l.chernenkiy.aqua.Equipment;
+package l.chernenkiy.aqua.Equipment.Items;
 
 import java.io.Serializable;
 
-public class ItemChemistry implements Serializable {
+public class ItemEquipment implements Serializable {
 
     private String article;
     private String name;
     private String description;
-    private String capacity;
+    private String generalColKey;
     private String price;
     private String image;
 
 
 
-    public ItemChemistry(String article, String name, String description,
-                         String capacity, String price, String image) {
+    public ItemEquipment(String article, String name, String description,
+                         String generalColKey, String price, String image) {
         this.article = article;
         this.name = name;
         this.description = description;
-        this.capacity = capacity;
+        this.generalColKey = generalColKey;
         this.price = price;
         this.image = image;
     }
@@ -36,8 +36,8 @@ public class ItemChemistry implements Serializable {
 
     }
 
-    public String getCapacity() {
-        return capacity;
+    public String getGeneralColKey() {
+        return generalColKey;
     }
 
     public String getPrice() {

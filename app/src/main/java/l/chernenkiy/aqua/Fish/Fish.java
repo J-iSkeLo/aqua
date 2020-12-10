@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.SearchView;
@@ -34,6 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,9 +45,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
@@ -53,6 +59,7 @@ import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
+import static l.chernenkiy.aqua.MainActivity.listFish;
 
 
 public class Fish extends AppCompatActivity {
@@ -60,7 +67,6 @@ public class Fish extends AppCompatActivity {
     private RequestQueue mQueue;
     private ProductListAdapter adapter;
     public static ListView lvProduct;
-    private ProgressDialog progressDialog;
 
     Toolbar toolbar;
     MenuItem cartIconMenuItem;
@@ -129,6 +135,9 @@ public class Fish extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fish);
 
+        cd = new ConnectionDetector (getApplicationContext());
+        isInternetPresent = cd.ConnectingToInternet();
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -138,33 +147,28 @@ public class Fish extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Fish.this, MainActivity.class);
                 intent.putExtra("cartItems", cartItems);
-                finish();
+                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                startActivity (intent);
             }
         });
 
         cartAddItemText = findViewById(R.id.text_item_cart);
 
-        mQueue = Volley.newRequestQueue(this);
         lvProduct = findViewById(R.id.listFish);
-
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Загрузка. Пожалуйста подождите..");
-
-        cd = new ConnectionDetector(getApplicationContext());
-        isInternetPresent = cd.ConnectingToInternet();
-        if (isInternetPresent){
-            new AsyncGetPrice().execute();
-        } else{
-            showToastInternetPresent("У Вас нет Интернет соединения");
-            onBackPressed();
-        }
+        adapter = new ProductListAdapter(getApplicationContext(), listFish);
+        lvProduct.setAdapter(adapter);
+        showDialogOnItemClick(listFish);
 
         hideKeyboard();
+
+        BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
+        navigation.setSelectedItemId(R.id.fish);
+
+        NavigationBar.itemSelected (navigation, getApplicationContext (), R.id.fish);
+        overridePendingTransition (0, 0);
     }
+
+
 
     private void showToastInternetPresent(String msg) {
         Toast toast = Toast.makeText
@@ -185,82 +189,6 @@ public class Fish extends AppCompatActivity {
         });
     }
 
-    public void jsonParse() {
-
-        String url = "https://aqua-m.kh.ua/api/price-list";
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            Iterator<String> keys = response.keys();
-                            final ArrayList result = new ArrayList<>();
-
-                            while (keys.hasNext()) {
-                                String key = keys.next();
-                                JSONArray allFish = response.getJSONArray(key);
-
-                                result.add(new Product(0, "", "", "", key, ""));
-
-                                for (int i = 0; i < allFish.length(); i++) {
-                                    JSONObject fishItem = allFish.getJSONObject(i);
-
-                                    int number = fishItem.getInt("number");
-                                    String name = fishItem.getString("name");
-                                    String size = fishItem.getString("size");
-                                    String price = fishItem.getString("price");
-                                    String image = fishItem.getString("image");
-
-                                    result.add(new Product(number, name, size, price, "", image));
-                                }
-                            }
-                            adapter = new ProductListAdapter(getApplicationContext(), result);
-                            lvProduct.setAdapter(adapter);
-                            showDialogOnItemClick(result);
-
-                        } catch (JSONException e) {
-                            e.getMessage();
-
-                        }
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                showToastInternetPresent("Ошибка загрузки данных, попробуйте позже");
-                onBackPressed();
-                error.printStackTrace();
-
-            }
-        });
-
-        mQueue.add(request);
-
-
-    }
-
-
-
-    class AsyncGetPrice extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            jsonParse();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            progressDialog.dismiss();
-            super.onPostExecute(aVoid);
-        }
-    }
 
     private void showDialogOnItemClick(final ArrayList result) {
         lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -357,6 +285,7 @@ public class Fish extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(Fish.this, MainActivity.class);
         intent.putExtra("cartItems", cartItems);
-        finish();
+        intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+        startActivity (intent);
     }
 }

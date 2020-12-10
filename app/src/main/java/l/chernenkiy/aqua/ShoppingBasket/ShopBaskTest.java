@@ -25,7 +25,7 @@ import static l.chernenkiy.aqua.MainActivity.cartItems;
 
 public class ShopBaskTest extends AppCompatActivity {
     Toolbar toolbar;
-    private SectionPageAdapter mSectionPageAdapter;
+    public SectionPageAdapter mSectionPageAdapter;
     private ViewPager vp;
     MenuItem cartIconMenuItem;
 
@@ -93,7 +93,7 @@ public class ShopBaskTest extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Intent(ShopBaskTest.this, MainActivity.class);
+
                 finish();
             }
         });

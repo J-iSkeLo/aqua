@@ -30,9 +30,13 @@ import java.util.HashMap;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.My_Order.Tables.ClientTable;
+import l.chernenkiy.aqua.My_Order.Tables.EquipmentTable;
+import l.chernenkiy.aqua.My_Order.Tables.FishTable;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
+import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskFishAdapter.cartItems;
 
 public class Order extends AppCompatActivity {
@@ -152,49 +156,27 @@ public class Order extends AppCompatActivity {
         return "";
     }
 
-    public static String generateMailContent(ArrayList<HashMap> cartItems, HashMap<String, String> clientData) {
+    public static String generateMailContent(ArrayList<HashMap> cartItems,
+                                             ArrayList<HashMap> cartEquipmentItem,
+                                             HashMap<String, String> clientData)
+    {
 
-        String result = "" +
-                "<h3>Данные о клиенте</h3>" +
-                "<table style=\"width:100%; border:1px solid #999; border-collapse: collapse;\">" +
-                "<tr align=\"left\" style=\"background-color:#f4f4f4\">" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">Имя Фамилия</th>" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">Город</th>" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">Номер Телефона</th>" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">Комментарий</th>" +
-                "</tr>" +
-                "<tr>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("name")+"</td>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("city")+"</td>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("number")+"</td>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("comment")+"</td>" +
-                "</tr>"+
-                "</table><br>";
+        String result = ClientTable.generateHtml (clientData);
 
-        result += "" +
-                "<h3>Данные о заказе</h3>" +
-                "<table style=\"width:100%; border:1px solid #999; border-collapse: collapse;\">" +
-                "<tr align=\"left\" style=\"background-color:#f4f4f4\">" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">№</th>" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">Название</th>" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">Количество</th>" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">Цена</th>" +
-                "<th style=\"padding: 5px;border:1px solid #999;\">Сумма</th>" +
-                "</tr>";
+        result += FishTable.generateHtml (cartItems);
 
-        for (int i = 0, c = 1; i < cartItems.size(); i++, c++) {
-            result += "" +
-                "<tr>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+c+"</td>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("name")+"</td>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("quantity")+"</td>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+cartItems.get(i).get("price")+"</td>" +
-                "<td style=\"padding: 5px;border:1px solid #999;\">"+ CartHelper.itemSum(cartItems.get(i))+ " грн."+"</td>" +
-                "</tr>";
-        }
-        return result + "</table>" +
-                "<h3 style=\"margin-top:10px;text-align:right;\">Сумма заказа: "
-                +CartHelper.countFinalSum(cartItems)+" грн.</h3>";
+        result+= EquipmentTable.generateHtml (cartEquipmentItem);
+
+        result+= getTotalSumOrder();
+
+        return  result;
+    }
+
+    private static String getTotalSumOrder() {
+
+        String sum = String.valueOf (CartHelper.finalSumOrder());
+
+        return "<h3 style=\"margin-top:10px;text-align:right;\">Общая сумма заказа: " +sum+" грн.</h3>";
     }
 
     public class AsyncSendMail extends AsyncTask<Void, Void, Void> {
@@ -218,7 +200,7 @@ public class Order extends AppCompatActivity {
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
                 con.setRequestMethod("POST");
 
-                String tableInfo = generateMailContent(cartItems, clientData);
+                String tableInfo = generateMailContent(cartItems, cartEquipmentItem,clientData);
                 String password = "55555";
                 String subject = "Приложение - " + clientData.get("name");
 

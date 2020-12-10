@@ -12,46 +12,11 @@
 
 
     <Button
-        android:id="@+id/btnFish"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:background="@drawable/btn_black_press_white"
-        android:drawableTop="@drawable/catalog_icon_btn"
-        android:elevation="0dp"
-        android:gravity="center"
-        android:paddingTop="5dp"
-        android:singleLine="true"
-        android:text="Рыбки"
-        android:textAlignment="center"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_contacts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/btnEquip"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:background="@drawable/btn_black_press_white"
-        android:drawableTop="@drawable/equip_icon_btn"
-        android:elevation="0dp"
-        android:gravity="center"
-        android:paddingTop="5dp"
-        android:singleLine="true"
-        android:text="Оборудование"
-        android:textAlignment="center"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_contacts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnFish"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
         android:id="@+id/btn_delivery"
         android:layout_width="135dp"
         android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="30dp"
         android:background="@drawable/btn_black_press_white"
         android:drawableTop="@drawable/delivery_icon_logo_btn"
         android:elevation="0dp"
@@ -60,32 +25,31 @@
         android:textAlignment="center"
         android:textColor="@color/colorTextCart"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/updateDate"
-        app:layout_constraintEnd_toStartOf="@+id/btn_about_us"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_last_shop" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/btn_contacts"
         android:layout_width="135dp"
         android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/btn_black_press_white"
         android:drawableTop="@drawable/contact_icon_logo_btn"
         android:elevation="0dp"
         android:paddingTop="10dp"
         android:text="@string/contacts"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_about_us"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_last_shop"
-        app:layout_constraintTop_toBottomOf="@+id/btnFish" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/btn_last_shop"
         android:layout_width="135dp"
         android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginStart="30dp"
         android:background="@drawable/btn_black_press_white"
         android:drawableTop="@drawable/shop_bask_icon_btn"
         android:elevation="0dp"
@@ -94,16 +58,18 @@
         android:textAlignment="center"
         android:textColor="@color/colorTextCart"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_delivery"
-        app:layout_constraintEnd_toStartOf="@+id/btn_contacts"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/updateDate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnFish" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_delivery"
+        tools:ignore="MissingConstraints,UnknownId" />
 
     <Button
         android:id="@+id/btn_about_us"
         android:layout_width="135dp"
         android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/btn_black_press_white"
         android:drawableTop="@drawable/about_logo_btn"
         android:elevation="0dp"
@@ -113,8 +79,6 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/updateDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_delivery"
         app:layout_constraintTop_toBottomOf="@+id/btn_contacts" />
 
     <ImageView
@@ -122,8 +86,8 @@
         android:layout_width="239dp"
         android:layout_height="145dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:contentDescription="TODO"
-        app:layout_constraintBottom_toTopOf="@+id/btnFish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -134,6 +98,7 @@
         android:id="@+id/updateDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="57dp"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/colorTextCart"
@@ -144,9 +109,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffff"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

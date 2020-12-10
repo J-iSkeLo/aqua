@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:focusableInTouchMode="true"
     android:elevation="10dp"
-    >
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/listFish"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#EBEBEB"
+        android:dividerHeight="1dp"
+        android:drawSelectorOnTop="true"
+        android:drawingCacheQuality="high"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+    </ListView>
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="#ffffff"
-        android:elevation="10dp"
         android:background="#03666c"
-        />
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#ffffff" />
 
-    <ListView
-        android:id="@+id/listFish"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_bar_bottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_marginEnd="1dp"
-        android:background="#E5F3FC"
-        android:dividerHeight="1dp"
-        android:drawSelectorOnTop="true"
-        android:drawingCacheQuality="high"
-        android:scrollbarThumbVertical="@android:color/darker_gray">
+        android:layout_height="wrap_content"
+        android:background="#ffff"
+        android:visibility="visible"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
-    </ListView>
-
-
-    "
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

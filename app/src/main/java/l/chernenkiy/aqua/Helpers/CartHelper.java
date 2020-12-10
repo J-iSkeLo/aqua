@@ -44,7 +44,10 @@ public class CartHelper {
     public static double itemSumEquip(HashMap<String, String> cartEquipmentItem){
         Double quantity = convertDoublePoint(cartEquipmentItem.get("quantity"));
         Double price = convertDoublePoint(cartEquipmentItem.get("price"));
-        return price * quantity;
+
+        BigDecimal bigDecimal = new BigDecimal(quantity * price);
+        bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
+        return bigDecimal.doubleValue ();
 
     }
 

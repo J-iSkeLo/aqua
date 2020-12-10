@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.Equipment;
+package l.chernenkiy.aqua.Equipment.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.R;
 
 public class EquipmentListAdapter extends BaseAdapter {
@@ -61,7 +62,7 @@ public class EquipmentListAdapter extends BaseAdapter {
 
            tvName.setText(itemEquipment.getName());
            tvArticle.setText("Артикул: " + itemEquipment.getArticle());
-           tvProducer.setText(itemEquipment.getProducer());
+           tvProducer.setText(itemEquipment.getGeneralColKey ());
                 if (itemEquipment.getDescription().equals("null")) {
             tvDescription.setText("Без описания");
                 } else {

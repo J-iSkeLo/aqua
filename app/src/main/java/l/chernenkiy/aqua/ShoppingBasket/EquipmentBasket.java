@@ -23,28 +23,30 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import l.chernenkiy.aqua.Equipment.EquipmentActivity;
-import l.chernenkiy.aqua.My_Order.Order;
 import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.My_Order.Order;
 import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
+import static l.chernenkiy.aqua.MainActivity.cartItems;
 
 public class EquipmentBasket extends Fragment {
     private static final String TAG = "Оборудование";
 
-    public static ShopBaskEquipAdapter shopBaskEquipAdapter;
+    public ShopBaskEquipAdapter shopBaskEquipAdapter;
+    public ArrayList<HashMap> cartEquipItemShop;
     TextView viewFinalSum;
 
     private ListView lvShopEquipBasket;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.equip_basket_test, container, false);
 
-        final ArrayList<HashMap> cartEquipItemShop = (ArrayList<HashMap>) getExtras().get("cartEquipmentItem");
+        cartEquipItemShop  = (ArrayList<HashMap>) getExtras().get("cartEquipmentItem");
         lvShopEquipBasket = view.findViewById(R.id.shopping_basketEquip_list);
 
         viewFinalSum = view.findViewById(R.id.tv_quip_finalSum);
@@ -58,13 +60,8 @@ public class EquipmentBasket extends Fragment {
         tvBackToCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(cartEquipmentItem.isEmpty()){
-//                    cartAddItemText.setText("");
-//                    cartAddItemText.setVisibility(View.INVISIBLE);
-                    Intent intent = new Intent(getActivity(), EquipmentActivity.class);
-                    startActivity(intent);
-//                }
-
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -74,6 +71,14 @@ public class EquipmentBasket extends Fragment {
         calcAndSetFinalSum();
         cartItemOnClick(view);
 
+        deleteItem (tvNotItemsCart, tvBackToCatalog);
+
+        hideKeyboard();
+
+        return view;
+    }
+
+    private void deleteItem(final TextView tvNotItemsCart, final TextView tvBackToCatalog) {
         lvShopEquipBasket.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
@@ -89,42 +94,33 @@ public class EquipmentBasket extends Fragment {
                 btnDeleteItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        cartEquipItemShop.remove(i);
+                        cartEquipmentItem.remove(i);
                         calcAndSetFinalSum();
-                        shopBaskEquipAdapter = new ShopBaskEquipAdapter(getContext(), cartEquipmentItem);
+                        shopBaskEquipAdapter = new ShopBaskEquipAdapter (getContext(), cartEquipmentItem);
                         lvShopEquipBasket.setAdapter(shopBaskEquipAdapter);
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
                         String newCartItemText = String.valueOf((cartItemText-1));
                         cartAddItemText.setText(newCartItemText);
-                        if(!cartEquipItemShop.isEmpty()){
-                            tvNotItemsCart.setVisibility(View.INVISIBLE);
-                            tvBackToCatalog.setVisibility(View.INVISIBLE);
+                        if(cartEquipmentItem.isEmpty()){
+                            tvNotItemsCart.setVisibility(View.VISIBLE);
+                            tvBackToCatalog.setVisibility(View.VISIBLE);
                         }
                         Button btnOrder = view.findViewById(R.id.btn_order);
-                        if (shopBaskEquipAdapter.isEmpty())btnOrder.setVisibility(View.INVISIBLE);
+                        if (cartEquipmentItem.isEmpty() && cartItems.isEmpty ())
+                        {
+                            System.out.println (btnOrder);
+                        }
                         dialogDeleteItem.dismiss();
+
                     }
                 });
                 dialogDeleteItem.setCancelable(false);
                 dialogDeleteItem.show();
 
+
                 return true;
             }
         });
-
-//        Button btnOrder = view.findViewById(R.id.btnEquip_Order);
-//        if (!cartEquipItemShop.isEmpty())btnOrder.setVisibility(View.VISIBLE);
-//        btnOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), Order.class);
-//                startActivity(intent);
-//            }
-//        });
-
-        hideKeyboard();
-
-        return view;
     }
 
     private Bundle getExtras() {

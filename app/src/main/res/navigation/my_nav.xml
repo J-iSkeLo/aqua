@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_nav"
-    app:startDestination="@id/mainActivity2">
+    android:id="@+id/my_nav">
 
     <activity
         android:id="@+id/fish"
@@ -12,13 +11,23 @@
         tools:layout="@layout/fish" />
     <activity
         android:id="@+id/equipment_accessories_Activity"
-        android:name="l.chernenkiy.aqua.Equipment.Equipment_accessories_Activity"
+        android:name="l.chernenkiy.aqua.Equipment.EquipmentAccessActivity"
         android:label="equipment_accessories"
         tools:layout="@layout/equipment_accessories" />
     <activity
-        android:id="@+id/mainActivity2"
-        android:name="l.chernenkiy.aqua.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        android:id="@+id/feed"
+        android:name="l.chernenkiy.aqua.Equipment.Feed"
+        android:label="activity_feed"
+        tools:layout="@layout/activity_feed" />
+    <activity
+        android:id="@+id/chemistry2"
+        android:name="l.chernenkiy.aqua.Equipment.Chemistry"
+        android:label="activity_chemistry"
+        tools:layout="@layout/activity_chemistry" />
+    <activity
+        android:id="@+id/aquariums"
+        android:name="l.chernenkiy.aqua.Equipment.Aquariums"
+        android:label="activity_aquariums"
+        tools:layout="@layout/activity_aquariums" />
 
 </navigation>

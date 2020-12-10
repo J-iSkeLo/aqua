@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <item
-        android:id="@+id/mainActivity2"
-        android:title="Home"
-        android:icon="@drawable/delivery_icon_logo_btn" />
-    <item
         android:id="@+id/fish"
-        android:title="Fish"
-        android:icon="@drawable/catalog_icon_btn" />
+        android:title="Рыба"
+        android:icon="@drawable/catalog_icon_nav_btn" />
     <item
         android:id="@+id/equipment_accessories_Activity"
-        android:title="Equipment"
-        android:icon="@drawable/equip_icon_btn" />
+        android:title="Оборудование"
+        android:icon="@drawable/equip_access_nav_btn" />
+    <item
+        android:id="@+id/feed"
+        android:title="Корма"
+        android:icon="@drawable/feed_nav_btn" />
+    <item
+        android:id="@+id/chemistry2"
+        android:title="Химия"
+        android:icon="@drawable/chemistry_nav_btn" />
+    <item
+        android:id="@+id/aquariums"
+        android:title="Аквариумы"
+        android:icon="@drawable/aquarium_nav_btn" />
 
 
 </menu>

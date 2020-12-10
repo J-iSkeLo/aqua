@@ -1,8 +1,7 @@
-package l.chernenkiy.aqua.Equipment;
+package l.chernenkiy.aqua.Equipment.Items;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ItemCategory implements Serializable {
 
