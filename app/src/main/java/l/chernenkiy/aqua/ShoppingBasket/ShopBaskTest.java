@@ -12,9 +12,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import l.chernenkiy.aqua.Delivery.SectionPageAdapter;
 import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.My_Order.Order;
 import l.chernenkiy.aqua.R;
@@ -27,6 +30,7 @@ public class ShopBaskTest extends AppCompatActivity {
     Toolbar toolbar;
     public SectionPageAdapter mSectionPageAdapter;
     private ViewPager vp;
+    public static Button btnOrder;
     MenuItem cartIconMenuItem;
 
     @Override
@@ -34,14 +38,7 @@ public class ShopBaskTest extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu_shop_bask, menu);
 
-        cartIconMenuItem = menu.findItem(R.id.menu_shopBask_item);
-        String finalSumOrder;
-        finalSumOrder = "Сумма заказа: " + CartHelper.finalSumOrder()+ " грн.";
 
-        SpannableString s  = new SpannableString(finalSumOrder);
-        s.setSpan(new TextAppearanceSpan(this, R.style.ColorTextFinalSumOrder),0,s.length(),0);
-
-        cartIconMenuItem.setTitle(s);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -55,6 +52,8 @@ public class ShopBaskTest extends AppCompatActivity {
         toolbar();
 
 
+
+
         mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
         vp = findViewById(R.id.containerShopBask);
         setupViewPager(vp);
@@ -62,7 +61,8 @@ public class ShopBaskTest extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayoutShopBask);
         tabLayout.setupWithViewPager(vp);
 
-        Button btnOrder = findViewById(R.id.btnOrder);
+        btnOrder = findViewById(R.id.btnOrder);
+        btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
         if (!cartItems.isEmpty()|| !cartEquipmentItem.isEmpty())
         {
             btnOrder.setVisibility(View.VISIBLE);
@@ -74,6 +74,10 @@ public class ShopBaskTest extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
+        NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
+        overridePendingTransition (0, 0);
 
     }
 

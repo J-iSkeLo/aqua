@@ -43,7 +43,7 @@ public class CategoryActivity extends AppCompatActivity {
     EquipmentListAdapter adapter;
     MenuItem cartIconMenuItem;
     SearchView searchView;
-    ImageButton btnBask;
+    ImageButton cartImageBtn;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,11 +55,20 @@ public class CategoryActivity extends AppCompatActivity {
 
         if (actionView != null) {
             cartAddItemText = actionView.findViewById(R.id.text_item_cart);
-            btnBask = actionView.findViewById(R.id.btn_image_cart);
+            cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
             CartHelper.calculateItemsCart();
         }
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
+        cartImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View actionView) {
+                Intent intent = new Intent(CategoryActivity.this, ShopBaskTest.class);
+                intent.putExtra("cartItems", cartItems);
+                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                startActivity(intent);
+            }
+        });
 
         searchView.setQueryHint("Поиск позиции...");
         searchView.setIconifiedByDefault(true);
@@ -76,21 +85,6 @@ public class CategoryActivity extends AppCompatActivity {
                 return false;
             }
 
-        });
-
-
-        btnBask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View actionView) {
-
-                try{Intent intent = new Intent(CategoryActivity.this, ShopBaskTest.class);
-                    intent.putExtra("cartItems", cartItems);
-                    intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                    startActivity(intent);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
         });
 
         return super.onCreateOptionsMenu(menu);

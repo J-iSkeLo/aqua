@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
+import static l.chernenkiy.aqua.MainActivity.cartAddItemTextMain;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 
@@ -92,6 +93,16 @@ public class CartHelper {
 
         }else {
             cartAddItemText.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public static void calculateItemsCartMain() {
+        if (!cartItems.isEmpty() || !cartEquipmentItem.isEmpty()){
+            cartAddItemTextMain.setVisibility(View.VISIBLE);
+            cartAddItemTextMain.setText(String.valueOf(cartItems.size() + cartEquipmentItem.size()));
+
+        }else {
+            cartAddItemTextMain.setVisibility(View.INVISIBLE);
         }
     }
 

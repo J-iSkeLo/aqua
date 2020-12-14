@@ -1,16 +1,20 @@
 package l.chernenkiy.aqua.Equipment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,11 +23,14 @@ import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
+import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.listAquariums;
@@ -31,8 +38,36 @@ import static l.chernenkiy.aqua.MainActivity.listAquariums;
 public class Aquariums extends AppCompatActivity {
 
     private static ListView lvAquariums;
-    ConnectionDetector cd;
-    Boolean isInternetPresent = false;
+    MenuItem cartIconMenuItem;
+    SearchView searchView;
+    ImageButton cartImageBtn;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_item, menu);
+        cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
+        final View actionView = cartIconMenuItem.getActionView();
+        final MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+
+        if (actionView != null) {
+            cartAddItemText = actionView.findViewById(R.id.text_item_cart);
+            cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
+            CartHelper.calculateItemsCart();
+        }
+
+        cartImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View actionView) {
+                Intent intent = new Intent(Aquariums.this, ShopBaskTest.class);
+                intent.putExtra("cartItems", cartItems);
+                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                startActivity(intent);
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

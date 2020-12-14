@@ -117,7 +117,8 @@ public class Fish extends AppCompatActivity {
             @Override
             public void onClick(View actionView) {
 
-                try{Intent intent = new Intent(Fish.this, ShopBaskTest.class);
+                try{
+                    Intent intent = new Intent(Fish.this, ShopBaskTest.class);
                     intent.putExtra("cartItems", cartItems);
                     intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                     startActivity(intent);

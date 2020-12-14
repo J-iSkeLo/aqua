@@ -25,19 +25,18 @@ import java.util.HashMap;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.MainActivity;
-import l.chernenkiy.aqua.My_Order.Order;
 import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest.btnOrder;
 
 public class EquipmentBasket extends Fragment {
     private static final String TAG = "Оборудование";
 
     public ShopBaskEquipAdapter shopBaskEquipAdapter;
     public ArrayList<HashMap> cartEquipItemShop;
-    TextView viewFinalSum;
 
     private ListView lvShopEquipBasket;
 
@@ -46,10 +45,10 @@ public class EquipmentBasket extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.equip_basket_test, container, false);
 
+
         cartEquipItemShop  = (ArrayList<HashMap>) getExtras().get("cartEquipmentItem");
         lvShopEquipBasket = view.findViewById(R.id.shopping_basketEquip_list);
 
-        viewFinalSum = view.findViewById(R.id.tv_quip_finalSum);
         final TextView tvNotItemsCart = view.findViewById(R.id.tv_equip_not_item_cart);
         final TextView tvBackToCatalog = view.findViewById(R.id.tv_equip_back_to_catalog);
         if(!cartEquipItemShop.isEmpty()){
@@ -68,7 +67,6 @@ public class EquipmentBasket extends Fragment {
         shopBaskEquipAdapter = new ShopBaskEquipAdapter(getContext(), cartEquipItemShop);
         lvShopEquipBasket.setAdapter(shopBaskEquipAdapter);
 
-        calcAndSetFinalSum();
         cartItemOnClick(view);
 
         deleteItem (tvNotItemsCart, tvBackToCatalog);
@@ -95,7 +93,7 @@ public class EquipmentBasket extends Fragment {
                     @Override
                     public void onClick(View view) {
                         cartEquipmentItem.remove(i);
-                        calcAndSetFinalSum();
+                        btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
                         shopBaskEquipAdapter = new ShopBaskEquipAdapter (getContext(), cartEquipmentItem);
                         lvShopEquipBasket.setAdapter(shopBaskEquipAdapter);
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
@@ -105,10 +103,10 @@ public class EquipmentBasket extends Fragment {
                             tvNotItemsCart.setVisibility(View.VISIBLE);
                             tvBackToCatalog.setVisibility(View.VISIBLE);
                         }
-                        Button btnOrder = view.findViewById(R.id.btn_order);
                         if (cartEquipmentItem.isEmpty() && cartItems.isEmpty ())
                         {
-                            System.out.println (btnOrder);
+                            btnOrder.setVisibility (View.INVISIBLE);
+
                         }
                         dialogDeleteItem.dismiss();
 
@@ -139,17 +137,15 @@ public class EquipmentBasket extends Fragment {
         });
     }
 
-    public void calcAndSetFinalSum () {
-
-        double sumEquip = CartHelper.countFinalSumEquip(cartEquipmentItem);
-        BigDecimal bigDecimal = new BigDecimal(sumEquip);
-        bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_UP);
-        String finalSum = String.valueOf(bigDecimal);
-        if(cartEquipmentItem.isEmpty()){
-            viewFinalSum.setVisibility(View.INVISIBLE);
-        }
-        viewFinalSum.setText("Сумма: " + finalSum + " грн.");
-    }
+//    public void calcAndSetFinalSum () {
+//
+//        double sumEquip = CartHelper.countFinalSumEquip(cartEquipmentItem);
+//        BigDecimal bigDecimal = new BigDecimal(sumEquip);
+//        bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_UP);
+//        String finalSum = String.valueOf(bigDecimal);
+//
+//        viewFinalSum.setText("Сумма: " + finalSum + " грн.");
+//    }
     private void updateCartItemShop(final int i, final Dialog dialog, final EditText editQuantity) {
         final Button btnEditQuantity = dialog.findViewById(R.id.edit_quantity_btn);
         btnEditQuantity.setOnClickListener(new View.OnClickListener() {
@@ -166,7 +162,7 @@ public class EquipmentBasket extends Fragment {
 
                 editListQuantity.get(i).put("quantity", quantityFish);
 
-                calcAndSetFinalSum();
+                btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
 
                 ShopBaskEquipAdapter shopBaskEquipAdapter = new ShopBaskEquipAdapter(getContext(), editListQuantity);
                 lvShopEquipBasket.setAdapter(shopBaskEquipAdapter);

@@ -34,27 +34,23 @@ import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest.btnOrder;
 
 public class FishBasket extends Fragment {
     private static final String TAG = "Рыба";
     ShopBaskFishAdapter shopBaskFishAdapter;
-    TextView viewFinalSum;
     public static ListView lvShopBasket;
-    public Button btnOrder;
-    public View v;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fish_basket_test, container, false);
-        v = inflater.inflate(R.layout.shoppin_basket_test, container, true);
 
         lvShopBasket = view.findViewById(R.id.shopping_basket_list);
         final ArrayList<HashMap> cartItemsShop = (ArrayList<HashMap>) getActivity().getIntent().getExtras().get("cartItems");
-        viewFinalSum = view.findViewById(R.id.txt_final_sum);
         final TextView tvNotItemsCart = view.findViewById(R.id.txt_not_item_cart);
         final TextView tvBackToCatalog = view.findViewById(R.id.txt_back_to_catalog);
-        btnOrder = v.findViewById (R.id.btnOrder);
 
 
         if(!cartItems.isEmpty()){
@@ -84,7 +80,6 @@ public class FishBasket extends Fragment {
 
 
         lvShopBasket.setAdapter(shopBaskFishAdapter);
-        calcAndSetFinalSum(view);
         cartItemOnClick(view);
 
         lvShopBasket.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -105,7 +100,7 @@ public class FishBasket extends Fragment {
                     public void onClick(View view) {
 
                         cartItems.remove(i);
-                        calcAndSetFinalSum(view);
+                        btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
                         shopBaskFishAdapter = new ShopBaskFishAdapter(getContext(), cartItems);
                         lvShopBasket.setAdapter(shopBaskFishAdapter);
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
@@ -114,11 +109,10 @@ public class FishBasket extends Fragment {
                         if(cartItems.isEmpty()){
                             tvNotItemsCart.setVisibility(View.VISIBLE);
                             tvBackToCatalog.setVisibility(View.VISIBLE);
-                            btnOrder.setVisibility (View.INVISIBLE);
                         }
                         if (cartEquipmentItem.isEmpty() && cartItems.isEmpty ())
                         {
-                            System.out.println (btnOrder);
+                            btnOrder.setVisibility (View.INVISIBLE);
                         }
                         dialogDeleteItem.dismiss();
                     }
@@ -147,43 +141,6 @@ public class FishBasket extends Fragment {
         });
     }
 
-    public void calcAndSetFinalSum(View v) {
-
-        double sumEquip = CartHelper.countFinalSum(cartItems);
-        BigDecimal bigDecimal = new BigDecimal(sumEquip);
-        bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
-        String finalSum = String.valueOf(bigDecimal);
-
-        if(cartItems.isEmpty()){
-            viewFinalSum.setVisibility(View.INVISIBLE);
-        }
-        viewFinalSum.setText("Сумма: " + finalSum + " грн.");
-    }
-    private void updateCartItemShop(final int i, final Dialog dialog, final EditText editQuantity) {
-        final Button btnEditQuantity = dialog.findViewById(R.id.edit_quantity_btn);
-        btnEditQuantity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String quantityFish = editQuantity.getText().toString();
-                if (quantityFish.isEmpty() || Integer.parseInt(quantityFish) < 1) {
-                    return;
-                }
-                cartItems.get(i).put("quantity", quantityFish);
-
-                ArrayList<HashMap> editListQuantity = cartItems;
-
-                editListQuantity.get(i).put("quantity", quantityFish);
-
-                calcAndSetFinalSum(view);
-
-                shopBaskFishAdapter = new ShopBaskFishAdapter(getContext(), editListQuantity);
-                lvShopBasket.setAdapter(shopBaskFishAdapter);
-
-                dialog.dismiss();
-            }
-        });
-    }
 
     private void cartItemOnClick (View v){
         lvShopBasket.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -209,5 +166,43 @@ public class FishBasket extends Fragment {
         });
 
     }
+    private void updateCartItemShop(final int i, final Dialog dialog, final EditText editQuantity) {
+        final Button btnEditQuantity = dialog.findViewById(R.id.edit_quantity_btn);
+        btnEditQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String quantityFish = editQuantity.getText().toString();
+                if (quantityFish.isEmpty() || Integer.parseInt(quantityFish) < 1) {
+                    return;
+                }
+                cartItems.get(i).put("quantity", quantityFish);
+
+                ArrayList<HashMap> editListQuantity = cartItems;
+
+                editListQuantity.get(i).put("quantity", quantityFish);
+
+                btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
+
+                shopBaskFishAdapter = new ShopBaskFishAdapter(getContext(), editListQuantity);
+                lvShopBasket.setAdapter(shopBaskFishAdapter);
+
+                dialog.dismiss();
+            }
+        });
+    }
+
+//    public void calcAndSetFinalSum(View v) {
+//
+//        double sumEquip = CartHelper.countFinalSum(cartItems);
+//        BigDecimal bigDecimal = new BigDecimal(sumEquip);
+//        bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
+//        String finalSum = String.valueOf(bigDecimal);
+//
+//        if(cartItems.isEmpty()){
+//            viewFinalSum.setVisibility(View.INVISIBLE);
+//        }
+//        viewFinalSum.setText("Сумма: " + finalSum + " грн.");
+//    }
 
 }

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,16 +29,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
-import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.My_Order.MyListCart;
+import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
+
+import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public static TextView cartAddItemText;
+    public static TextView cartAddItemTextMain;
     public static ArrayList<HashMap> cartItems = new ArrayList<>();
     public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
 
@@ -48,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     public RequestQueue mQueue;
 
-    CategoryAdapter adapter;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
 
@@ -58,6 +62,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mQueue = Volley.newRequestQueue(this);
+
+        ImageButton shopBaskButton = findViewById (R.id.btn_image_cart_main);
+        cartAddItemTextMain = findViewById (R.id.text_item_cart_main);
+        calculateItemsCartMain();
+
+        shopBaskButton.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent(MainActivity.this, ShopBaskTest.class);
+                    intent.putExtra("cartItems", cartItems);
+                    intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         Button btnAboutUs = findViewById(R.id.btn_about_us);
         btnAboutUs.setOnClickListener(new View.OnClickListener() {

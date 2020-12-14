@@ -11,88 +11,132 @@
     tools:context=".MainActivity">
 
 
-    <Button
-        android:id="@+id/btn_delivery"
-        android:layout_width="135dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="30dp"
-        android:background="@drawable/btn_black_press_white"
-        android:drawableTop="@drawable/delivery_icon_logo_btn"
-        android:elevation="0dp"
-        android:paddingTop="10dp"
-        android:text="Доставка"
-        android:textAlignment="center"
-        android:textColor="@color/colorTextCart"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/btn_contacts"
-        android:layout_width="135dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/btn_black_press_white"
-        android:drawableTop="@drawable/contact_icon_logo_btn"
-        android:elevation="0dp"
-        android:paddingTop="10dp"
-        android:text="@string/contacts"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/btn_last_shop"
-        android:layout_width="135dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="70dp"
-        android:layout_marginStart="30dp"
-        android:background="@drawable/btn_black_press_white"
-        android:drawableTop="@drawable/shop_bask_icon_btn"
-        android:elevation="0dp"
-        android:paddingTop="10dp"
-        android:text="Мой заказ"
-        android:textAlignment="center"
-        android:textColor="@color/colorTextCart"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/updateDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_delivery"
-        tools:ignore="MissingConstraints,UnknownId" />
-
-    <Button
-        android:id="@+id/btn_about_us"
-        android:layout_width="135dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="70dp"
-        android:background="@drawable/btn_black_press_white"
-        android:drawableTop="@drawable/about_logo_btn"
-        android:elevation="0dp"
-        android:paddingTop="10dp"
-        android:text="@string/about_us"
-        android:textColor="@color/colorTextCart"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/updateDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_contacts" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="239dp"
         android:layout_height="145dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_main" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/updateDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_last_shop"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_black_press_white"
+            android:drawableLeft="@drawable/shop_bask_icon_btn"
+            android:drawablePadding="40dp"
+            android:elevation="5dp"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:text="Мой последний заказ"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorTextCart"
+            android:textSize="15sp"
+            tools:ignore="MissingConstraints,UnknownId" />
+
+        <Button
+            android:id="@+id/btn_about_us"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_black_press_white"
+            android:drawableLeft="@drawable/about_logo_btn"
+            android:drawablePadding="40dp"
+            android:elevation="5dp"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:text="@string/about_us"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorTextCart"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_delivery"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_black_press_white"
+            android:drawableLeft="@drawable/delivery_icon_logo_btn"
+            android:drawablePadding="40dp"
+            android:elevation="5dp"
+            android:paddingStart="30dp"
+            android:text="Нформация о доставке"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorTextCart"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_black_press_white"
+            android:drawableLeft="@drawable/contact_icon_logo_btn"
+            android:drawablePadding="40dp"
+            android:elevation="5dp"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:text="@string/contacts"
+            android:textAlignment="textStart"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_image_cart_main"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/oval"
+            app:srcCompat="@drawable/add_cart_shopping" />
+
+        <TextView
+            android:id="@+id/text_item_cart_main"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/rounded_textviev"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="8dp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/updateDate"
