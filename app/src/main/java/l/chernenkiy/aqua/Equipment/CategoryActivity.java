@@ -1,5 +1,6 @@
 package l.chernenkiy.aqua.Equipment;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -20,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +36,8 @@ import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.Helpers.NavigationBar;
+import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
@@ -109,10 +114,11 @@ public class CategoryActivity extends AppCompatActivity {
         lvCategory = findViewById(R.id.list_equip2);
         lvCategory.setAdapter(adapter);
 
-
-
         lvOnItemClickListener(itemCategory);
 
+        BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
+        NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
+        overridePendingTransition (0, 0);
 
     }
 
@@ -201,8 +207,7 @@ public class CategoryActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new Intent(CategoryActivity.this, EquipmentAccessActivity.class);
-                    finish();
+                    onBackPressed();
                 }
             });
         } catch (Exception e) {
@@ -220,7 +225,8 @@ public class CategoryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new Intent(CategoryActivity.this, EquipmentAccessActivity.class);
-        finish();
+        CartHelper.calculateItemsCart();
+        finish ();
+
     }
 }

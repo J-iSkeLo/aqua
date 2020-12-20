@@ -59,11 +59,22 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
         tools:layout_editor_absoluteX="20dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_above="@id/nav_bar_bottom"
+        android:background="@drawable/shadow"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bar_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffff"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:itemIconTint="@color/bottom_nav_color"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

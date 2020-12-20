@@ -28,7 +28,7 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="7dp"
-            android:background="@drawable/rounded_textviev"
+            android:background="@drawable/rounded_text_view"
             android:foregroundGravity="center_vertical|center|center_horizontal"
             android:gravity="center|center_horizontal|center_vertical"
             android:textAlignment="center"

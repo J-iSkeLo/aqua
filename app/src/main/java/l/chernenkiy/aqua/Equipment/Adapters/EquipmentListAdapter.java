@@ -24,7 +24,7 @@ public class EquipmentListAdapter extends BaseAdapter {
     public EquipmentListAdapter(Context mContext, List<ItemEquipment> mItemEquipmentList) {
         this.mContext = mContext;
         this.mItemEquipmentList = mItemEquipmentList;
-        this.filteredData = new ArrayList<ItemEquipment>();
+        this.filteredData = new ArrayList<>();
         this.filteredData.addAll(mItemEquipmentList);
     }
 
@@ -84,8 +84,7 @@ public class EquipmentListAdapter extends BaseAdapter {
             mItemEquipmentList.addAll(filteredData);
         } else {
             for (ItemEquipment itemEquipment : filteredData) {
-                if (itemEquipment.getName().toLowerCase(Locale.getDefault())
-                        .contains(charText)) {
+                if (itemEquipment.getName() != null && itemEquipment.getName ().contains(charText)) {
                     mItemEquipmentList.add(itemEquipment);
                 }
             }

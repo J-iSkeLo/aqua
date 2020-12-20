@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="10dp"
+    android:background="#EBEBEB"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
@@ -12,8 +13,9 @@
         android:id="@+id/listFish"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#EBEBEB"
+        android:background="#F5F5F5"
         android:dividerHeight="1dp"
+        android:layout_marginTop="2dp"
         android:drawSelectorOnTop="true"
         android:drawingCacheQuality="high"
         android:scrollbarThumbVertical="@android:color/darker_gray"
@@ -29,12 +31,21 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#03666c"
+        android:background="#FFFFFF"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="#ffffff" />
+        app:titleTextColor="#090909" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_above="@id/nav_bar_bottom"
+        android:background="@drawable/shadow"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bar_bottom"
@@ -42,6 +53,8 @@
         android:layout_height="wrap_content"
         android:background="#ffff"
         android:visibility="visible"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:itemIconTint="@color/bottom_nav_color"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

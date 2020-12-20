@@ -5,34 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/equip_layout"
+    android:background="#EBEBEB"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarEquipAccess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#03666c"
+        android:background="#ffffff"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Категория"
-        app:titleTextColor="#ffffff" />
+        app:title="Оборудование"
+        app:titleTextColor="#090909" />
+
 
 
     <ListView
         android:id="@+id/lv_equipment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#EBEBEB"
+        android:background="#F5F5F5"
+        android:dividerHeight="1dp"
+        android:layout_marginTop="2dp"
         android:drawSelectorOnTop="true"
         android:drawingCacheQuality="high"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarEquipAccess">
-
     </ListView>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_above="@id/nav_bar_bottom"
+        android:background="@drawable/shadow"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -41,11 +55,14 @@
         android:layout_height="wrap_content"
         android:background="#ffff"
         app:labelVisibilityMode="labeled"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:itemIconTint="@color/bottom_nav_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.R;
@@ -68,19 +69,19 @@ public class CategoryAdapter extends BaseAdapter {
     }
 
 
-//    public void myFilter (String charText) {
-//        charText = charText.toLowerCase(Locale.getDefault());
-//        mItemCategory.clear();
-//        if (charText.length() == 0) {
-//            mItemCategory.addAll(filteredData);
-//        } else {
-//            for (ItemCategory mItemCategory : filteredData) {
-//                if (mItemCategory.getName().toLowerCase(Locale.getDefault())
-//                        .contains(charText)) {
-//                    mItemCategory.add(mItemCategory);
-//                }
-//            }
-//        }
-//        notifyDataSetChanged();
-//    }
+    public void myFilter (String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        mItemCategory.clear();
+        if (charText.length() == 0) {
+            mItemCategory.addAll(filteredData);
+        } else {
+            for (ItemCategory itemCategory : filteredData) {
+                if (itemCategory.getName().toLowerCase(Locale.getDefault())
+                        .contains(charText)) {
+                    mItemCategory.add(itemCategory);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 }

@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
+import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
 
     public static ArrayList listFish = new ArrayList ();
-    public static ArrayList listEquip = new ArrayList ();
+    public static ArrayList <ItemCategory> listEquip = new ArrayList ();
     public static ArrayList listFeed = new ArrayList ();
     public static ArrayList listChemistry = new ArrayList ();
     public static ArrayList listAquariums = new ArrayList ();

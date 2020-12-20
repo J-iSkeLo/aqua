@@ -2,27 +2,37 @@ package l.chernenkiy.aqua.Equipment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
+import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.MainActivity;
@@ -41,6 +51,7 @@ public class EquipmentAccessActivity extends AppCompatActivity {
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
+    EquipmentListAdapter searchAdapter;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,7 +59,24 @@ public class EquipmentAccessActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_item, menu);
         cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
         final View actionView = cartIconMenuItem.getActionView();
-        final MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        final MenuItem menuSearchItem = menu.findItem(R.id.app_bar_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
+
+        searchView.setFocusable(false);
+        searchView.setOnSearchClickListener (new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (EquipmentAccessActivity.this, SearchActivity.class);
+                intent.putExtra("cartItems", cartItems);
+                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                startActivity (intent);
+            }
+        });
+
+        searchView.setQueryHint("Поиск позиции...");
+        searchView.setIconifiedByDefault(true);
+        searchView.setImeOptions (EditorInfo.IME_ACTION_DONE);
+
 
         if (actionView != null) {
             cartAddItemText = actionView.findViewById(R.id.text_item_cart);
@@ -70,10 +98,13 @@ public class EquipmentAccessActivity extends AppCompatActivity {
     }
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.equipment_accessories);
+
 
         Toolbar toolbar = findViewById(R.id.toolbarEquipAccess);
         setSupportActionBar(toolbar);
@@ -138,6 +169,7 @@ public class EquipmentAccessActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }

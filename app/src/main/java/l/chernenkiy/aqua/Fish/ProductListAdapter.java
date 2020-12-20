@@ -23,7 +23,7 @@ public class ProductListAdapter extends BaseAdapter {
     public ProductListAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
         this.mProductList = mProductList;
-        this.filteredData = new ArrayList<Product>();
+        this.filteredData = new ArrayList<>();
         this.filteredData.addAll(mProductList);
     }
 
