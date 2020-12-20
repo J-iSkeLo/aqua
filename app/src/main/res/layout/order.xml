@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="10dp"
-    android:background="@drawable/gradient_background"
+    android:background="#EBEBEB"
     android:orientation="vertical"
     tools:context=".ShoppingBasket.ShopBaskTest">
 
@@ -124,12 +124,12 @@
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#03666c"
+        android:background="#ffffff"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Оформить заказ"
-        app:titleTextColor="#ffffff" />
+        app:titleTextColor="#090909" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

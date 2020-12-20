@@ -26,15 +26,19 @@
         </activity>
 
         <activity
-            android:name=".Equipment.SearchActivity"
-            android:label="@string/results_activity_label"
-            android:parentActivityName=".Equipment.EquipmentAccessActivity">
+            android:name=".Helpers.SearchActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+            <meta-data  android:name="android.app.searchable"
+                        android:resource="@xml/searchable"/>
         </activity>
+
+
+        <provider
+            android:name=".Helpers.MySuggestionProvider"
+            android:authorities="l.chernenkiy.aqua.Helpers.MySuggestionProvider" />
 
 
         <activity android:name=".Delivery.Delivery" />
