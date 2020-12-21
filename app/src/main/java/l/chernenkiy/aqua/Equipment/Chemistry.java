@@ -58,6 +58,7 @@ public class Chemistry extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (Chemistry.this, SearchActivity.class);
+                intent.putExtra ("class", Chemistry.class);
                 startActivity (intent);
             }
         });

@@ -30,7 +30,7 @@ public class JsonRequest  {
 
         String url = "https://aqua-m.kh.ua/api/price-list";
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -54,8 +54,10 @@ public class JsonRequest  {
                                     String image = fishItem.getString("image");
 
                                     resultFish.add(new Product(number, name, size, price, "", image));
+
                                 }
                             }
+
 
 
                         } catch (JSONException e) {
@@ -71,8 +73,10 @@ public class JsonRequest  {
                 error.printStackTrace();
 
             }
-        });
 
+
+
+        });
         mQueue.add(request);
         return resultFish;
 

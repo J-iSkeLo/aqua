@@ -34,9 +34,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
-import l.chernenkiy.aqua.Equipment.CategoryActivity;
-import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
-import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
@@ -58,7 +55,7 @@ public class SearchActivity extends AppCompatActivity {
     public  static ArrayList <ItemEquipment> listResultSearch;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_item, menu);
         cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
@@ -67,10 +64,10 @@ public class SearchActivity extends AppCompatActivity {
         searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
 
         searchView.setQueryHint("Поиск позиции...");
-        searchView.setIconifiedByDefault(false);
+        searchView.setIconifiedByDefault(true);
         searchView.setImeOptions (EditorInfo.IME_ACTION_SEARCH);
         searchView.setFocusable(true);
-        searchView.setIconified(false) ;
+        searchView.setIconified(false);
 
         searchView.setOnQueryTextListener (new SearchView.OnQueryTextListener ( ) {
             @Override
@@ -94,10 +91,13 @@ public class SearchActivity extends AppCompatActivity {
                 suggestions.saveRecentQuery(query, null);
 
                 searchView.clearFocus();
+                searchView.setIconifiedByDefault(true);
+                searchView.onActionViewCollapsed ();
+
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
-                return true;
+                return false;
             }
 
             @Override
@@ -143,10 +143,7 @@ public class SearchActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, EquipmentAccessActivity.class);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                startActivity (intent);
+                onBackPressed();
             }
         });
 
@@ -290,5 +287,16 @@ public class SearchActivity extends AppCompatActivity {
 
 
         return category;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
+        Intent intent = new Intent(getApplicationContext (), onBackClass);
+        intent.putExtra("cartItems", cartItems);
+        intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+        startActivity (intent);
+        getIntent ().removeExtra ("class");
+        finish ();
     }
 }

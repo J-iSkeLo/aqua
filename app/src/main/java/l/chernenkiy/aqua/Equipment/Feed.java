@@ -57,6 +57,7 @@ public class Feed extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (Feed.this, SearchActivity.class);
+                intent.putExtra ("class", Feed.class);
                 startActivity (intent);
             }
         });

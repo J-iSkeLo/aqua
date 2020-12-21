@@ -62,6 +62,7 @@ public class EquipmentAccessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (EquipmentAccessActivity.this, SearchActivity.class);
+                intent.putExtra ("class", EquipmentAccessActivity.class);
                 startActivity (intent);
             }
         });

@@ -59,6 +59,7 @@ public class Aquariums extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (Aquariums.this, SearchActivity.class);
+                intent.putExtra ("class", Aquariums.class);
                 startActivity (intent);
             }
         });
