@@ -63,11 +63,12 @@ public class EquipmentListAdapter extends BaseAdapter {
            tvName.setText(itemEquipment.getName());
            tvArticle.setText("Артикул: " + itemEquipment.getArticle());
            tvProducer.setText(itemEquipment.getGeneralColKey ());
-                if (itemEquipment.getDescription().equals("null")) {
-            tvDescription.setText("Без описания");
-                } else {
-            tvDescription.setText(itemEquipment.getDescription());
-                 }
+           if (itemEquipment.getDescription().equals("null")) {
+               itemEquipment.setDescription ("Без описания");
+                tvDescription.setText( itemEquipment.getDescription());
+           } else {
+                tvDescription.setText(itemEquipment.getDescription());
+                }
 
         tvPrice.setText(itemEquipment.getPrice() + " грн.");
 

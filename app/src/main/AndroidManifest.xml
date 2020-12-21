@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="l.chernenkiy.aqua">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/aqua_m_icon"
@@ -14,20 +18,38 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name=".Equipment.Aquariums"></activity>
+
+
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action     android:name="android.intent.action.MAIN" />
+
+                <category   android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+        <action     android:name="android.intent.action.MAIN" />
+
+        <category   android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Fish.Fish"/>
+        <activity android:name=".Equipment.EquipmentAccessActivity"/>
+        <activity android:name=".Equipment.Aquariums"/>
         <activity android:name=".Equipment.Chemistry" />
         <activity android:name=".Equipment.Feed" />
         <activity android:name=".Equipment.CategoryActivity" />
-
-        <activity
-            android:name=".Equipment.EquipmentAccessActivity"
-            android:label="@string/title_activity_equipment_accessories_"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
-        <activity
-            android:name=".Helpers.SearchActivity"
-            android:launchMode="singleTop">
+        <activity android:name=".Delivery.Delivery" />
+        <activity android:name=".MyLastOrder.MyListCart" />
+        <activity android:name=".ShoppingBasket.ShopBaskTest" />
+        <activity android:name=".AboutUs"/>
+        <activity android:name=".Contacts"/>
+        <activity android:name=".MyLastOrder.Order"/>
+        <activity android:name=".Helpers.SearchActivity"
+                  android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -35,51 +57,9 @@
                         android:resource="@xml/searchable"/>
         </activity>
 
+        <meta-data android:name="preloaded_fonts"
+                   android:resource="@array/preloaded_fonts" />
 
-        <provider
-            android:name=".Helpers.MySuggestionProvider"
-            android:authorities="l.chernenkiy.aqua.Helpers.MySuggestionProvider" />
-
-
-        <activity android:name=".Delivery.Delivery" />
-
-        <activity android:name=".My_Order.MyListCart" />
-        <activity android:name=".ShoppingBasket.ShopBaskTest" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".AboutUs">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Contacts">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Fish.Fish">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".My_Order.Order">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-permission android:name="android.permission.CALL_PHONE" />
 
 </manifest>

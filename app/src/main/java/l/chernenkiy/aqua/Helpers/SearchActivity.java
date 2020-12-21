@@ -34,6 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
+import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
@@ -242,61 +243,49 @@ public class SearchActivity extends AppCompatActivity {
     public ArrayList<ItemEquipment> searchItem (String query) {
         if (query == "") return new ArrayList<> ();
 
-        ArrayList category = new ArrayList<ItemEquipment>();
+        ArrayList resultSearch = new ArrayList<ItemEquipment>();
 
-        for (int i = 0; i<listEquip.size(); i++){
-            ArrayList<ItemEquipment> items = listEquip.get(i).getItems();
+        addMatchingItem (query, resultSearch, listEquip);
+        addMatchingItem (query, resultSearch, listAquariums);
+        addMatchingItem (query, resultSearch, listChemistry);
+        addMatchingItem (query, resultSearch, listFeed);
+
+        return resultSearch;
+    }
+
+    private void addMatchingItem(String query, ArrayList category, ArrayList<ItemCategory> list) {
+        for (int i = 0; i<list.size(); i++){
+            ArrayList<ItemEquipment> items = list.get(i).getItems();
 
             for (int j = 0; j<items.size(); j++){
+
                 String name = items.get (j).getName ().toLowerCase(Locale.getDefault());
-                if (name != null && name.contains (query)){
+                String generalColKey = items.get (j).getGeneralColKey ().toLowerCase (Locale.getDefault ());
+
+                boolean queryContainsName = name != null && name.contains (query);
+                boolean queryContainsProducer = generalColKey != null && generalColKey.contains (query);
+
+                if (queryContainsName || queryContainsProducer){
                     category.add (items.get (j));
                 }
             }
         }
-        for (int i = 0; i<listAquariums.size(); i++){
-            ArrayList<ItemEquipment> itemsAqua = listAquariums.get(i).getItems();
-
-            for (int j = 0; j<itemsAqua.size(); j++){
-                String name = itemsAqua.get (j).getName ().toLowerCase(Locale.getDefault());
-                if (name != null && name.contains (query)){
-                    category.add (itemsAqua.get (j));
-                }
-            }
-        }
-        for (int i = 0; i<listFeed.size(); i++){
-            ArrayList<ItemEquipment> items = listFeed.get(i).getItems();
-
-            for (int j = 0; j<items.size(); j++){
-                String name = items.get (j).getName ().toLowerCase(Locale.getDefault());
-                if (name != null && name.contains (query)){
-                    category.add (items.get (j));
-                }
-            }
-        }
-        for (int i = 0; i<listChemistry.size(); i++){
-            ArrayList<ItemEquipment> items = listChemistry.get(i).getItems();
-
-            for (int j = 0; j<items.size(); j++){
-                String name = items.get (j).getName ().toLowerCase(Locale.getDefault());
-                if (name != null && name.contains (query)){
-                    category.add (items.get (j));
-                }
-            }
-        }
-
-
-        return category;
     }
 
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
-        Intent intent = new Intent(getApplicationContext (), onBackClass);
-        intent.putExtra("cartItems", cartItems);
-        intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-        startActivity (intent);
-        getIntent ().removeExtra ("class");
-        finish ();
+        if (onBackClass.equals (null)){
+            return;
+        } else {
+            Intent intent = new Intent(getApplicationContext (), onBackClass);
+            intent.putExtra("cartItems", cartItems);
+            intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+            startActivity (intent);
+            getIntent ().removeExtra ("class");
+            finish ();
+        }
+
+
     }
 }

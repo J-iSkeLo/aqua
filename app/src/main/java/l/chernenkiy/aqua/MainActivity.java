@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +29,11 @@ import java.util.HashMap;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
-import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
-import l.chernenkiy.aqua.My_Order.MyListCart;
+import l.chernenkiy.aqua.MyLastOrder.MyListCart;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
 import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;

@@ -13,6 +13,7 @@ public class ItemEquipment implements Serializable {
 
 
 
+
     public ItemEquipment(String article, String name, String description,
                          String generalColKey, String price, String image) {
         this.article = article;
@@ -27,24 +28,48 @@ public class ItemEquipment implements Serializable {
         return article;
     }
 
+    public void setArticle(String article) {
+        this.article = article;
+    }
+
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-            return description;
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getGeneralColKey() {
         return generalColKey;
     }
 
+    public void setGeneralColKey(String generalColKey) {
+        this.generalColKey = generalColKey;
+    }
+
     public String getPrice() {
         return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getImage() {
         return image;
     }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 }

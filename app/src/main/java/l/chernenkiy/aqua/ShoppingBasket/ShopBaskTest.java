@@ -2,8 +2,6 @@ package l.chernenkiy.aqua.ShoppingBasket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.TextAppearanceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 import l.chernenkiy.aqua.Delivery.SectionPageAdapter;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
-import l.chernenkiy.aqua.MainActivity;
-import l.chernenkiy.aqua.My_Order.Order;
+import l.chernenkiy.aqua.MyLastOrder.Order;
 import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;

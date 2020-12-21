@@ -21,14 +21,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Fish.Fish;
-import l.chernenkiy.aqua.MainActivity;
-import l.chernenkiy.aqua.My_Order.Order;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
@@ -75,7 +71,6 @@ public class FishBasket extends Fragment {
 //        lvShopBasket.setItemsCanFocus(false);
 
         shopBaskFishAdapter = new ShopBaskFishAdapter(getActivity(), cartItemsShop);
-        System.out.println(lvShopBasket);
 
 
 

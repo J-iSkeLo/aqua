@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.My_Order;
+package l.chernenkiy.aqua.MyLastOrder;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -30,9 +30,9 @@ import java.util.HashMap;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.MainActivity;
-import l.chernenkiy.aqua.My_Order.Tables.ClientTable;
-import l.chernenkiy.aqua.My_Order.Tables.EquipmentTable;
-import l.chernenkiy.aqua.My_Order.Tables.FishTable;
+import l.chernenkiy.aqua.MyLastOrder.Tables.ClientTable;
+import l.chernenkiy.aqua.MyLastOrder.Tables.EquipmentTable;
+import l.chernenkiy.aqua.MyLastOrder.Tables.FishTable;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
@@ -207,7 +207,6 @@ public class Order extends AppCompatActivity {
                 DataOutputStream wr = new DataOutputStream(con.getOutputStream());
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "utf-8"));
                 writer.write("message=" + tableInfo + "&pass=" + password + "&subject=" + subject);
-                System.out.println("message=" + tableInfo + "&pass=" + password + "&subject=" + subject);
                 writer.close();
                 wr.close();
 
