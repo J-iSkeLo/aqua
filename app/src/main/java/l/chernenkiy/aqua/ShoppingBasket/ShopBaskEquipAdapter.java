@@ -25,14 +25,11 @@ public class ShopBaskEquipAdapter extends BaseAdapter {
 
     private ArrayList<HashMap> cartEquipmentItem;
     private Context context;
-//    private ArrayList<HashMap> filteredData;
 
 
     public ShopBaskEquipAdapter(Context context, ArrayList<HashMap> cartEquipmentItem){
         this.cartEquipmentItem = cartEquipmentItem;
         this.context = context;
-//        this.filteredData = new ArrayList<HashMap>();
-//        this.filteredData.addAll(cartEquipmentItem);
     }
 
     @Override
@@ -90,20 +87,4 @@ public class ShopBaskEquipAdapter extends BaseAdapter {
         return String.valueOf(bigDecimal);
     }
 
-//    public void myFilter (String charText) {
-//        charText = charText.toLowerCase(Locale.getDefault());
-//        cartEquipmentItem.clear();
-//        if (charText.length() == 0) {
-//            cartEquipmentItem.addAll(filteredData);
-//        } else {
-//            for (HashMap HM : filteredData) {
-//                String strName = String.valueOf(HM.get("name"));
-//                if (strName.toLowerCase(Locale.getDefault())
-//                        .contains(charText)) {
-//                    cartEquipmentItem.add(HM);
-//                }
-//            }
-//        }
-//        notifyDataSetChanged();
-//    }
 }

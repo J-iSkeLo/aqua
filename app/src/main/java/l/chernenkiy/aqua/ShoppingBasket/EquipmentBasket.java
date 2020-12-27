@@ -140,15 +140,7 @@ public class EquipmentBasket extends Fragment {
         });
     }
 
-//    public void calcAndSetFinalSum () {
-//
-//        double sumEquip = CartHelper.countFinalSumEquip(cartEquipmentItem);
-//        BigDecimal bigDecimal = new BigDecimal(sumEquip);
-//        bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_UP);
-//        String finalSum = String.valueOf(bigDecimal);
-//
-//        viewFinalSum.setText("Сумма: " + finalSum + " грн.");
-//    }
+
     private void updateCartItemShop(final int i, final Dialog dialog, final EditText editQuantity) {
         final Button btnEditQuantity = dialog.findViewById(R.id.edit_quantity_btn);
         btnEditQuantity.setOnClickListener(new View.OnClickListener() {

@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList <ItemCategory> listAquariums = new ArrayList ();
 
     public RequestQueue mQueue;
+    public static ProgressBar progressBar;
+
 
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mQueue = Volley.newRequestQueue(this);
+        progressBar = findViewById (R.id.progressBarMain);
 
         ImageButton shopBaskButton = findViewById (R.id.btn_image_cart_main);
         cartAddItemTextMain = findViewById (R.id.text_item_cart_main);
@@ -150,10 +154,24 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition (0, 0);
     }
 
-    public class AsyncRequestHttp extends AsyncTask <Void, Void, Void> {
+    public class AsyncRequestHttp extends AsyncTask <Void, Integer, Void> {
         private String date = "";
         private int statusCode;
+
         JsonRequest jsonRequest = new JsonRequest ();
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            progressBar.setProgress(progress[0]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute ( );
+            progressBar.setMax (100);
+
+
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -162,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
                 updatePriceDate (url);
 
                 requestAll ( );
-
             }
             catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -173,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
             catch (IOException e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 
@@ -196,6 +214,8 @@ public class MainActivity extends AppCompatActivity {
                 response.append(inputLine);
             }
             in.close();
+            int i = connection.getConnectTimeout ();
+            publishProgress (i);
             date = response.toString();
             statusCode = connection.getResponseCode();
         }
@@ -204,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             TextView updateDate = findViewById(R.id.updateDate);
+            progressBar.setVisibility (View.INVISIBLE);
 
             if(statusCode == 200) {
                 updateDate.setText("Прайс обновлён:\n" + date);
@@ -222,5 +243,9 @@ public class MainActivity extends AppCompatActivity {
                 (getApplicationContext(),msg,Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
+    }
+
+    public void onBackPressed(){
+        moveTaskToBack(true);
     }
 }

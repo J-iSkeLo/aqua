@@ -75,6 +75,7 @@ public class Chemistry extends AppCompatActivity {
                 Intent intent = new Intent(Chemistry.this, ShopBaskTest.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                intent.putExtra ("class", Chemistry.class);
                 startActivity(intent);
             }
         });

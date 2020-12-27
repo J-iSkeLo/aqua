@@ -76,6 +76,7 @@ public class Aquariums extends AppCompatActivity {
                 Intent intent = new Intent(Aquariums.this, ShopBaskTest.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                intent.putExtra ("class", Aquariums.class);
                 startActivity(intent);
             }
         });

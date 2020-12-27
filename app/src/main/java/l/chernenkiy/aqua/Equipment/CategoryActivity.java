@@ -66,6 +66,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (CategoryActivity.this, SearchActivity.class);
+                intent.putExtra ("class", CategoryActivity.class);
                 startActivity (intent);
             }
         });
@@ -82,6 +83,8 @@ public class CategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(CategoryActivity.this, ShopBaskTest.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                intent.putExtra ("class", CategoryActivity.class);
+                intent.putExtra ("position", getIntent().getSerializableExtra("position"));
                 startActivity(intent);
             }
         });
@@ -237,9 +240,16 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
-        Intent intent = new Intent(getApplicationContext (), onBackClass);
-        startActivity (intent);
-        getIntent ().removeExtra ("class");
-        finish ();
+        if (onBackClass.equals (null)){
+            return;
+        } else {
+            Intent intent = new Intent(CategoryActivity.this, onBackClass);
+            intent.putExtra("cartItems", cartItems);
+            intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+            CartHelper.calculateItemsCart ();
+            startActivity (intent);
+            getIntent ().removeExtra ("class");
+            finish ();
+        }
     }
 }

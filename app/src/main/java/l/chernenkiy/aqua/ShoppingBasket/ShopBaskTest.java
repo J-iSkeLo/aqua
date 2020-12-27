@@ -178,10 +178,24 @@ public class ShopBaskTest extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                finish();
+                onBackPressed ();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
+        if (onBackClass.equals (null)){
+            return;
+        } else {
+            Intent intent = new Intent(ShopBaskTest.this, onBackClass);
+            intent.putExtra("position", getIntent ().getSerializableExtra ("position"));
+            CartHelper.calculateItemsCart ();
+            startActivity (intent);
+            getIntent ().removeExtra ("class");
+            finish ();
+        }
     }
 
 

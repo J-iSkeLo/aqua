@@ -74,6 +74,7 @@ public class Feed extends AppCompatActivity {
                 Intent intent = new Intent(Feed.this, ShopBaskTest.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                intent.putExtra ("class", Feed.class);
                 startActivity(intent);
             }
         });

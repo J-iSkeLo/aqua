@@ -82,6 +82,7 @@ public class EquipmentAccessActivity extends AppCompatActivity {
                 Intent intent = new Intent(EquipmentAccessActivity.this, ShopBaskTest.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                intent.putExtra ("class", EquipmentAccessActivity.class);
                 startActivity(intent);
             }
         });

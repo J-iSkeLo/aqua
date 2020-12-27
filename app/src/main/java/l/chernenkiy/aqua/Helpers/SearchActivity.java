@@ -281,6 +281,7 @@ public class SearchActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext (), onBackClass);
             intent.putExtra("cartItems", cartItems);
             intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+            CartHelper.calculateItemsCart ();
             startActivity (intent);
             getIntent ().removeExtra ("class");
             finish ();
