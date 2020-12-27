@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.MyLastOrder;
+package l.chernenkiy.aqua.Order;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -30,14 +30,14 @@ import java.util.HashMap;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.MainActivity;
-import l.chernenkiy.aqua.MyLastOrder.Tables.ClientTable;
-import l.chernenkiy.aqua.MyLastOrder.Tables.EquipmentTable;
-import l.chernenkiy.aqua.MyLastOrder.Tables.FishTable;
+import l.chernenkiy.aqua.Order.Tables.ClientTable;
+import l.chernenkiy.aqua.Order.Tables.EquipmentTable;
+import l.chernenkiy.aqua.Order.Tables.FishTable;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
-import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskFishAdapter.cartItems;
+import static l.chernenkiy.aqua.MainActivity.cartItems;
 
 public class Order extends AppCompatActivity {
 
@@ -62,11 +62,11 @@ public class Order extends AppCompatActivity {
         toolbar3.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Intent(Order.this, ShopBaskTest.class);
-                finish();
+                Intent intent = new Intent(Order.this, ShopBaskTest.class);
+                startActivity (intent);
+
             }
         });
-
 
         constraintLayout = findViewById(R.id.constrLayout);
         constraintLayout.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +107,10 @@ public class Order extends AppCompatActivity {
                 isInternetPresent = cd.ConnectingToInternet();
                 if (isInternetPresent){
                     new AsyncSendMail().execute();
+
+
+
+
                     Intent home = new Intent(Order.this, MainActivity.class);
                     startActivity(home);
                 } else{
@@ -228,8 +232,15 @@ public class Order extends AppCompatActivity {
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
 
-            MainActivity.cartItems.removeAll( MainActivity.cartItems);
+            cartItems.removeAll(cartItems);
+            cartEquipmentItem.removeAll (cartEquipmentItem);
+
             getIntent().removeExtra("cartItems");
+            getIntent().removeExtra("cartEquipmentItem");
+
+            CartHelper.calculateItemsCart ();
+            CartHelper.calculateItemsCartMain ();
+
 
             if(statusCode == 200)
                 showToast("Спасибо за заказ.\nМенеджеры свяжутся с Вами\nв ближайшее время.");
@@ -242,8 +253,10 @@ public class Order extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(cartItems);
-        editor.putString("cart items", json);
+        String fish = gson.toJson(cartItems);
+        String equipment = gson.toJson (cartEquipmentItem);
+        editor.putString("fish", fish);
+        editor.putString ("equipment", equipment);
         editor.apply();
     }
 

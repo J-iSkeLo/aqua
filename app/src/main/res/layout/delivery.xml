@@ -6,24 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Delivery.Delivery"
-    android:background="@drawable/gradient_background">
+    android:background="#FFFFFF">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbarDelivery"
-        android:background="@color/colorBlueBackground"
+        android:background="#ffffff"
         app:title="Доставка"
-        app:titleTextColor="#FFFFFF"/>
+        app:titleTextColor="#090909"/>
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlueBackground"
-        app:tabTextColor="#D3D3D3"
-        app:tabIndicatorColor="#009EFF"
+        android:background="#ffffff"
+        app:tabTextColor="#858585"
+        app:tabIndicatorColor="#1D1D1D"
         app:tabIndicatorHeight="3dp"
-        app:tabSelectedTextColor="#FFFFFF"
+        app:tabSelectedTextColor="#000000"
         android:id="@+id/tabLayout"/>
 
     <androidx.viewpager.widget.ViewPager

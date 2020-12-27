@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/menu_shopBask_item"
-        app:showAsAction="ifRoom"
-        tools:visible="true" />
+        android:id="@+id/clear_shop_bask"
+        app:showAsAction="always"
+        tools:visible="true"
+
+        android:foregroundGravity="center_vertical|center|center_horizontal"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:icon="@drawable/remove_cart_shopping"
+        android:title="Очистка корзины"/>
 
 </menu>

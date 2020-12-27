@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient_background"
+    android:background="#ffffff"
     android:layout_height="match_parent"
-    tools:context=".MyLastOrder.MyListCart">
+    tools:context=".MyListCart">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar6"
         android:layout_width="match_parent"
         android:layout_height="63dp"
-        android:background="#03666c"
+        android:background="#ffffff"
         app:layout_constraintBottom_toTopOf="@+id/txt_final_sum_last_shop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Последний заказ"
         android:elevation="10dp"
-        app:titleTextColor="#ffffff" />
+        app:titleTextColor="#1B1B1B" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,29 +30,46 @@
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:elevation="3dp"
             android:src="@drawable/right_arrow"
-            app:backgroundTint="#03666C"
+            app:backgroundTint="#DFE6F5"
             app:layout_constraintBottom_toTopOf="@+id/txt_final_sum_last_shop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_goneMarginEnd="5dp" />
 
-        <ListView
-            android:id="@+id/myListCart"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#E5F3FC"
-            android:dividerHeight="1dp"
-            android:drawSelectorOnTop="true"
-            android:drawingCacheQuality="high"
-            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/txt_final_sum_last_shop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/txt_last_shop">
 
-        </ListView>
+            <ListView
+                android:id="@+id/myListCartFish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#E5F3FC"
+                android:dividerHeight="1dp"
+                android:drawSelectorOnTop="true"
+                android:drawingCacheQuality="high"
+                android:scrollbarThumbVertical="@android:color/darker_gray"></ListView>
+
+            <ListView
+                android:id="@+id/myListCartEquip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#E5F3FC"
+                android:dividerHeight="1dp"
+                android:drawSelectorOnTop="true"
+                android:drawingCacheQuality="high"
+                android:scrollbarThumbVertical="@android:color/darker_gray">
+
+            </ListView>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_final_sum_last_shop"
@@ -75,28 +92,27 @@
             android:id="@+id/txt_common_to_catalog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
             android:text="Перейти в каталог"
             android:textColor="@color/design_default_color_primary_dark"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/txt_final_sum_last_shop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/myListCart" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_last_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
             android:text="@string/LastShop"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/txt_final_sum_last_shop"
-            app:layout_constraintEnd_toEndOf="@+id/myListCart"
-            app:layout_constraintStart_toStartOf="@+id/myListCart"
-            app:layout_constraintTop_toTopOf="@+id/myListCart" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

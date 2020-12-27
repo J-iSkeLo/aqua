@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.Helpers.SectionPageAdapter;
 
 public class Delivery extends AppCompatActivity {
     Toolbar toolbar;

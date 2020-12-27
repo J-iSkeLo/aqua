@@ -33,7 +33,6 @@ import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
-import l.chernenkiy.aqua.MyLastOrder.MyListCart;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
 import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;

@@ -45,6 +45,7 @@
             android:drawableLeft="@drawable/shop_bask_icon_btn"
             android:drawablePadding="40dp"
             android:elevation="5dp"
+            android:visibility="invisible"
             android:textAlignment="textStart"
             android:gravity="center"
             android:paddingStart="30dp"

@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.MyLastOrder.Tables;
+package l.chernenkiy.aqua.Order.Tables;
 
 import java.util.ArrayList;
 import java.util.HashMap;

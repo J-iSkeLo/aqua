@@ -43,11 +43,11 @@
         <activity android:name=".Equipment.Feed" />
         <activity android:name=".Equipment.CategoryActivity" />
         <activity android:name=".Delivery.Delivery" />
-        <activity android:name=".MyLastOrder.MyListCart" />
+        <activity android:name=".MyListCart" />
         <activity android:name=".ShoppingBasket.ShopBaskTest" />
         <activity android:name=".AboutUs"/>
         <activity android:name=".Contacts"/>
-        <activity android:name=".MyLastOrder.Order"/>
+        <activity android:name=".Order.Order"/>
         <activity android:name=".Helpers.SearchActivity"
                   android:launchMode="singleTop">
             <intent-filter>

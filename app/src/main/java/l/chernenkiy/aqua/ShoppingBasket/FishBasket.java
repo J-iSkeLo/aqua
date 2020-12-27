@@ -57,22 +57,13 @@ public class FishBasket extends Fragment {
         tvBackToCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(cartItems.isEmpty()){
-//                    cartAddItemText.setText("");
-//                    cartAddItemText.setVisibility(View.INVISIBLE);
+
                     Intent intent = new Intent(getActivity(), Fish.class);
                     startActivity(intent);
-//                }
-
             }
         });
 
-//        lvShopBasket.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-//        lvShopBasket.setItemsCanFocus(false);
-
         shopBaskFishAdapter = new ShopBaskFishAdapter(getActivity(), cartItemsShop);
-
-
 
         lvShopBasket.setAdapter(shopBaskFishAdapter);
         cartItemOnClick(view);
@@ -187,17 +178,6 @@ public class FishBasket extends Fragment {
         });
     }
 
-//    public void calcAndSetFinalSum(View v) {
-//
-//        double sumEquip = CartHelper.countFinalSum(cartItems);
-//        BigDecimal bigDecimal = new BigDecimal(sumEquip);
-//        bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
-//        String finalSum = String.valueOf(bigDecimal);
-//
-//        if(cartItems.isEmpty()){
-//            viewFinalSum.setVisibility(View.INVISIBLE);
-//        }
-//        viewFinalSum.setText("Сумма: " + finalSum + " грн.");
-//    }
+
 
 }
