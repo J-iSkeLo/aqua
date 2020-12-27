@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,67 +24,102 @@ import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.lvShopEquipBasket;
+import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.shopBaskEquipAdapter;
+import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.tvBackToCatalog;
+import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.tvNotItemsCart;
+import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.lvShopBasket;
+import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.shopBaskFishAdapter;
+import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.tvFishBackToCatalog;
+import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.tvFishNotItemsCart;
 
 
 public class ShopBaskTest extends AppCompatActivity {
     Toolbar toolbar;
-    public SectionPageAdapter mSectionPageAdapter;
-    private ViewPager vp;
+    public static SectionPageAdapter mSectionPageAdapter;
+    public static ViewPager vp;
     public static Button btnOrder;
-    MenuItem cartMenuItem;
-    ImageButton clearShopBask_btn;
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_shop_bask, menu);
-        cartMenuItem = menu.findItem (R.id.clear_shop_bask);
-//        final View actionView = cartMenuItem.getActionView();
-
-        if (cartEquipmentItem.isEmpty () && cartItems.isEmpty ()){
-            cartMenuItem.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener ( ) {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    return false;
-                }
-            });
-        } else {
-            cartMenuItem.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener ( ) {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    final Dialog dialogDeleteItem = new Dialog(ShopBaskTest.this, R.style.Theme_AppCompat_DayNight_Dialog);
-                    dialogDeleteItem.setContentView(R.layout.dialog_delete_item);
-                    dialogDeleteItem.setTitle ("Очистить корзину");
-                    Button btnDeleteCancel = dialogDeleteItem.findViewById(R.id.cancel_btn_dialog_deleteItem);
-                    btnDeleteCancel.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            dialogDeleteItem.dismiss();
-                        }
-                    });
-                    Button btnRemoveShopBask = dialogDeleteItem.findViewById(R.id.ok_btn_dialog_deleteItem);
-                    btnRemoveShopBask.setText ("Очистить");
-                    btnRemoveShopBask.setOnClickListener (new View.OnClickListener ( ) {
-                        @Override
-                        public void onClick(View view) {
-                            cartItems.removeAll (cartItems);
-                            cartEquipmentItem.removeAll (cartEquipmentItem);
-                            CartHelper.calculateItemsCart ();
-                            CartHelper.calculateItemsCartMain ();
-                            btnOrder.setVisibility (View.INVISIBLE);
-                            dialogDeleteItem.dismiss();
-                        }
-                    });
-
-                    dialogDeleteItem.setCancelable(false);
-                    dialogDeleteItem.show();
-
-                    return true;
-                }
-            });
-        }
-
-
-
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.clear_shop_bask) {
+            if (cartItems.isEmpty() && cartEquipmentItem.isEmpty ()){
+                return false;
+            }
+
+            final Dialog dialogClearCart = new Dialog(ShopBaskTest.this, R.style.FullHeightDialog);
+            dialogClearCart.setContentView(R.layout.dialog_clear_cart);
+
+            final Button btnCancelClearCart = dialogClearCart.findViewById(R.id.cancel_btn_dialog_clearCart);
+            btnCancelClearCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogClearCart.dismiss();
+                }
+            });
+
+            final Button btnOkClearCart = dialogClearCart.findViewById(R.id.clear_btn_dialog_clearCart);
+            btnOkClearCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clearFishAndEquipment ( );
+
+                    calcItemText ( );
+
+                    btnOrder.setVisibility(View.INVISIBLE);
+
+                    updateAdapters ( );
+
+                    visibleTextFragment ( );
+
+                    dialogClearCart.dismiss();
+                }
+
+
+            });
+            dialogClearCart.setCancelable(false);
+            dialogClearCart.show();
+
+        }
+        return true;
+    }
+
+    private void visibleTextFragment() {
+        tvNotItemsCart.setVisibility(View.VISIBLE);
+        tvBackToCatalog.setVisibility(View.VISIBLE);
+        tvFishNotItemsCart.setVisibility(View.VISIBLE);
+        tvFishBackToCatalog.setVisibility(View.VISIBLE);
+    }
+
+    private void updateAdapters() {
+        lvShopBasket.setAdapter (null);
+        lvShopEquipBasket.setAdapter (null);
+
+        shopBaskEquipAdapter.notifyDataSetChanged ();
+        shopBaskFishAdapter.notifyDataSetChanged ();
+        mSectionPageAdapter.notifyDataSetChanged ();
+    }
+
+    private void calcItemText() {
+        cartAddItemText.setText("");
+        cartAddItemText.setVisibility(View.INVISIBLE);
+
+        CartHelper.calculateItemsCartMain ();
+        CartHelper.calculateItemsCart();
+    }
+
+    private void clearFishAndEquipment() {
+        cartItems.removeAll(cartItems);
+        cartEquipmentItem.removeAll (cartEquipmentItem);
+
+        getIntent().removeExtra("cartItems");
+        getIntent().removeExtra("cartEquipmentItem");
     }
 
 

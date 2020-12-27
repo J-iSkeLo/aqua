@@ -35,10 +35,13 @@ import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest.btnOrder;
 public class EquipmentBasket extends Fragment {
     private static final String TAG = "Оборудование";
 
-    public ShopBaskEquipAdapter shopBaskEquipAdapter;
+    public static ShopBaskEquipAdapter shopBaskEquipAdapter;
     public ArrayList<HashMap> cartEquipItemShop;
 
-    private ListView lvShopEquipBasket;
+    public static ListView lvShopEquipBasket;
+
+    public static TextView tvNotItemsCart;
+    public static TextView tvBackToCatalog;
 
     @Nullable
     @Override
@@ -49,8 +52,8 @@ public class EquipmentBasket extends Fragment {
         cartEquipItemShop  = (ArrayList<HashMap>) getExtras().get("cartEquipmentItem");
         lvShopEquipBasket = view.findViewById(R.id.shopping_basketEquip_list);
 
-        final TextView tvNotItemsCart = view.findViewById(R.id.tv_equip_not_item_cart);
-        final TextView tvBackToCatalog = view.findViewById(R.id.tv_equip_back_to_catalog);
+        tvNotItemsCart = view.findViewById(R.id.tv_equip_not_item_cart);
+        tvBackToCatalog = view.findViewById(R.id.tv_equip_back_to_catalog);
         if(!cartEquipItemShop.isEmpty()){
             tvNotItemsCart.setVisibility(View.INVISIBLE);
             tvBackToCatalog.setVisibility(View.INVISIBLE);

@@ -34,8 +34,11 @@ import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest.btnOrder;
 
 public class FishBasket extends Fragment {
     private static final String TAG = "Рыба";
-    ShopBaskFishAdapter shopBaskFishAdapter;
+    public static ShopBaskFishAdapter shopBaskFishAdapter;
     public static ListView lvShopBasket;
+
+    public static TextView tvFishNotItemsCart;
+    public static TextView tvFishBackToCatalog;
 
 
     @Nullable
@@ -45,16 +48,16 @@ public class FishBasket extends Fragment {
 
         lvShopBasket = view.findViewById(R.id.shopping_basket_list);
         final ArrayList<HashMap> cartItemsShop = (ArrayList<HashMap>) getActivity().getIntent().getExtras().get("cartItems");
-        final TextView tvNotItemsCart = view.findViewById(R.id.txt_not_item_cart);
-        final TextView tvBackToCatalog = view.findViewById(R.id.txt_back_to_catalog);
+        tvFishNotItemsCart = view.findViewById(R.id.txt_not_item_cart);
+        tvFishBackToCatalog = view.findViewById(R.id.txt_back_to_catalog);
 
 
         if(!cartItems.isEmpty()){
-            tvNotItemsCart.setVisibility(View.INVISIBLE);
-            tvBackToCatalog.setVisibility(View.INVISIBLE);
+            tvFishNotItemsCart.setVisibility(View.INVISIBLE);
+            tvFishBackToCatalog.setVisibility(View.INVISIBLE);
 
         }
-        tvBackToCatalog.setOnClickListener(new View.OnClickListener() {
+        tvFishBackToCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -93,8 +96,8 @@ public class FishBasket extends Fragment {
                         String newCartItemText = String.valueOf((cartItemText-1));
                         cartAddItemText.setText(newCartItemText);
                         if(cartItems.isEmpty()){
-                            tvNotItemsCart.setVisibility(View.VISIBLE);
-                            tvBackToCatalog.setVisibility(View.VISIBLE);
+                            tvFishNotItemsCart.setVisibility(View.VISIBLE);
+                            tvFishBackToCatalog.setVisibility(View.VISIBLE);
                         }
                         if (cartEquipmentItem.isEmpty() && cartItems.isEmpty ())
                         {
