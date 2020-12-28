@@ -17,6 +17,8 @@
         android:dividerHeight="1dp"
         android:layout_marginTop="2dp"
         android:drawSelectorOnTop="true"
+        android:focusableInTouchMode="false"
+        android:isScrollContainer="false"
         android:drawingCacheQuality="high"
         android:scrollbarThumbVertical="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"

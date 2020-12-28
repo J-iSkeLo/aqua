@@ -191,7 +191,6 @@ public class ShopBaskTest extends AppCompatActivity {
         } else {
             Intent intent = new Intent(ShopBaskTest.this, onBackClass);
             intent.putExtra("position", getIntent ().getSerializableExtra ("position"));
-            CartHelper.calculateItemsCart ();
             startActivity (intent);
             getIntent ().removeExtra ("class");
             finish ();

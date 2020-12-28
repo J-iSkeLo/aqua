@@ -47,7 +47,6 @@
             android:elevation="5dp"
             android:visibility="invisible"
             android:textAlignment="textStart"
-            android:gravity="center"
             android:paddingStart="30dp"
             android:text="Мой последний заказ"
             android:textColor="@color/colorTextCart"
@@ -65,7 +64,6 @@
             android:drawableLeft="@drawable/about_logo_btn"
             android:drawablePadding="40dp"
             android:elevation="5dp"
-            android:gravity="center"
             android:textAlignment="textStart"
             android:paddingStart="30dp"
             android:text="@string/about_us"
@@ -85,7 +83,7 @@
             android:elevation="5dp"
 
             android:paddingStart="30dp"
-            android:text="Нформация о доставке"
+            android:text="Информация о доставке"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextCart"
             android:textSize="15sp" />
@@ -101,7 +99,6 @@
             android:drawableLeft="@drawable/contact_icon_logo_btn"
             android:drawablePadding="40dp"
             android:elevation="5dp"
-            android:gravity="center"
             android:textAlignment="textStart"
             android:paddingStart="30dp"
             android:text="@string/contacts"
@@ -165,9 +162,10 @@
 
     <TextView
         android:id="@+id/updateDate"
-        android:layout_width="124dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        android:layout_marginEnd="90dp"
         android:layout_marginTop="15dp"
         android:padding="5dp"
         android:textAlignment="center"
@@ -178,11 +176,11 @@
     <ProgressBar
         android:id="@+id/progressBarMain"
         style="?android:attr/progressBarStyle"
-        android:indeterminateTint="#8AA3CF"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="55dp"
+        android:layout_marginTop="11dp"
+        android:indeterminateTint="#8AA3CF"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

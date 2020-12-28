@@ -25,7 +25,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-import com.android.volley.RequestQueue;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
@@ -100,11 +99,11 @@ public class Fish extends AppCompatActivity {
         btnBask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
-
                 try{
                     Intent intent = new Intent(Fish.this, ShopBaskTest.class);
                     intent.putExtra("cartItems", cartItems);
                     intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                    intent.putExtra ("class", Fish.class);
                     startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();

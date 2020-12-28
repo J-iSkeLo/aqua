@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, ShopBaskTest.class);
                     intent.putExtra("cartItems", cartItems);
                     intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                    intent.putExtra ("class", MainActivity.class);
                     startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();

@@ -61,17 +61,34 @@ public class EquipmentListAdapter extends BaseAdapter {
            TextView tvPrice = convertView.findViewById(R.id.price_equip);
 
            tvName.setText(itemEquipment.getName());
-           tvArticle.setText("Артикул: " + itemEquipment.getArticle());
-           tvProducer.setText(itemEquipment.getGeneralColKey ());
+
+           if (itemEquipment.getArticle ().equals("null")) {
+                itemEquipment.setArticle (" - ");
+                tvArticle.setText(itemEquipment.getArticle());
+           } else {
+                tvArticle.setText("Артикул: " + itemEquipment.getArticle());
+           }
+
+           if (itemEquipment.getGeneralColKey ().equals("null")) {
+                itemEquipment.setGeneralColKey (" - ");
+                tvProducer.setText( itemEquipment.getGeneralColKey());
+           } else {
+                tvProducer.setText(itemEquipment.getGeneralColKey ());
+           }
+
            if (itemEquipment.getDescription().equals("null")) {
-               itemEquipment.setDescription ("Без описания");
-                tvDescription.setText( itemEquipment.getDescription());
+                    itemEquipment.setDescription ("Без описания");
+                    tvDescription.setText( itemEquipment.getDescription());
            } else {
                 tvDescription.setText(itemEquipment.getDescription());
-                }
+           }
 
-        tvPrice.setText(itemEquipment.getPrice() + " грн.");
-
+           if (itemEquipment.getPrice().equals("null")) {
+                itemEquipment.setPrice ("0");
+                tvPrice.setText(itemEquipment.getPrice() + " грн.");
+           } else {
+                tvPrice.setText(itemEquipment.getPrice() + " грн.");
+           }
 
        return convertView;
 
