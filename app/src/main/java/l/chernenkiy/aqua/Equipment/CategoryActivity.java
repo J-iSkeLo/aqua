@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 import java.util.HashMap;
@@ -152,6 +155,13 @@ public class CategoryActivity extends AppCompatActivity {
                 TextView descriptionEquip = dialog.findViewById(R.id.dialog_description_equip);
                 TouchImageView touchImageView = dialog.findViewById(R.id.imageTouchEquip);
 
+                if(isInternetPresent) {
+                    loadImage(touchImageView, item.getImage());
+                }
+                else{
+                    showToastInternetPresent("Нет интернет соединения для загрузки изображения!");
+                }
+
                 final TextView quantity = dialog.findViewById(R.id.quantity_equip_dialog);
 
                 nameEquip.setText(item.getName());
@@ -159,6 +169,7 @@ public class CategoryActivity extends AppCompatActivity {
                 producerEquip.setText(item.getGeneralColKey ());
                 priceEquip.setText(item.getPrice() + " грн.");
                 descriptionEquip.setText(item.getDescription());
+
 
                 Button btnCancelDialog = dialog.findViewById(R.id.cancel_dialogEquip_btn);
                 Button btnAddShopBask = dialog.findViewById(R.id.addShopBaskEquip_btn);
@@ -210,6 +221,22 @@ public class CategoryActivity extends AppCompatActivity {
         });
     }
 
+    public void loadImage (TouchImageView touchImageView, String imageURL){
+
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
+        circularProgressDrawable.setStrokeWidth(10f);
+        circularProgressDrawable.setCenterRadius(60f);
+        circularProgressDrawable.setColorSchemeColors(Color.rgb (155,155,155));
+        circularProgressDrawable.start();
+
+
+
+        Glide.with(this)
+                .load(imageURL)
+                .placeholder(circularProgressDrawable)
+                .into(touchImageView);
+    }
+
     private void toolbar(ItemCategory itemCategory){
 
         Toolbar toolbar = findViewById(R.id.toolbarEquipCategory2);
@@ -240,8 +267,8 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
-        if (onBackClass.equals (null)){
-            return;
+        if (onBackClass == null){
+            finish ();
         } else {
             Intent intent = new Intent(CategoryActivity.this, onBackClass);
             intent.putExtra("cartItems", cartItems);

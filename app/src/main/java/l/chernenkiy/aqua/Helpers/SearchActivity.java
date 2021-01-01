@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.view.Gravity;
@@ -25,7 +26,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import com.bumptech.glide.Glide;
 import com.ortiz.touchview.TouchImageView;
 
 import java.util.ArrayList;
@@ -36,6 +39,7 @@ import java.util.Map;
 import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
+import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
 
@@ -48,6 +52,9 @@ import static l.chernenkiy.aqua.MainActivity.listEquip;
 import static l.chernenkiy.aqua.MainActivity.listFeed;
 
 public class SearchActivity extends AppCompatActivity {
+
+    Boolean isInternetPresent = false;
+    ConnectionDetector cd;
     EquipmentListAdapter adapter;
     MenuItem cartIconMenuItem;
     SearchView searchView;
@@ -122,6 +129,7 @@ public class SearchActivity extends AppCompatActivity {
                 Intent intent = new Intent(SearchActivity.this, ShopBaskTest.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                intent.putExtra ("class", SearchActivity.class);
                 startActivity(intent);
             }
         });
@@ -136,6 +144,9 @@ public class SearchActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        cd = new ConnectionDetector(getApplicationContext());
+        isInternetPresent = cd.ConnectingToInternet();
 
         Toolbar toolbar = findViewById(R.id.toolbarSearch);
         setSupportActionBar(toolbar);
@@ -164,6 +175,13 @@ public class SearchActivity extends AppCompatActivity {
                 TextView priceEquip = dialog.findViewById(R.id.priceEquip_dialog);
                 TextView descriptionEquip = dialog.findViewById(R.id.dialog_description_equip);
                 TouchImageView touchImageView = dialog.findViewById(R.id.imageTouchEquip);
+
+                if(isInternetPresent) {
+                    loadImage(touchImageView, item.getImage());
+                }
+                else{
+                    showToastInternetPresent("Нет интернет соединения для загрузки изображения!");
+                }
 
                 final TextView quantity = dialog.findViewById(R.id.quantity_equip_dialog);
 
@@ -227,6 +245,30 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    public void loadImage (TouchImageView touchImageView, String imageURL){
+
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
+        circularProgressDrawable.setStrokeWidth(10f);
+        circularProgressDrawable.setCenterRadius(60f);
+        circularProgressDrawable.setColorSchemeColors(Color.rgb (155,155,155));
+        circularProgressDrawable.start();
+
+
+
+        Glide.with(this)
+                .load(imageURL)
+                .placeholder(circularProgressDrawable)
+                .into(touchImageView);
+    }
+
+    private void showToastInternetPresent(String msg) {
+        Toast toast = Toast.makeText
+                (getApplicationContext(),msg,Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
+    }
+
+
     @SuppressLint("ClickableViewAccessibility")
     private void hideKeyboard() {
         lvSearch.setOnTouchListener(new View.OnTouchListener() {
@@ -275,8 +317,11 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
-        if (onBackClass.equals (null)){
-            return;
+        if (onBackClass == null){
+            Intent intent = new Intent(getApplicationContext (), MainActivity.class);
+            CartHelper.calculateItemsCart ();
+            startActivity (intent);
+
         } else {
             Intent intent = new Intent(getApplicationContext (), onBackClass);
             intent.putExtra("cartItems", cartItems);

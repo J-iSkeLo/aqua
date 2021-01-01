@@ -15,6 +15,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.splash_screen);
 
+        getWindow ().setStatusBarColor (getResources ().getColor (R.color.statBarColor));
+
         new Handler().postDelayed (new Runnable () {
             @Override
             public void run() {

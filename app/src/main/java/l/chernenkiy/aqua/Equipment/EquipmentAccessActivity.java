@@ -109,6 +109,7 @@ public class EquipmentAccessActivity extends AppCompatActivity {
                 Intent intent = new Intent(EquipmentAccessActivity.this, MainActivity.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+
                 startActivity (intent);
 
             }

@@ -186,8 +186,8 @@ public class ShopBaskTest extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
-        if (onBackClass.equals (null)){
-            return;
+        if (onBackClass == null){
+            finish ();
         } else {
             Intent intent = new Intent(ShopBaskTest.this, onBackClass);
             intent.putExtra("position", getIntent ().getSerializableExtra ("position"));
