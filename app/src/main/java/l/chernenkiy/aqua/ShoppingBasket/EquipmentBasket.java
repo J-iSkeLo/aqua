@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -85,6 +90,8 @@ public class EquipmentBasket extends Fragment {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 final Dialog dialogDeleteItem = new Dialog(getActivity(), R.style.FullHeightDialog);
                 dialogDeleteItem.setContentView(R.layout.dialog_delete_item);
+                dialogDeleteItem.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+
                 Button btnDeleteCancel = dialogDeleteItem.findViewById(R.id.cancel_btn_dialog_deleteItem);
                 btnDeleteCancel.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
@@ -148,9 +155,12 @@ public class EquipmentBasket extends Fragment {
             public void onClick(View view) {
 
                 String quantityFish = editQuantity.getText().toString();
-                if (quantityFish.isEmpty() || Integer.parseInt(quantityFish) < 1) {
+
+                if (editQuantity.length () < 1) {
+                    showToastInternetPresent ("Укажите количество");
                     return;
                 }
+
                 cartEquipmentItem.get(i).put("quantity", quantityFish);
 
                 ArrayList<HashMap> editListQuantity = cartEquipmentItem;
@@ -173,6 +183,7 @@ public class EquipmentBasket extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 final Dialog dialog = new Dialog(getActivity(), R.style.FullHeightDialog);
                 dialog.setContentView(R.layout.dialog_edit_quantity);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
                 final EditText editQuantity = dialog.findViewById(R.id.quantity_edit_dialog);
                 final Button btnCancelDialog = dialog.findViewById(R.id.cancel_dialog_quantity__btn);
@@ -190,5 +201,12 @@ public class EquipmentBasket extends Fragment {
 
         });
 
+    }
+
+    private void showToastInternetPresent(String msg) {
+        Toast toast = Toast.makeText
+                (getContext (),msg,Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
     }
 }

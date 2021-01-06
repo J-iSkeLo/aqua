@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1F1F1F"
+    android:background="@drawable/dialog_bg"
     android:orientation="vertical"
     app:corner_radius="7dp">
 
@@ -22,23 +22,25 @@
             android:layout_marginTop="10dp"
             android:text="Удалить позицию?"
             android:textAlignment="center"
-            android:textColor="#FDFDFD"
+            android:textColor="@color/colorTextCart"
             android:textSize="17sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="260dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp">
 
             <Button
-                android:id="@+id/cancel_btn_dialog_deleteItem"
-                android:layout_width="100dp"
+                android:id="@+id/ok_btn_dialog_deleteItem"
+                android:layout_width="120dp"
                 android:layout_height="45dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/btn_black_press_white_dialog"
+                android:background="@drawable/btn_dialog_clear_shopbask"
                 android:padding="5dp"
-                android:text="Отмена"
+                android:text="Удалить"
+                android:drawableStart="@drawable/ic_delete_black_24dp"
+                android:textColor="#FFFFFF"
                 android:textAlignment="center"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -46,14 +48,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/ok_btn_dialog_deleteItem"
-                android:layout_width="100dp"
+                android:id="@+id/cancel_btn_dialog_deleteItem"
+                android:layout_width="120dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/btn_black_press_white_dialog"
+                android:background="@drawable/btn_dialog_cancel_clear_shopbask"
                 android:gravity="center|center_horizontal|center_vertical"
+                android:drawableStart="@drawable/ic_clear_red_24dp"
                 android:padding="10dp"
-                android:text="Удалить"
+                android:text="Отмена"
+                android:textColor="#C91818"
                 android:textAlignment="center"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"

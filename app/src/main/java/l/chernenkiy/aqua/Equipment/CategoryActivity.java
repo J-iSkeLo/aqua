@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -145,6 +146,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final Dialog dialog = new Dialog(CategoryActivity.this, R.style.FullHeightDialog);
                 dialog.setContentView(R.layout.dialog_item_equip_set);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
                 final ItemEquipment item = itemCategory.getItems().get(i);
 
@@ -173,6 +175,14 @@ public class CategoryActivity extends AppCompatActivity {
 
                 Button btnCancelDialog = dialog.findViewById(R.id.cancel_dialogEquip_btn);
                 Button btnAddShopBask = dialog.findViewById(R.id.addShopBaskEquip_btn);
+                ImageButton btnCloseDialog = dialog.findViewById(R.id.btn_close_equip_dialog);
+
+                btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
 
                 btnCancelDialog.setOnClickListener(new View.OnClickListener() {

@@ -2,6 +2,8 @@ package l.chernenkiy.aqua.ShoppingBasket;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,6 +57,7 @@ public class ShopBaskTest extends AppCompatActivity {
 
             final Dialog dialogClearCart = new Dialog(ShopBaskTest.this, R.style.FullHeightDialog);
             dialogClearCart.setContentView(R.layout.dialog_clear_cart);
+            dialogClearCart.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
             final Button btnCancelClearCart = dialogClearCart.findViewById(R.id.cancel_btn_dialog_clearCart);
             btnCancelClearCart.setOnClickListener(new View.OnClickListener() {

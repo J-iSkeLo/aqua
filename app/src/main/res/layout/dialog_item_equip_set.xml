@@ -5,10 +5,8 @@
     android:id="@+id/relativeLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
-
-    app:corner_radius="7dp">
+    android:background="@drawable/dialog_add_shopbask"
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -20,25 +18,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/dialog_producer_equip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="@color/colorTextCart"
-            android:textSize="15sp" />
+        <ImageButton
+            android:id="@+id/btn_close_equip_dialog"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="end"
+            android:background="@drawable/btn_close_dialog"
+            android:src="@drawable/ic_clear_black_24dp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="175dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <ProgressBar
                 android:id="@+id/progressBarEquip_image"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
                 android:layout_marginTop="38dp"
                 android:layout_marginBottom="39dp"
@@ -64,9 +62,23 @@
 
         <TableRow
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/article_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            android:textColor="#666666"
+            android:textSize="11sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/name_dialog_equip"
@@ -75,22 +87,33 @@
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="@color/colorTextCart"
-                android:textSize="15sp" />
+                android:textSize="17sp"
+                android:textStyle="bold" />
         </TableRow>
+
+        <TextView
+            android:id="@+id/dialog_description_equip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="@color/colorTextCart"
+            android:textSize="13sp" />
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="15dp">
 
             <TextView
-                android:id="@+id/article_dialog"
-                android:layout_width="wrap_content"
+                android:id="@+id/dialog_producer_equip"
+                android:layout_width="95dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:layout_marginStart="20dp"
                 android:text="TextView"
-                android:textAlignment="center"
+                android:layout_marginStart="20dp"
+                android:textAlignment="textStart"
                 android:textColor="@color/colorTextCart"
                 android:textSize="13sp" />
 
@@ -102,26 +125,18 @@
                 android:text="TextView"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/colorTextCart"
-                android:textSize="13sp" />
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
         </TableRow>
-
-        <TextView
-            android:id="@+id/dialog_description_equip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="@color/colorTextCart"
-            android:textSize="13sp"
-            android:gravity="center"/>
 
         <EditText
             android:id="@+id/quantity_equip_dialog"
             style="@android:style/Widget.Material.EditText"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/background_edit_text"
             android:hint="Укажите количество:"
             android:imeOptions="actionDone"
@@ -131,16 +146,17 @@
             android:textAlignment="center"
             android:textColor="@color/colorTextCart"
             android:textColorHighlight="#00808080"
-            android:textColorHint="#997C7C7C"
+            android:textColorHint="#998B8B8B"
             android:textColorLink="#00000000"
-            android:textCursorDrawable="@color/colorPrimaryWhite"
+            android:textCursorDrawable="@color/colorPassivNavBar"
             android:textIsSelectable="false"
             android:textSize="15sp"
             tools:text="" />
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -150,15 +166,18 @@
 
                 <Button
                     android:id="@+id/cancel_dialogEquip_btn"
-                    android:layout_width="90dp"
+                    android:layout_width="130dp"
                     android:layout_height="45dp"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@drawable/btn_black_press_white_dialog"
-                    android:padding="5dp"
+                    android:background="@drawable/btn_dialog_cancel_clear_shopbask"
+                    android:padding="10dp"
+                    android:drawableStart="@drawable/ic_clear_red_24dp"
                     android:text="Отмена"
+                    android:textColor="#C91818"
+                    android:textSize="15sp"
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:gravity="center|center_horizontal|center_vertical"
                     app:layout_constraintBottom_toBottomOf="@+id/addShopBask_btn"
                     app:layout_constraintEnd_toStartOf="@+id/addShopBask_btn"
                     app:layout_constraintStart_toStartOf="parent"
@@ -166,15 +185,17 @@
 
                 <Button
                     android:id="@+id/addShopBaskEquip_btn"
-                    android:layout_width="90dp"
+                    android:layout_width="130dp"
                     android:layout_height="45dp"
-                    android:layout_marginEnd="36dp"
-                    android:background="@drawable/btn_black_press_white_dialog"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/btn_dialog_ok_edit_quantity"
+                    android:drawableStart="@drawable/add_shopbask_dialog_icon"
                     android:gravity="center|center_horizontal|center_vertical"
                     android:padding="10dp"
-                    android:text="В корзину"
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:text="В корзину"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cancel_dialog_btn"
@@ -184,10 +205,5 @@
         </TableRow>
 
     </LinearLayout>
-    <![CDATA[
 
-    />+
-
-
-]]>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -193,7 +193,14 @@ public class SearchActivity extends AppCompatActivity {
 
                 Button btnCancelDialog = dialog.findViewById(R.id.cancel_dialogEquip_btn);
                 Button btnAddShopBask = dialog.findViewById(R.id.addShopBaskEquip_btn);
+                ImageButton btnCloseDialog = dialog.findViewById (R.id.btn_close_equip_dialog);
 
+                btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
                 btnCancelDialog.setOnClickListener(new View.OnClickListener() {
                     @Override

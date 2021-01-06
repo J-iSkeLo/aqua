@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -27,6 +28,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
@@ -186,6 +191,7 @@ public class Fish extends AppCompatActivity {
 
                 final Dialog dialog = new Dialog(Fish.this, R.style.FullHeightDialog);
                 dialog.setContentView(R.layout.dialog_item_set);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
                 TextView nameDialog = dialog.findViewById(R.id.name_dialog);
                 TextView sizeDialog = dialog.findViewById(R.id.size_dialog);
@@ -206,6 +212,13 @@ public class Fish extends AppCompatActivity {
                     showToastInternetPresent("Нет интернет соединения для загрузки изображения!");
                 }
 
+                ImageButton btnCloseDialog = dialog.findViewById (R.id.btn_close_fish_dialog);
+                btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
                 Button btnCancel = dialog.findViewById(R.id.cancel_dialog_btn);
                 btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -267,6 +280,7 @@ public class Fish extends AppCompatActivity {
         Glide.with(this)
                 .load(imageURL)
                 .placeholder(circularProgressDrawable)
+                .transform(new CenterCrop (), new RoundedCorners (20))
                 .into(touchImageView);
     }
 
