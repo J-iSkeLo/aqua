@@ -48,7 +48,7 @@ public class ProductListAdapter extends BaseAdapter {
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         if (hasNotTitle(mProductList, i)) {
-            convertView = mInflater.inflate(R.layout.fish_price_list, null);
+            convertView = mInflater.inflate(R.layout.cart_fish_price_list, null);
 
             TextView tvNumber = convertView.findViewById(R.id.number_pn);
             TextView tvName = convertView.findViewById(R.id.name_pn);

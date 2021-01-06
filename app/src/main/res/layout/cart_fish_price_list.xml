@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="№"
             android:textColor="@color/colorTextCart"
-            android:textSize="13dp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/name_pn"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Название"
             android:textColor="@color/colorTextCart"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TableLayout
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:text="Размер, см"
                     android:textColor="@color/colorTextCart"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/price_pn"
@@ -60,7 +60,7 @@
                     android:layout_gravity="right"
                     android:text="Цена, грн"
                     android:textColor="@color/colorTextCart"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
             </TableRow>

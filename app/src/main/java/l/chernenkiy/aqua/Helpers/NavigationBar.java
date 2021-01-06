@@ -18,7 +18,6 @@ import l.chernenkiy.aqua.R;
 public class NavigationBar {
 
 
-
     static public void itemSelected(BottomNavigationView navigation, final Context context, final int current) {
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 

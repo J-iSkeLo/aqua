@@ -2,8 +2,10 @@ package l.chernenkiy.aqua;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -16,6 +18,9 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
@@ -53,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList <ItemCategory> listChemistry = new ArrayList<>();
     public static ArrayList <ItemCategory> listAquariums = new ArrayList<>();
 
+    public static HashMap<String, String> dateHashMap = new HashMap<>();
+
     public RequestQueue mQueue;
-    public static ProgressBar progressBar;
+    public String date = "";
+    public TextView updateDate;
 
 
     Boolean isInternetPresent = false;
@@ -66,11 +74,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mQueue = Volley.newRequestQueue(this);
-        progressBar = findViewById (R.id.progressBarMain);
-
+        updateDate = findViewById(R.id.updateDate);
         ImageButton shopBaskButton = findViewById (R.id.btn_image_cart_main);
         cartAddItemTextMain = findViewById (R.id.text_item_cart_main);
         calculateItemsCartMain();
+
+
 
         shopBaskButton.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -144,12 +153,21 @@ public class MainActivity extends AppCompatActivity {
         cd = new ConnectionDetector (getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
 
-        if (isInternetPresent)
-        {
-            new AsyncRequestHttp ().execute();
-        }else{
-            showToastInternetPresent("У Вас нет Интернет соединения");
+        if (! isInternetPresent)showToastInternetPresent ("Нет подключения к интерену");
+        if (isInternetPresent
+                && listFish.isEmpty ()
+                && listEquip.isEmpty ()         && listFeed.isEmpty ()
+                && listChemistry.isEmpty ()     && listAquariums.isEmpty ()) {
+
+            final Dialog dialog = new Dialog(MainActivity.this, R.style.FullHeightDialog);
+            dialog.setContentView(R.layout.dialog_load_main_activity);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+
+            new AsyncRequestHttp (dialog).execute();
         }
+
+        String previouslyLoadedDate = dateHashMap.get ("date");
+        if (!listFish.isEmpty ()) updateDate.setText ("Прайс обновлён:\n" + previouslyLoadedDate);
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
         NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
@@ -157,21 +175,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class AsyncRequestHttp extends AsyncTask <Void, Integer, Void> {
-        private String date = "";
-        private int statusCode;
 
+        private int statusCode;
+        private Dialog dialog;
         JsonRequest jsonRequest = new JsonRequest ();
+
+        public AsyncRequestHttp(Dialog dialog) {
+            this.dialog = dialog;
+        }
 
         @Override
         protected void onProgressUpdate(Integer... progress) {
-            progressBar.setProgress(progress[0]);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute ( );
-            progressBar.setMax (100);
 
+            ProgressBar progressBar = dialog.findViewById(R.id.spin_kit);
+            Sprite wanderingCubes = new WanderingCubes ();
+            progressBar.setIndeterminateDrawable(wanderingCubes);
+
+            dialog.show ();
+            dialog.setCancelable (false);
 
         }
 
@@ -221,14 +247,19 @@ public class MainActivity extends AppCompatActivity {
             int i = connection.getConnectTimeout ();
             publishProgress (i);
             date = response.toString();
+
+
+
             statusCode = connection.getResponseCode();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            TextView updateDate = findViewById(R.id.updateDate);
-            progressBar.setVisibility (View.INVISIBLE);
+
+            dialog.dismiss ();
+
+            dateHashMap.put ("date", date);
 
             if(statusCode == 200) {
                 updateDate.setText("Прайс обновлён:\n" + date);

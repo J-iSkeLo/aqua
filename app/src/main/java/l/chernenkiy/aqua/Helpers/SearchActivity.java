@@ -219,7 +219,7 @@ public class SearchActivity extends AppCompatActivity {
                             return;
                         }
 
-                        Map<String, String> singleEquipItem = new HashMap<> ();
+                        HashMap<String, String> singleEquipItem = new HashMap<> ();
                         singleEquipItem.put("name", item.getName());
                         singleEquipItem.put("article", item.getArticle());
                         singleEquipItem.put("producer", item.getGeneralColKey ());
@@ -239,7 +239,7 @@ public class SearchActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            cartEquipmentItem.add((HashMap) singleEquipItem);
+                            cartEquipmentItem.add(singleEquipItem);
                             CartHelper.calculateItemsCart();
                             dialog.dismiss();
                         }

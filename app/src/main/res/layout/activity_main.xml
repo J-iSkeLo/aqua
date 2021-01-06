@@ -179,6 +179,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginTop="11dp"
+        android:visibility="invisible"
         android:indeterminateTint="#8AA3CF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

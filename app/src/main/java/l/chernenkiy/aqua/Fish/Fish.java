@@ -240,7 +240,7 @@ public class Fish extends AppCompatActivity {
                             return;
                         }
 
-                        Map<String, String> singleItem = new HashMap();
+                        HashMap<String, String> singleItem = new HashMap();
                         singleItem.put("name", product.getName());
                         singleItem.put("quantity", quantityFish);
                         singleItem.put("size", product.getSize());
@@ -255,7 +255,7 @@ public class Fish extends AppCompatActivity {
                             toast.setGravity(Gravity.CENTER,0,0);
                             toast.show();
                         } else {
-                            cartItems.add((HashMap) singleItem);
+                            cartItems.add(singleItem);
                             CartHelper.calculateItemsCart();
                             dialog.dismiss();
                         }

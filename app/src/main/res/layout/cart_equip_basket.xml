@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:text="Артикул"
                     android:textColor="#3A3A3A"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_manufacturer"
@@ -43,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:text="Производитель"
+                    android:textSize="13sp"
                     android:textColor="@color/colorTextCart" />
             </TableRow>
 
@@ -79,7 +80,7 @@
                         android:paddingEnd="5dp"
                         android:text="Название"
                         android:textColor="@color/colorTextCart"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -88,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:text="Описание"
                         android:textColor="#353535"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
 
@@ -103,7 +104,7 @@
                         android:text="Цена, грн"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTextCart"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toStartOf="@+id/quantity_equip"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,7 +115,7 @@
                         android:text="кол."
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTextCart"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -126,7 +127,7 @@
                         android:text="Сумма, грн"
                         android:textAlignment="textEnd"
                         android:textColor="#C70000"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
