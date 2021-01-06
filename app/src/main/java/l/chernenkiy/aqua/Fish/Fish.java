@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -189,7 +190,9 @@ public class Fish extends AppCompatActivity {
                 TextView nameDialog = dialog.findViewById(R.id.name_dialog);
                 TextView sizeDialog = dialog.findViewById(R.id.size_dialog);
                 TextView priceDialog = dialog.findViewById(R.id.price_dialog);
-                final TextView quantity = dialog.findViewById(R.id.quantity_dialog);
+                final EditText quantity = dialog.findViewById(R.id.quantity_dialog);
+
+
 
                 nameDialog.setText(product.getName());
                 sizeDialog.setText(product.getSize() + " см.");
@@ -218,16 +221,18 @@ public class Fish extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String quantityFish = quantity.getText().toString();
-                        if (quantityFish.isEmpty() || Integer.parseInt(quantityFish) < 1) {
+
+                        if (quantity.length () < 1) {
+                            showToastInternetPresent ("Укажите количество");
                             return;
                         }
 
                         Map<String, String> singleItem = new HashMap();
-                        singleItem.put("number", String.valueOf(product.getNumber()));
                         singleItem.put("name", product.getName());
                         singleItem.put("quantity", quantityFish);
                         singleItem.put("size", product.getSize());
                         singleItem.put("price", product.getPrice());
+                        singleItem.put ("image", product.getImage ());
 
                         boolean hasDuplicate = CartHelper.findCartItem(singleItem.get("name"),singleItem.get("price"), cartItems);
 

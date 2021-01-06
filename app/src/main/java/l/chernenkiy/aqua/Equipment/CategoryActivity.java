@@ -186,7 +186,9 @@ public class CategoryActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String quantityEquip = quantity.getText().toString();
-                        if (quantityEquip.isEmpty() || Integer.parseInt(quantityEquip) < 1) {
+
+                        if (quantity.length () < 1) {
+                            showToastInternetPresent ("Укажите количество");
                             return;
                         }
 
@@ -197,6 +199,7 @@ public class CategoryActivity extends AppCompatActivity {
                         singleEquipItem.put("price", item.getPrice());
                         singleEquipItem.put("description", item.getDescription());
                         singleEquipItem.put("quantity", quantityEquip);
+                        singleEquipItem.put ("image" , item.getImage ());
 
                         boolean hasDuplicate = CartHelper.findCartItem(singleEquipItem.get("name"),singleEquipItem.get("price"), cartEquipmentItem);
 

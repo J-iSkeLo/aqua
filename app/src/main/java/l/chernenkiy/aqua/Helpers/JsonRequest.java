@@ -19,14 +19,8 @@ import l.chernenkiy.aqua.Fish.Product;
 
 public class JsonRequest  {
 
-    public final ArrayList resultFish = new ArrayList<>();
-    public final ArrayList resultEquip = new ArrayList<>();
-    public final ArrayList resultFeed = new ArrayList<>();
-    public final ArrayList resultChemistry = new ArrayList<>();
-    public final ArrayList resultAquariums = new ArrayList<>();
 
-
-    public ArrayList makeFishRequest(RequestQueue mQueue) {
+    public ArrayList makeFishRequest(RequestQueue mQueue, final ArrayList <Product> resultFish) {
 
         String url = "https://aqua-m.kh.ua/api/price-list";
 
@@ -59,19 +53,15 @@ public class JsonRequest  {
                             }
 
 
-
                         } catch (JSONException e) {
-                            e.getMessage();
-
+                            e.printStackTrace ();
                         }
                     }
 
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                error.printStackTrace();
-
+                error.printStackTrace ();
             }
 
 
@@ -82,12 +72,10 @@ public class JsonRequest  {
 
     }
 
+    public ArrayList makeAllEquipRequest (RequestQueue mQueue, final ArrayList<ItemCategory> arrayList,
+                                          String url, final String generalColKey ) {
 
-
-
-    public ArrayList makeEquipRequest (RequestQueue mQueue) {
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, ApiInfo.equipment, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -98,7 +86,7 @@ public class JsonRequest  {
                             while (keys.hasNext()) {
                                 String category = keys.next();
                                 JSONArray allEquipment = response.getJSONArray(category);
-                                ArrayList resultChildrenCategory = new ArrayList<ItemEquipment>();
+                                ArrayList <ItemEquipment> resultChildrenCategory = new ArrayList<>();
 
                                 for (int i = 0; i < allEquipment.length(); i++) {
                                     JSONObject equipItem = allEquipment.getJSONObject(i);
@@ -106,7 +94,7 @@ public class JsonRequest  {
                                     String article = equipItem.getString("article");
                                     String name = equipItem.getString("name");
                                     String description = equipItem.getString("description");
-                                    String generalKey = equipItem.getString(ApiInfo.equipmentGeneralColKey);
+                                    String generalKey = equipItem.getString(generalColKey);
                                     String price = equipItem.getString("price");
                                     String image = equipItem.getString("image");
 
@@ -114,12 +102,12 @@ public class JsonRequest  {
                                     resultChildrenCategory.add(new ItemEquipment(article, name, description, generalKey,  price, image));
                                 }
 
-                                resultEquip.add(new ItemCategory (category, resultChildrenCategory));
+                                arrayList.add(new ItemCategory (category, resultChildrenCategory));
                             }
 
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            e.printStackTrace ();
                         }
                     }
 
@@ -127,168 +115,9 @@ public class JsonRequest  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace ();
-
             }
-
         });
         mQueue.add(request);
-        return resultEquip;
-
+        return arrayList;
     }
-
-    public ArrayList makeFeedRequest (RequestQueue mQueue) {
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, ApiInfo.feed, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            Iterator<String> keys = response.keys();
-
-                            while (keys.hasNext()) {
-                                String category = keys.next();
-                                JSONArray allEquipment = response.getJSONArray(category);
-                                ArrayList resultChildrenCategory = new ArrayList<ItemEquipment>();
-
-                                for (int i = 0; i < allEquipment.length(); i++) {
-                                    JSONObject equipItem = allEquipment.getJSONObject(i);
-
-                                    String article = equipItem.getString("article");
-                                    String name = equipItem.getString("name");
-                                    String description = equipItem.getString("description");
-                                    String generalKey = equipItem.getString(ApiInfo.feedGeneralColKey);
-                                    String price = equipItem.getString("price");
-                                    String image = equipItem.getString("image");
-
-
-                                    resultChildrenCategory.add(new ItemEquipment(article, name, description, generalKey,  price, image));
-                                }
-
-                                resultFeed.add(new ItemCategory (category, resultChildrenCategory));
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace ();
-
-            }
-
-        });
-        mQueue.add(request);
-        return resultFeed;
-
-    }
-
-    public ArrayList makeChemistryRequest (RequestQueue mQueue) {
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, ApiInfo.chemistry, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            Iterator<String> keys = response.keys();
-
-                            while (keys.hasNext()) {
-                                String category = keys.next();
-                                JSONArray allEquipment = response.getJSONArray(category);
-                                ArrayList resultChildrenCategory = new ArrayList<ItemEquipment>();
-
-                                for (int i = 0; i < allEquipment.length(); i++) {
-                                    JSONObject equipItem = allEquipment.getJSONObject(i);
-
-                                    String article = equipItem.getString("article");
-                                    String name = equipItem.getString("name");
-                                    String description = equipItem.getString("description");
-                                    String generalKey = equipItem.getString(ApiInfo.chemistryGeneralColKey);
-                                    String price = equipItem.getString("price");
-                                    String image = equipItem.getString("image");
-
-
-                                    resultChildrenCategory.add(new ItemEquipment(article, name, description, generalKey,  price, image));
-                                }
-
-                                resultChemistry.add(new ItemCategory (category, resultChildrenCategory));
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace ();
-
-            }
-
-        });
-        mQueue.add(request);
-        return resultChemistry;
-
-    }
-
-    public ArrayList makeAquariumsRequest (RequestQueue mQueue) {
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, ApiInfo.aquariums, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            Iterator<String> keys = response.keys();
-
-                            while (keys.hasNext()) {
-                                String category = keys.next();
-                                JSONArray allEquipment = response.getJSONArray(category);
-                                ArrayList resultChildrenCategory = new ArrayList<ItemEquipment>();
-
-                                for (int i = 0; i < allEquipment.length(); i++) {
-                                    JSONObject equipItem = allEquipment.getJSONObject(i);
-
-                                    String article = equipItem.getString("article");
-                                    String name = equipItem.getString("name");
-                                    String description = equipItem.getString("description");
-                                    String generalKey = equipItem.getString(ApiInfo.aquariumsGeneralColKey);
-                                    String price = equipItem.getString("price");
-                                    String image = equipItem.getString("image");
-
-
-                                    resultChildrenCategory.add(new ItemEquipment(article, name, description, generalKey,  price, image));
-                                }
-
-                                resultAquariums.add(new ItemCategory (category, resultChildrenCategory));
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace ();
-
-            }
-
-        });
-        mQueue.add(request);
-        return resultAquariums;
-
-    }
-
-
-
 }

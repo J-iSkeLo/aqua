@@ -51,11 +51,16 @@
         <activity android:name=".Helpers.SearchActivity"
                   android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
             <meta-data  android:name="android.app.searchable"
                         android:resource="@xml/searchable"/>
         </activity>
+
+        <provider android:name=".Helpers.MySuggestionProvider"
+            android:authorities=".Helpers"
+            android:enabled="true"
+            android:exported="true"/>
 
         <meta-data android:name="preloaded_fonts"
                    android:resource="@array/preloaded_fonts" />

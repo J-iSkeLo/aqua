@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.R;
 
 public class ProductListAdapter extends BaseAdapter {

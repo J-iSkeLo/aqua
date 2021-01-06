@@ -12,7 +12,7 @@
             android:id="@+id/shopping_basketEquip_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F5F5F5"
+            android:background="#FFFFFF"
             android:dividerHeight="1dp"
             android:drawSelectorOnTop="true"
             android:drawingCacheQuality="high"

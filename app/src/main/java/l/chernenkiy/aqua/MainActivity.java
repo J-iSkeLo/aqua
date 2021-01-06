@@ -31,6 +31,7 @@ import java.util.HashMap;
 import l.chernenkiy.aqua.Delivery.Delivery;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Fish.Product;
+import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
@@ -46,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<HashMap> cartItems = new ArrayList<>();
     public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
 
-    public static ArrayList <Product> listFish = new ArrayList ();
-    public static ArrayList <ItemCategory> listEquip = new ArrayList ();
-    public static ArrayList <ItemCategory> listFeed = new ArrayList ();
-    public static ArrayList <ItemCategory> listChemistry = new ArrayList ();
-    public static ArrayList <ItemCategory> listAquariums = new ArrayList ();
+    public static ArrayList <Product> listFish = new ArrayList<>();
+    public static ArrayList <ItemCategory> listEquip = new ArrayList<>();
+    public static ArrayList <ItemCategory> listFeed = new ArrayList<>();
+    public static ArrayList <ItemCategory> listChemistry = new ArrayList<>();
+    public static ArrayList <ItemCategory> listAquariums = new ArrayList<>();
 
     public RequestQueue mQueue;
     public static ProgressBar progressBar;
@@ -196,11 +197,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void requestAll() {
-            listEquip = jsonRequest.makeEquipRequest (mQueue);
-            listFeed = jsonRequest.makeFeedRequest (mQueue);
-            listChemistry = jsonRequest.makeChemistryRequest (mQueue);
-            listAquariums = jsonRequest.makeAquariumsRequest (mQueue);
-            listFish = jsonRequest.makeFishRequest (mQueue);
+            jsonRequest.makeFishRequest (mQueue, listFish);
+
+            jsonRequest.makeAllEquipRequest (mQueue, listEquip, ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
+            jsonRequest.makeAllEquipRequest (mQueue, listFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
+            jsonRequest.makeAllEquipRequest (mQueue, listChemistry, ApiInfo.chemistry, ApiInfo.chemistryGeneralColKey);
+            jsonRequest.makeAllEquipRequest (mQueue, listAquariums, ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
+
         }
 
         private void updatePriceDate(String url) throws IOException {
