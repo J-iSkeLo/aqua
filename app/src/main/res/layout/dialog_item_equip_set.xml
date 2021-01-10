@@ -178,10 +178,10 @@
                     android:textSize="15sp"
                     android:textAlignment="center"
                     android:gravity="center|center_horizontal|center_vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/addShopBask_btn"
-                    app:layout_constraintEnd_toStartOf="@+id/addShopBask_btn"
+                    app:layout_constraintBottom_toBottomOf="@+id/addShopBaskEquip_btn"
+                    app:layout_constraintEnd_toStartOf="@+id/addShopBaskEquip_btn"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/addShopBask_btn" />
+                    app:layout_constraintTop_toTopOf="@+id/addShopBaskEquip_btn" />
 
                 <Button
                     android:id="@+id/addShopBaskEquip_btn"
@@ -198,7 +198,7 @@
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/cancel_dialog_btn"
+                    app:layout_constraintStart_toEndOf="@+id/cancel_dialogEquip_btn"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

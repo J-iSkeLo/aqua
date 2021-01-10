@@ -135,9 +135,14 @@ public class Order extends AppCompatActivity {
     }
 
     public boolean dataIsWrong(){
-        return clientData.get ("name").isEmpty ( ) ||
-                clientData.get ("number").isEmpty ( ) ||
-                clientData.get ("city").isEmpty ( );
+         if (   clientData.get("name").isEmpty()
+             || clientData.get("number").isEmpty()
+             || clientData.get("city").isEmpty())
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public String getError(){
@@ -202,7 +207,7 @@ public class Order extends AppCompatActivity {
                 String subject = "Приложение - " + clientData.get("name");
 
                 DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, StandardCharsets.UTF_8));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "utf-8"));
                 writer.write("message=" + tableInfo + "&pass=" + password + "&subject=" + subject);
                 writer.close();
                 wr.close();

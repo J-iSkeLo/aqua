@@ -35,7 +35,7 @@ public class ShopBaskFishAdapter extends BaseAdapter {
 
 
     public ShopBaskFishAdapter(Context context, ArrayList<HashMap> cartItems){
-        ShopBaskFishAdapter.cartItems = cartItems;
+        this.cartItems = cartItems;
         this.context = context;
     }
 
