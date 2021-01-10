@@ -34,32 +34,34 @@
                     android:layout_height="wrap_content"
                     android:text="Артикул"
                     android:textColor="#3A3A3A"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/txt_manufacturer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextCart"
                     android:layout_gravity="right"
-                    android:textSize="13sp"
-                    android:text="Производитель" />
+                    android:text="Производитель"
+                    android:textColor="@color/colorTextCart"
+                    android:textSize="12sp" />
             </TableRow>
 
         </TableLayout>
 
         <TextView
             android:id="@+id/name_equip"
-            android:layout_width="wrap_content"
+            android:layout_width="312dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="Название"
             android:textColor="@color/colorTextCart"
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:stretchColumns="*">
 
             <TableRow
@@ -68,21 +70,20 @@
 
                 <TextView
                     android:id="@+id/txt_description"
-                    android:layout_width="250dp"
+                    android:layout_width="223dp"
                     android:layout_height="wrap_content"
                     android:text="Описание"
                     android:textColor="@color/colorTextCart"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/price_equip"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:gravity="bottom|end"
                     android:text="Цена, грн"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/colorTextCart"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </TableRow>

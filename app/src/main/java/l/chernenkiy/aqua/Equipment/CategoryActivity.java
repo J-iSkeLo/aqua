@@ -128,6 +128,12 @@ public class CategoryActivity extends AppCompatActivity {
 
         toolbar(itemCategory);
 
+        if (itemCategory.getItems() == null)
+        {
+            Intent intent = new Intent (CategoryActivity.this , MainActivity.class);
+            startActivity (intent);
+        }
+
         adapter = new EquipmentListAdapter(getApplicationContext(), itemCategory.getItems());
         lvCategory = findViewById(R.id.list_equip2);
         lvCategory.setAdapter(adapter);
@@ -257,6 +263,9 @@ public class CategoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         try {
+            if(itemCategory.getName() == null){
+                toolbar.setTitle ("Оборудование");
+            }
             toolbar.setTitle(itemCategory.getName());
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override

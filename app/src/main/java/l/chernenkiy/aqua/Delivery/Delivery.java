@@ -16,8 +16,6 @@ import l.chernenkiy.aqua.Helpers.SectionPageAdapter;
 
 public class Delivery extends AppCompatActivity {
     Toolbar toolbar;
-    private SectionPageAdapter mSectionPageAdapter;
-    private ViewPager vp;
 
 
     @Override
@@ -28,8 +26,8 @@ public class Delivery extends AppCompatActivity {
         toolbar();
 
 
-        mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
-        vp = findViewById(R.id.container);
+        SectionPageAdapter mSectionPageAdapter = new SectionPageAdapter (getSupportFragmentManager ( ));
+        ViewPager vp = findViewById (R.id.container);
         setupViewPager(vp);
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);

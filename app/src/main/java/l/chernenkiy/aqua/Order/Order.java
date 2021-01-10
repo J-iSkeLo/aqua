@@ -24,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -44,8 +45,6 @@ public class Order extends AppCompatActivity {
     public static HashMap<String, String> clientData = new HashMap<>();
 
     private ProgressDialog progressDialog;
-    private Toolbar toolbar3;
-    private ConstraintLayout constraintLayout;
     private Boolean isInternetPresent = false;
     private ConnectionDetector cd;
 
@@ -55,7 +54,7 @@ public class Order extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order);
 
-        toolbar3 = findViewById(R.id.toolbar3);
+        Toolbar toolbar3 = findViewById (R.id.toolbar3);
         setSupportActionBar(toolbar3);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -68,7 +67,7 @@ public class Order extends AppCompatActivity {
             }
         });
 
-        constraintLayout = findViewById(R.id.constrLayout);
+        ConstraintLayout constraintLayout = findViewById (R.id.constrLayout);
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,15 +135,9 @@ public class Order extends AppCompatActivity {
     }
 
     public boolean dataIsWrong(){
-        if (
-            clientData.get("name").isEmpty() ||
-            clientData.get("number").isEmpty() ||
-            clientData.get("city").isEmpty())
-        {
-            return true;
-        }
-
-        return false;
+        return clientData.get ("name").isEmpty ( ) ||
+                clientData.get ("number").isEmpty ( ) ||
+                clientData.get ("city").isEmpty ( );
     }
 
     public String getError(){
@@ -209,7 +202,7 @@ public class Order extends AppCompatActivity {
                 String subject = "Приложение - " + clientData.get("name");
 
                 DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "utf-8"));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, StandardCharsets.UTF_8));
                 writer.write("message=" + tableInfo + "&pass=" + password + "&subject=" + subject);
                 writer.close();
                 wr.close();

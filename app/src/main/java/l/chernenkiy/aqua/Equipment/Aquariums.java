@@ -44,6 +44,7 @@ public class Aquariums extends AppCompatActivity {
     SearchView searchView;
     ImageButton cartImageBtn;
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
