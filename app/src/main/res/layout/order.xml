@@ -8,7 +8,7 @@
     android:elevation="10dp"
     android:background="#EBEBEB"
     android:orientation="vertical"
-    tools:context=".ShoppingBasket.ShopBaskTest">
+    tools:context=".ShoppingBasket.ShoppingBasket">
 
     <Button
         android:id="@+id/finish_btn"

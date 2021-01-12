@@ -24,28 +24,30 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
-import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.listEquip;
+import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
 
 public class EquipmentAccessActivity extends AppCompatActivity {
 
     public static ListView lvEquipment;
+
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
-    EquipmentListAdapter searchAdapter;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,7 +81,7 @@ public class EquipmentAccessActivity extends AppCompatActivity {
         cartImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
-                Intent intent = new Intent(EquipmentAccessActivity.this, ShopBaskTest.class);
+                Intent intent = new Intent(EquipmentAccessActivity.this, ShoppingBasket.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 intent.putExtra ("class", EquipmentAccessActivity.class);
@@ -158,7 +160,8 @@ public class EquipmentAccessActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
-                intent.putExtra("position", resultEquip.get(i));
+                nextSubcategory = resultEquip.get(i);
+                lastClass = EquipmentAccessActivity.class;
                 intent.putExtra ("class", EquipmentAccessActivity.class);
                 startActivity(intent);
             }

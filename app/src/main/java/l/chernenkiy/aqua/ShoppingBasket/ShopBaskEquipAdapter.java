@@ -13,28 +13,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-
 import com.bumptech.glide.Glide;
-import com.ortiz.touchview.TouchImageView;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.R;
 
-import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 
 public class ShopBaskEquipAdapter extends BaseAdapter {
-
-    Boolean isInternetPresent = false;
-    ConnectionDetector cd;
 
     private ArrayList<HashMap> cartEquipmentItem;
     private Context context;
@@ -66,8 +57,8 @@ public class ShopBaskEquipAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        cd = new ConnectionDetector(context);
-        isInternetPresent = cd.ConnectingToInternet();
+        ConnectionDetector cd = new ConnectionDetector (context);
+        boolean isInternetPresent = cd.ConnectingToInternet ( );
 
         convertView = mInflater.inflate(R.layout.cart_equip_basket, null);
 

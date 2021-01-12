@@ -3,7 +3,6 @@ package l.chernenkiy.aqua.Order;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import com.google.gson.Gson;
+
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -24,7 +23,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,7 +33,7 @@ import l.chernenkiy.aqua.Order.Tables.ClientTable;
 import l.chernenkiy.aqua.Order.Tables.EquipmentTable;
 import l.chernenkiy.aqua.Order.Tables.FishTable;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
@@ -61,7 +59,7 @@ public class Order extends AppCompatActivity {
         toolbar3.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Order.this, ShopBaskTest.class);
+                Intent intent = new Intent(Order.this, ShoppingBasket.class);
                 startActivity (intent);
 
             }
@@ -190,7 +188,6 @@ public class Order extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog.show();
-            saveData();
         }
 
         @Override
@@ -246,19 +243,4 @@ public class Order extends AppCompatActivity {
                 showToast("Возникла ошибка\nпри оформлении заказа\nПопробуйте позже!");
         }
     }
-
-    public void saveData(){
-        SharedPreferences sharedPref = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        Gson gson = new Gson();
-        String fish = gson.toJson(cartItems);
-        String equipment = gson.toJson (cartEquipmentItem);
-        editor.putString("fish", fish);
-        editor.putString ("equipment", equipment);
-        editor.apply();
-    }
-
-
-
-
 }

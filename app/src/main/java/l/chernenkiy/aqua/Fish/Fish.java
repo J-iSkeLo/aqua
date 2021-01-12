@@ -29,22 +29,19 @@ import androidx.core.view.MenuItemCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.CenterInside;
-import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
@@ -106,7 +103,7 @@ public class Fish extends AppCompatActivity {
             @Override
             public void onClick(View actionView) {
                 try{
-                    Intent intent = new Intent(Fish.this, ShopBaskTest.class);
+                    Intent intent = new Intent(Fish.this, ShoppingBasket.class);
                     intent.putExtra("cartItems", cartItems);
                     intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                     intent.putExtra ("class", Fish.class);
@@ -197,8 +194,6 @@ public class Fish extends AppCompatActivity {
                 TextView sizeDialog = dialog.findViewById(R.id.size_dialog);
                 TextView priceDialog = dialog.findViewById(R.id.price_dialog);
                 final EditText quantity = dialog.findViewById(R.id.quantity_dialog);
-
-
 
                 nameDialog.setText(product.getName());
                 sizeDialog.setText(product.getSize() + " см.");

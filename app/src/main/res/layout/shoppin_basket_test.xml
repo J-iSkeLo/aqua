@@ -7,7 +7,7 @@
     android:animateLayoutChanges="true"
     android:background="#EBEBEB"
     android:orientation="vertical"
-    tools:context=".ShoppingBasket.ShopBaskTest">
+    tools:context=".ShoppingBasket.ShoppingBasket">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarShopBask"

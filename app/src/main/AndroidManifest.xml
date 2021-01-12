@@ -64,10 +64,7 @@
         <activity android:name=".Delivery.Delivery"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MyListCart"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ShoppingBasket.ShopBaskTest"
+        <activity android:name=".ShoppingBasket.ShoppingBasket"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
         <activity android:name=".AboutUs"

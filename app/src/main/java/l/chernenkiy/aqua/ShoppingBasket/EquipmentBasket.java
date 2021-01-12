@@ -24,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,7 +34,7 @@ import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
-import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest.btnOrder;
+import static l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket.btnOrder;
 
 public class EquipmentBasket extends Fragment {
     private static final String TAG = "Оборудование";

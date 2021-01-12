@@ -34,18 +34,18 @@ import com.ortiz.touchview.TouchImageView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.listAquariums;
 import static l.chernenkiy.aqua.MainActivity.listChemistry;
 import static l.chernenkiy.aqua.MainActivity.listEquip;
@@ -126,7 +126,7 @@ public class SearchActivity extends AppCompatActivity {
         cartImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
-                Intent intent = new Intent(SearchActivity.this, ShopBaskTest.class);
+                Intent intent = new Intent(SearchActivity.this, ShoppingBasket.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 intent.putExtra ("class", SearchActivity.class);
@@ -250,7 +250,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
         hideKeyboard();
 
     }
@@ -311,8 +310,10 @@ public class SearchActivity extends AppCompatActivity {
 
             for (int j = 0; j<items.size(); j++){
 
-                String name = items.get (j).getName ().toLowerCase(Locale.getDefault());
-                String generalColKey = items.get (j).getGeneralColKey ().toLowerCase (Locale.getDefault ());
+                String name = items.get (j).getName ()
+                        .toLowerCase(Locale.getDefault());
+                String generalColKey = items.get (j).getGeneralColKey ()
+                        .toLowerCase (Locale.getDefault ());
 
                 boolean queryContainsName = name != null && name.contains (query);
                 boolean queryContainsProducer = generalColKey != null && generalColKey.contains (query);
@@ -328,7 +329,7 @@ public class SearchActivity extends AppCompatActivity {
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
         if (onBackClass == null){
-            Intent intent = new Intent(getApplicationContext (), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext (), lastClass);
             CartHelper.calculateItemsCart ();
             startActivity (intent);
 
@@ -338,8 +339,6 @@ public class SearchActivity extends AppCompatActivity {
             intent.putExtra("cartEquipmentItem", cartEquipmentItem);
             CartHelper.calculateItemsCart ();
             startActivity (intent);
-            getIntent ().removeExtra ("class");
-            finish ();
         }
 
 

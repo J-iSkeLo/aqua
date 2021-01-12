@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EBEBEB"
-        tools:context=".ShoppingBasket.ShopBaskTest">
+        tools:context=".ShoppingBasket.ShoppingBasket">
 
     <ListView
         android:id="@+id/shopping_basket_list"

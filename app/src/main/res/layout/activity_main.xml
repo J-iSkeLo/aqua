@@ -35,25 +35,6 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btn_last_shop"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_black_press_white"
-            android:drawableLeft="@drawable/shop_bask_icon_btn"
-            android:drawablePadding="40dp"
-            android:elevation="5dp"
-            android:visibility="invisible"
-            android:textAlignment="textStart"
-            android:paddingStart="30dp"
-            android:text="Мой последний заказ"
-            android:textColor="@color/colorTextCart"
-            android:textSize="15sp"
-            tools:ignore="MissingConstraints,UnknownId" />
-
-        <Button
             android:id="@+id/btn_about_us"
             android:layout_width="match_parent"
             android:layout_height="50dp"

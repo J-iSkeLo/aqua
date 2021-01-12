@@ -2,7 +2,6 @@ package l.chernenkiy.aqua.Helpers;
 
 
 import android.view.View;
-import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -39,7 +38,12 @@ public class CartHelper {
             result += itemSumEquip(arrayList.get(i));
         }
 
-        return result;
+        BigDecimal bigDecimal = new BigDecimal(result);
+        bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
+
+        double finalResult = bigDecimal.doubleValue ();
+
+        return finalResult;
     }
 
     public static double itemSumEquip(HashMap<String, String> cartEquipmentItem){

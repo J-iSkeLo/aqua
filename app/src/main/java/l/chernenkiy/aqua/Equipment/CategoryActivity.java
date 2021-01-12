@@ -1,6 +1,5 @@
 package l.chernenkiy.aqua.Equipment;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -29,11 +28,12 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 import java.util.HashMap;
-import java.util.Map;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastClass;
+import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
 import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
@@ -42,9 +42,8 @@ import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
-import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 public class CategoryActivity extends AppCompatActivity {
     Boolean isInternetPresent = false;
@@ -84,7 +83,7 @@ public class CategoryActivity extends AppCompatActivity {
         cartImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
-                Intent intent = new Intent(CategoryActivity.this, ShopBaskTest.class);
+                Intent intent = new Intent(CategoryActivity.this, ShoppingBasket.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 intent.putExtra ("class", CategoryActivity.class);
@@ -107,12 +106,10 @@ public class CategoryActivity extends AppCompatActivity {
                 adapter.myFilter(newText);
                 return false;
             }
-
         });
 
         return super.onCreateOptionsMenu(menu);
     }
-
 
 
     @Override
@@ -124,21 +121,18 @@ public class CategoryActivity extends AppCompatActivity {
         cd = new ConnectionDetector(getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
 
-        ItemCategory itemCategory = (ItemCategory) getIntent().getSerializableExtra("position");
+        toolbar(nextSubcategory);
 
-        toolbar(itemCategory);
-
-        if (itemCategory.getItems() == null)
-        {
-            Intent intent = new Intent (CategoryActivity.this , MainActivity.class);
-            startActivity (intent);
+        if (nextSubcategory != null) {
+            adapter = new EquipmentListAdapter(getApplicationContext(), nextSubcategory.getItems ());
+        }else{
+            showToastInternetPresent ("Возникла ошибка!\n Мы постараемся её решить\n В ближайшее время!");
+            finish ();
         }
-
-        adapter = new EquipmentListAdapter(getApplicationContext(), itemCategory.getItems());
         lvCategory = findViewById(R.id.list_equip2);
         lvCategory.setAdapter(adapter);
 
-        lvOnItemClickListener(itemCategory);
+        lvOnItemClickListener(nextSubcategory);
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
         NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
@@ -290,15 +284,15 @@ public class CategoryActivity extends AppCompatActivity {
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
         if (onBackClass == null){
-            finish ();
+            Intent intent = new Intent(CategoryActivity.this, lastClass);
+            startActivity (intent);
         } else {
             Intent intent = new Intent(CategoryActivity.this, onBackClass);
             intent.putExtra("cartItems", cartItems);
             intent.putExtra("cartEquipmentItem", cartEquipmentItem);
             CartHelper.calculateItemsCart ();
-            startActivity (intent);
             getIntent ().removeExtra ("class");
-            finish ();
+            startActivity (intent);
         }
     }
 }

@@ -32,7 +32,7 @@ public final class EquipmentTable {
                     "</tr>";
         }
         return result + "</table>" +
-                "<h3 style=\"margin-top:10px;text-align:right;\">Сумма заказа: "
+                "<h3 style=\"margin-top:10px;text-align:right;\">Сумма заказа на оборудование: "
                 +CartHelper.countFinalSumEquip (cartEquipmentItem)+" грн.</h3>";
     }
 }

@@ -35,7 +35,7 @@ import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
-import static l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest.btnOrder;
+import static l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket.btnOrder;
 
 public class FishBasket extends Fragment {
     private static final String TAG = "Рыба";

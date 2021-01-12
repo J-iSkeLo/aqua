@@ -36,7 +36,7 @@ import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.tvFishBackToCatalog;
 import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.tvFishNotItemsCart;
 
 
-public class ShopBaskTest extends AppCompatActivity {
+public class ShoppingBasket extends AppCompatActivity {
     Toolbar toolbar;
     public static SectionPageAdapter mSectionPageAdapter;
     public static ViewPager vp;
@@ -55,7 +55,7 @@ public class ShopBaskTest extends AppCompatActivity {
                 return false;
             }
 
-            final Dialog dialogClearCart = new Dialog(ShopBaskTest.this, R.style.FullHeightDialog);
+            final Dialog dialogClearCart = new Dialog(ShoppingBasket.this, R.style.FullHeightDialog);
             dialogClearCart.setContentView(R.layout.dialog_clear_cart);
             dialogClearCart.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
@@ -154,7 +154,7 @@ public class ShopBaskTest extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ShopBaskTest.this, Order.class);
+                Intent intent = new Intent(ShoppingBasket.this, Order.class);
                 startActivity(intent);
             }
         });
@@ -192,7 +192,7 @@ public class ShopBaskTest extends AppCompatActivity {
         if (onBackClass == null){
             finish ();
         } else {
-            Intent intent = new Intent(ShopBaskTest.this, onBackClass);
+            Intent intent = new Intent(ShoppingBasket.this, onBackClass);
             intent.putExtra("position", getIntent ().getSerializableExtra ("position"));
             startActivity (intent);
             getIntent ().removeExtra ("class");

@@ -3,7 +3,6 @@ package l.chernenkiy.aqua.ShoppingBasket;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.renderscript.Sampler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
@@ -29,9 +27,6 @@ public class ShopBaskFishAdapter extends BaseAdapter {
 
     public static ArrayList<HashMap> cartItems;
     private Context context;
-
-    Boolean isInternetPresent = false;
-    ConnectionDetector cd;
 
 
     public ShopBaskFishAdapter(Context context, ArrayList<HashMap> cartItems){
@@ -60,8 +55,8 @@ public class ShopBaskFishAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        cd = new ConnectionDetector (context);
-        isInternetPresent = cd.ConnectingToInternet();
+        ConnectionDetector cd = new ConnectionDetector (context);
+        Boolean isInternetPresent = cd.ConnectingToInternet ( );
 
         convertView = mInflater.inflate(R.layout.cart, null);
 

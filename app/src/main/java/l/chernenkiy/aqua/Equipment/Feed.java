@@ -28,12 +28,14 @@ import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.listFeed;
+import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
 public class Feed extends AppCompatActivity {
 
@@ -71,7 +73,7 @@ public class Feed extends AppCompatActivity {
         cartImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
-                Intent intent = new Intent(Feed.this, ShopBaskTest.class);
+                Intent intent = new Intent(Feed.this, ShoppingBasket.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 intent.putExtra ("class", Feed.class);
@@ -100,7 +102,6 @@ public class Feed extends AppCompatActivity {
                 finish();
             }
         });
-
 
         lvFeed = findViewById(R.id.lv_feed);
         CategoryAdapter adapter = new CategoryAdapter (getApplicationContext (),listFeed);
@@ -142,16 +143,15 @@ public class Feed extends AppCompatActivity {
 
 
 
-    private void openNewActivity (final ArrayList<ItemCategory> resultEuip){
+    private void openNewActivity (final ArrayList<ItemCategory> resultEquip){
         lvFeed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
-                intent.putExtra("position", resultEuip.get(i));
+                nextSubcategory = resultEquip.get(i);
+                lastClass = Feed.class;
                 intent.putExtra ("class", Feed.class);
                 startActivity(intent);
-
-
             }
         });
     }

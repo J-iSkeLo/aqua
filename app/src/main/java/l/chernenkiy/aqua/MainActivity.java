@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.github.ybq.android.spinkit.sprite.Sprite;
-import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -40,7 +39,7 @@ import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
-import l.chernenkiy.aqua.ShoppingBasket.ShopBaskTest;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
@@ -59,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList <ItemCategory> listAquariums = new ArrayList<>();
 
     public static HashMap<String, String> dateHashMap = new HashMap<>();
+    public static ItemCategory nextSubcategory;
+    public static Class lastClass;
 
     public RequestQueue mQueue;
     public String date = "";
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    Intent intent = new Intent(MainActivity.this, ShopBaskTest.class);
+                    Intent intent = new Intent(MainActivity.this, ShoppingBasket.class);
                     intent.putExtra("cartItems", cartItems);
                     intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                     intent.putExtra ("class", MainActivity.class);
@@ -118,19 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, Contacts.class);
                     startActivity(intent);
                     finish();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        Button btnLastShop = findViewById(R.id.btn_last_shop);
-        btnLastShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, MyListCart.class);
-                    startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
