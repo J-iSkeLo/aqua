@@ -16,7 +16,7 @@ public class Wholesale extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wholesale, container, false);
+        View view = inflater.inflate(R.layout.delivery_wholesale, container, false);
 
         return view;
     }

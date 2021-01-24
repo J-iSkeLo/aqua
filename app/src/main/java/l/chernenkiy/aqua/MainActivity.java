@@ -2,6 +2,7 @@ package l.chernenkiy.aqua;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,8 +27,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +45,9 @@ import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressLint("StaticFieldLeak")
     public static TextView cartAddItemText;
+    @SuppressLint("StaticFieldLeak")
     public static TextView cartAddItemTextMain;
     public static ArrayList<HashMap> cartItems = new ArrayList<>();
     public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
@@ -64,11 +65,13 @@ public class MainActivity extends AppCompatActivity {
     public RequestQueue mQueue;
     public String date = "";
     public TextView updateDate;
+    public static int sizeListFish;
 
 
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,16 +144,16 @@ public class MainActivity extends AppCompatActivity {
         cd = new ConnectionDetector (getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
 
-        if (! isInternetPresent)showToastInternetPresent ("Нет подключения к интерену");
+        if (! isInternetPresent)showToastInternetPresent ();
         if (isInternetPresent
-                && listFish.isEmpty ()
-                && listEquip.isEmpty ()         && listFeed.isEmpty ()
-                && listChemistry.isEmpty ()     && listAquariums.isEmpty ()) {
+                && listFish.size() != sizeListFish
+                || listEquip.isEmpty ()         || listFeed.isEmpty ()
+                || listChemistry.isEmpty ()     || listAquariums.isEmpty ()) {
 
             final Dialog dialog = new Dialog(MainActivity.this, R.style.FullHeightDialog);
             dialog.setContentView(R.layout.dialog_load_main_activity);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
-
+            listFish.clear(); listAquariums.clear(); listChemistry.clear(); listEquip.clear(); listFeed.clear();
             new AsyncRequestHttp (dialog).execute();
         }
 
@@ -162,10 +165,11 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition (0, 0);
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class AsyncRequestHttp extends AsyncTask <Void, Integer, Void> {
 
         private int statusCode;
-        private Dialog dialog;
+        private final Dialog dialog;
         JsonRequest jsonRequest = new JsonRequest ();
 
         public AsyncRequestHttp(Dialog dialog) {
@@ -194,16 +198,8 @@ public class MainActivity extends AppCompatActivity {
             String url = "https://aqua-m.kh.ua/api/info";
             try {
                 updatePriceDate (url);
-
                 requestAll ( );
-            }
-            catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            catch (ProtocolException e) {
-                e.printStackTrace();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -212,11 +208,13 @@ public class MainActivity extends AppCompatActivity {
 
         private void requestAll() {
             jsonRequest.makeFishRequest (mQueue, listFish);
+            sizeListFish = listFish.size();
 
             jsonRequest.makeAllEquipRequest (mQueue, listEquip, ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
             jsonRequest.makeAllEquipRequest (mQueue, listFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
             jsonRequest.makeAllEquipRequest (mQueue, listChemistry, ApiInfo.chemistry, ApiInfo.chemistryGeneralColKey);
             jsonRequest.makeAllEquipRequest (mQueue, listAquariums, ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
+
 
         }
 
@@ -227,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             connection.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(new InputStreamReader (connection.getInputStream()));
             String inputLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -241,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
             statusCode = connection.getResponseCode();
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
@@ -261,9 +260,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showToastInternetPresent(String msg) {
+    private void showToastInternetPresent() {
         Toast toast = Toast.makeText
-                (getApplicationContext(),msg,Toast.LENGTH_LONG);
+                (getApplicationContext(), "Нет подключения к интерену",Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
     }

@@ -8,12 +8,12 @@
         android:id="@+id/fish"
         android:name="l.chernenkiy.aqua.Fish.Fish"
         android:label="fish"
-        tools:layout="@layout/fish" />
+        tools:layout="@layout/activity_fish" />
     <activity
         android:id="@+id/equipment_accessories_Activity"
         android:name="l.chernenkiy.aqua.Equipment.EquipmentAccessActivity"
         android:label="equipment_accessories"
-        tools:layout="@layout/equipment_accessories" />
+        tools:layout="@layout/activity_accessories" />
     <activity
         android:id="@+id/feed"
         android:name="l.chernenkiy.aqua.Equipment.Feed"

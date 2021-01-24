@@ -1,6 +1,5 @@
 package l.chernenkiy.aqua.Equipment;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -11,7 +10,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -94,20 +92,6 @@ public class CategoryActivity extends AppCompatActivity {
 
         searchView.setQueryHint("Поиск позиции...");
         searchView.setIconifiedByDefault(true);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.myFilter(newText);
-                return false;
-            }
-        });
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -115,7 +99,7 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.equipment_category);
+        setContentView(R.layout.activity_category_equip);
 
 
         cd = new ConnectionDetector(getApplicationContext());
@@ -145,7 +129,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final Dialog dialog = new Dialog(CategoryActivity.this, R.style.FullHeightDialog);
-                dialog.setContentView(R.layout.dialog_item_equip_set);
+                dialog.setContentView(R.layout.dialog_equip_set);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
                 final ItemEquipment item = itemCategory.getItems().get(i);

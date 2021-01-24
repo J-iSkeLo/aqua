@@ -50,7 +50,7 @@ public class EquipmentBasket extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.equip_basket_test, container, false);
+        View view = inflater.inflate(R.layout.basket_equip, container, false);
 
 
         cartEquipItemShop  = (ArrayList<HashMap>) getExtras().get("cartEquipmentItem");

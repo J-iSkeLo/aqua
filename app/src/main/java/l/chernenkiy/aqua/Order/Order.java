@@ -50,7 +50,7 @@ public class Order extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.order);
+        setContentView(R.layout.activity_order);
 
         Toolbar toolbar3 = findViewById (R.id.toolbar3);
         setSupportActionBar(toolbar3);

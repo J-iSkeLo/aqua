@@ -60,7 +60,7 @@ public class ShopBaskEquipAdapter extends BaseAdapter {
         ConnectionDetector cd = new ConnectionDetector (context);
         boolean isInternetPresent = cd.ConnectingToInternet ( );
 
-        convertView = mInflater.inflate(R.layout.cart_equip_basket, null);
+        convertView = mInflater.inflate(R.layout.basket_cart_equip, null);
 
         HashMap cartGetPosition = cartEquipmentItem.get(i);
 

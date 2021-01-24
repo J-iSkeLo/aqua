@@ -49,7 +49,7 @@ public class FishBasket extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fish_basket_test, container, false);
+        View view = inflater.inflate(R.layout.basket_fish, container, false);
 
         lvShopBasket = view.findViewById(R.id.shopping_basket_list);
         final ArrayList<HashMap> cartItemsShop = (ArrayList<HashMap>) getActivity().getIntent().getExtras().get("cartItems");

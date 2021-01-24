@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/cart_menu_item"
-        app:actionLayout="@layout/cart_layout"
+        app:actionLayout="@layout/icon_shopping_basket"
         android:foregroundGravity="center_vertical|center|center_horizontal"
         android:gravity="center|center_horizontal|center_vertical"
         android:orderInCategory="101"

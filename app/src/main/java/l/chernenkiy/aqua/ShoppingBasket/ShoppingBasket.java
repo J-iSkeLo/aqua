@@ -129,7 +129,7 @@ public class ShoppingBasket extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.shoppin_basket_test);
+        setContentView(R.layout.basket_shopping);
 
         toolbar();
 

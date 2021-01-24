@@ -18,10 +18,10 @@ import l.chernenkiy.aqua.R;
 public class EquipmentListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<ItemEquipment> mItemEquipmentList;
+    private ArrayList<ItemEquipment> mItemEquipmentList;
     private ArrayList<ItemEquipment> filteredData;
 
-    public EquipmentListAdapter(Context mContext, List<ItemEquipment> mItemEquipmentList) {
+    public EquipmentListAdapter(Context mContext, ArrayList<ItemEquipment> mItemEquipmentList) {
         this.mContext = mContext;
         this.mItemEquipmentList = mItemEquipmentList;
         this.filteredData = new ArrayList<>();

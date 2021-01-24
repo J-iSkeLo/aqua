@@ -13,17 +13,20 @@ import java.util.Locale;
 
 import l.chernenkiy.aqua.R;
 
+import static l.chernenkiy.aqua.MainActivity.listFish;
+
 public class ProductListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Product> mProductList;
-    private ArrayList<Product> filteredData;
+    private ArrayList<Product> mProductList;
 
-    public ProductListAdapter(Context mContext, List<Product> mProductList) {
+    private final ArrayList<Product> filteredData = new ArrayList<>();
+
+    public ProductListAdapter(Context mContext, ArrayList<Product> mProductList) {
         this.mContext = mContext;
         this.mProductList = mProductList;
-        this.filteredData = new ArrayList<>();
-        this.filteredData.addAll(mProductList);
+        this.filteredData.clear();
+        this.filteredData.addAll(listFish);
     }
 
     @Override
@@ -56,11 +59,11 @@ public class ProductListAdapter extends BaseAdapter {
             TextView tvPrice = convertView.findViewById(R.id.price_pn);
 
             tvNumber.setText("№" + mProductList.get(i).getNumber());
-            tvName.setText(mProductList.get(i).getName());
+            tvName.setText(listFish.get(i).getName());
             tvSize.setText(mProductList.get(i).getSize() + " см.");
             tvPrice.setText(mProductList.get(i).getPrice() + " грн.");
         } else {
-            convertView = mInflater.inflate(R.layout.title_list, null);
+            convertView = mInflater.inflate(R.layout.cart_fish_title_category, null);
 
             TextView tvTitle = convertView.findViewById(R.id.title_pn);
             tvTitle.setText(mProductList.get(i).getTitle());
@@ -82,8 +85,7 @@ public class ProductListAdapter extends BaseAdapter {
             mProductList.addAll(filteredData);
         } else {
             for (Product product : filteredData) {
-                if (product.getName().toLowerCase(Locale.getDefault())
-                        .contains(charText)) {
+                if (product.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
                     mProductList.add(product);
                 }
             }

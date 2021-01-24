@@ -38,7 +38,6 @@ import java.util.Locale;
 import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
-import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
@@ -165,7 +164,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final Dialog dialog = new Dialog(SearchActivity.this, R.style.FullHeightDialog);
-                dialog.setContentView(R.layout.dialog_item_equip_set);
+                dialog.setContentView(R.layout.dialog_equip_set);
 
                 final ItemEquipment item = listResultSearch.get (i);
 

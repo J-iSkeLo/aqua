@@ -98,7 +98,7 @@ public class EquipmentAccessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.equipment_accessories);
+        setContentView(R.layout.activity_accessories);
 
 
         Toolbar toolbar = findViewById(R.id.toolbarEquipAccess);

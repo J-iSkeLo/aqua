@@ -47,11 +47,13 @@ import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.listFish;
+import static l.chernenkiy.aqua.MainActivity.sizeListFish;
 
 
 public class Fish extends AppCompatActivity {
 
     private ProductListAdapter adapter;
+    @SuppressLint("StaticFieldLeak")
     public static ListView lvProduct;
 
     Toolbar toolbar;
@@ -84,11 +86,9 @@ public class Fish extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.myFilter(newText);
-                return false;
+                return true;
             }
-
         });
-
 
         if (actionView != null) {
             cartAddItemText = actionView.findViewById(R.id.text_item_cart);
@@ -120,7 +120,11 @@ public class Fish extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fish);
+        setContentView(R.layout.activity_fish);
+
+        if(sizeListFish == 0){
+            sizeListFish = listFish.size();
+        }
 
         cd = new ConnectionDetector (getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
@@ -179,6 +183,7 @@ public class Fish extends AppCompatActivity {
 
     private void showDialogOnItemClick(final ArrayList result) {
         lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final Product product = (Product) result.get(i);
@@ -187,7 +192,7 @@ public class Fish extends AppCompatActivity {
                     return;
 
                 final Dialog dialog = new Dialog(Fish.this, R.style.FullHeightDialog);
-                dialog.setContentView(R.layout.dialog_item_set);
+                dialog.setContentView(R.layout.dialog_fish_set);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
                 TextView nameDialog = dialog.findViewById(R.id.name_dialog);
@@ -235,7 +240,7 @@ public class Fish extends AppCompatActivity {
                             return;
                         }
 
-                        HashMap<String, String> singleItem = new HashMap();
+                        HashMap<String, String> singleItem = new HashMap<>();
                         singleItem.put("name", product.getName());
                         singleItem.put("quantity", quantityFish);
                         singleItem.put("size", product.getSize());
