@@ -53,12 +53,10 @@ public class ProductListAdapter extends BaseAdapter {
         if (hasNotTitle(mProductList, i)) {
             convertView = mInflater.inflate(R.layout.cart_fish_price_list, null);
 
-            TextView tvNumber = convertView.findViewById(R.id.number_pn);
             TextView tvName = convertView.findViewById(R.id.name_pn);
             TextView tvSize = convertView.findViewById(R.id.size_pn);
             TextView tvPrice = convertView.findViewById(R.id.price_pn);
 
-            tvNumber.setText("№" + mProductList.get(i).getNumber());
             tvName.setText(listFish.get(i).getName());
             tvSize.setText(mProductList.get(i).getSize() + " см.");
             tvPrice.setText(mProductList.get(i).getPrice() + " грн.");
@@ -69,7 +67,6 @@ public class ProductListAdapter extends BaseAdapter {
             tvTitle.setText(mProductList.get(i).getTitle());
         }
 
-        convertView.setTag(mProductList.get(i).getNumber());
 
         return convertView;
     }

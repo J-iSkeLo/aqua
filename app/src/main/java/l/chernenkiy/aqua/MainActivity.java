@@ -33,6 +33,7 @@ import java.util.HashMap;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
@@ -100,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btnCatalog = findViewById(R.id.btn_catalog);
+        btnCatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent(MainActivity.this, Fish.class);
+                    startActivity(intent);finish();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         Button btnAboutUs = findViewById(R.id.btn_about_us);
         btnAboutUs.setOnClickListener(new View.OnClickListener() {
@@ -159,10 +172,6 @@ public class MainActivity extends AppCompatActivity {
 
         String previouslyLoadedDate = dateHashMap.get ("date");
         if (!listFish.isEmpty ()) updateDate.setText ("Прайс обновлён:\n" + previouslyLoadedDate);
-
-        BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
-        NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
-        overridePendingTransition (0, 0);
     }
 
     @SuppressLint("StaticFieldLeak")

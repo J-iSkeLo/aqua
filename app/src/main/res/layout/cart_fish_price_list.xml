@@ -20,14 +20,6 @@
 
 
         <TextView
-            android:id="@+id/number_pn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="№"
-            android:textColor="@color/colorTextCart"
-            android:textSize="12sp" />
-
-        <TextView
             android:id="@+id/name_pn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

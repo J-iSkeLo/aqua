@@ -65,7 +65,6 @@ public class ShopBaskFishAdapter extends BaseAdapter {
         TextView tvName = convertView.findViewById(R.id.name_cart);
         TextView tvSize = convertView.findViewById(R.id.size_cart);
         TextView tvPrice = convertView.findViewById(R.id.price_cart);
-        TextView tvNumber = convertView.findViewById(R.id.number_cart);
         TextView quantity = convertView.findViewById(R.id.quantity);
         TextView priceOneItem = convertView.findViewById (R.id.priceFish_one_item);
         ImageView image = convertView.findViewById (R.id.imageFish_shop_bask);
@@ -74,9 +73,7 @@ public class ShopBaskFishAdapter extends BaseAdapter {
         tvName.setText((String) getPosition.get("name"));
         tvSize.setText(getPosition.get("size") + " см.");
         tvPrice.setText(CartHelper.itemSum(getPosition) + " грн.");
-        String numberPosition = String.valueOf ((i + 1));
 
-        tvNumber.setText("№ " + numberPosition);
         priceOneItem.setText (getPosition.get ("price") + " грн." + " x  ");
 
         String urlImage = (String) getPosition.get ("image");

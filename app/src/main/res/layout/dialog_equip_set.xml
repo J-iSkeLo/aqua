@@ -148,7 +148,7 @@
             android:textColorHighlight="#00808080"
             android:textColorHint="#998B8B8B"
             android:textColorLink="#00000000"
-            android:textCursorDrawable="@color/colorPassivNavBar"
+            android:textCursorDrawable="@color/colorPassiveNavBar"
             android:textIsSelectable="false"
             android:textSize="15sp"
             tools:text="" />

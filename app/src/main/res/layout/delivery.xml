@@ -19,11 +19,11 @@
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        app:tabTextColor="#858585"
+        app:tabBackground="@drawable/tab_color_selector"
+        app:tabTextColor="@color/colorTextCart"
         app:tabIndicatorColor="#1D1D1D"
         app:tabIndicatorHeight="3dp"
-        app:tabSelectedTextColor="#000000"
+        app:tabSelectedTextColor="#FFFFFF"
         android:id="@+id/tabLayout"/>
 
     <androidx.viewpager.widget.ViewPager

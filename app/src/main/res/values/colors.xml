@@ -9,5 +9,7 @@
     <color name="colorTextCart">#181818</color>
     <color name="statBarColor">#CCCCCC</color>
     <color name="colorActiveNavBar">#000000</color>
-    <color name="colorPassivNavBar">#696969</color>
+    <color name="colorPassiveNavBar">#838383</color>
+    <color name="tab_background_selected">#2B2B2B</color>
+    <color name="tab_background_unselected">#E4E4E4</color>
 </resources>

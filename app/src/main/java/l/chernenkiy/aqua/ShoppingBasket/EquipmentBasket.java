@@ -102,7 +102,7 @@ public class EquipmentBasket extends Fragment {
                     @Override
                     public void onClick(View view) {
                         cartEquipmentItem.remove(i);
-                        btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
+                        btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder()+ " грн.");
                         shopBaskEquipAdapter = new ShopBaskEquipAdapter (getContext(), cartEquipmentItem);
                         lvShopEquipBasket.setAdapter(shopBaskEquipAdapter);
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());

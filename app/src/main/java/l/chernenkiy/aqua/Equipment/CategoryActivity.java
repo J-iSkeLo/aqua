@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -25,6 +26,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
@@ -51,6 +56,7 @@ public class CategoryActivity extends AppCompatActivity {
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
+    Button sortBtn;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -114,6 +120,20 @@ public class CategoryActivity extends AppCompatActivity {
             finish ();
         }
         lvCategory = findViewById(R.id.list_equip2);
+        sortBtn = findViewById(R.id.button_sort);
+        sortBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Collections.sort(nextSubcategory.getItems (), new Comparator<ItemEquipment>() {
+                    @Override
+                    public int compare(ItemEquipment itemEquipment, ItemEquipment t1) {
+                        return itemEquipment.getName().compareToIgnoreCase(t1.getName());
+                    }
+                });
+                lvCategory.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
         lvCategory.setAdapter(adapter);
 
         lvOnItemClickListener(nextSubcategory);

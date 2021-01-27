@@ -182,7 +182,7 @@ public class FishBasket extends Fragment {
 
                 editListQuantity.get(i).put("quantity", quantityFish);
 
-                btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
+                btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder()+ " грн.");
 
                 shopBaskFishAdapter = new ShopBaskFishAdapter(getContext(), editListQuantity);
                 lvShopBasket.setAdapter(shopBaskFishAdapter);

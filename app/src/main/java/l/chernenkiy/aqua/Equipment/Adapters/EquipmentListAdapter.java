@@ -9,8 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+
 
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.R;
@@ -93,22 +92,5 @@ public class EquipmentListAdapter extends BaseAdapter {
        return convertView;
 
     }
-
-
-    public void myFilter (String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        mItemEquipmentList.clear();
-        if (charText.length() == 0) {
-            mItemEquipmentList.addAll(filteredData);
-        } else {
-            for (ItemEquipment itemEquipment : filteredData) {
-                if (itemEquipment.getName() != null && itemEquipment.getName ().contains(charText)) {
-                    mItemEquipmentList.add(itemEquipment);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-
 
 }

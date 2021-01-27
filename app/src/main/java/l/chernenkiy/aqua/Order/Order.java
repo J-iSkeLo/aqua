@@ -59,9 +59,7 @@ public class Order extends AppCompatActivity {
         toolbar3.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Order.this, ShoppingBasket.class);
-                startActivity (intent);
-
+                finish();
             }
         });
 
@@ -115,6 +113,12 @@ public class Order extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     private void putToHashMap(String tvName, String tvCity, String tvNumber, String tvComment) {

@@ -25,6 +25,15 @@
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:titleTextColor="#090909" />
 
+    <Button
+        android:id="@+id/button_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/list_equip2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarEquipCategory2" />
+
     <ListView
         android:id="@+id/list_equip2"
         android:layout_width="0dp"
@@ -35,9 +44,13 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarEquipCategory2" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarEquipCategory2" >
+
+    </ListView>
+
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_above="@id/nav_bar_bottom"

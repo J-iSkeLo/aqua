@@ -2,27 +2,20 @@ package l.chernenkiy.aqua.Fish;
 
 public class Product {
 
-    private int number;
     private String name;
     private String size;
     private String price;
     private String title;
     private String image;
 
-    public Product(int number, String name, String size, String price, String title, String image) {
+    public Product(String name, String size, String price, String title, String image) {
 
-        this.number = number;
         this.name = name;
         this.size = size;
         this.price = price;
         this.title = title;
         this.image = image;
     }
-
-    public int getNumber() {
-        return number;
-    }
-
 
     public String getName() {
         return name;

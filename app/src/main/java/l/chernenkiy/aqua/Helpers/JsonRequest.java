@@ -36,18 +36,17 @@ public class JsonRequest  {
                                 String key = keys.next();
                                 JSONArray allFish = response.getJSONArray(key);
 
-                                resultFish.add(new Product (0, "", "", "", key, ""));
+                                resultFish.add(new Product ("", "", "", key, ""));
 
                                 for (int i = 0; i < allFish.length(); i++) {
                                     JSONObject fishItem = allFish.getJSONObject(i);
 
-                                    int number = fishItem.getInt("number");
                                     String name = fishItem.getString("name");
                                     String size = fishItem.getString("size");
                                     String price = fishItem.getString("price");
                                     String image = fishItem.getString("image");
 
-                                    resultFish.add(new Product(number, name, size, price, "", image));
+                                    resultFish.add(new Product(name, size, price, "", image));
 
                                 }
                             }
