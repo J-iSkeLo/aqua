@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button btnCatalog = findViewById(R.id.btn_catalog);
+
         btnCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -239,6 +240,10 @@ public class MainActivity extends AppCompatActivity {
             URL obj;
             obj = new URL (url);
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            statusCode = connection.getResponseCode();
+            if (statusCode != 200){
+                return;
+            }
             connection.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(new InputStreamReader (connection.getInputStream()));
             String inputLine;
@@ -250,10 +255,6 @@ public class MainActivity extends AppCompatActivity {
             int i = connection.getConnectTimeout ();
             publishProgress (i);
             date = response.toString();
-
-
-
-            statusCode = connection.getResponseCode();
         }
 
         @SuppressLint("SetTextI18n")
@@ -262,24 +263,21 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             dialog.dismiss ();
-
             dateHashMap.put ("date", date);
 
-            if(statusCode == 200) {
-                updateDate.setText("Прайс обновлён:\n" + date);
-            }
-            else {
+            if (statusCode != 200){
                 updateDate.setTextColor(Color.rgb(220, 20, 60));
                 updateDate.setText("Нет доступа к серверу!");
+                return;
             }
 
+            updateDate.setText("Прайс обновлён:\n" + date);
         }
-
     }
 
     private void showToastInternetPresent() {
         Toast toast = Toast.makeText
-                (getApplicationContext(), "Нет подключения к интерену",Toast.LENGTH_LONG);
+                (getApplicationContext(), "Нет подключения к интерену",Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
     }
