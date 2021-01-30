@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.tabs.TabLayout;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
@@ -161,6 +163,7 @@ public class ShoppingBasket extends AppCompatActivity {
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
         NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
+        navigation.getMenu().getItem(0).setCheckable(false);
         overridePendingTransition (0, 0);
 
     }

@@ -30,22 +30,22 @@ public class NavigationBar {
                     Intent intent = new Intent (context, Fish.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity (intent);
-                    return true;
+                    return false;
                 } else if (itemId == R.id.equipment_accessories_Activity && R.id.equipment_accessories_Activity != current) {
                     Intent intent = new Intent (context, EquipmentAccessActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity (intent);
-                    return true;
+                    return false;
                 } else if (itemId == R.id.feed && R.id.feed != current) {
                     Intent intent = new Intent (context, Feed.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity (intent);
-                    return true;
+                    return false;
                 } else if (itemId == R.id.chemistry2 && R.id.chemistry2 != current) {
                     Intent intent = new Intent (context, Chemistry.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity (intent);
-                    return true;
+                    return false;
                 } else if (itemId == R.id.aquariums && R.id.aquariums != current ) {
                     Intent intent = new Intent (context, Aquariums.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

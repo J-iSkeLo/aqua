@@ -34,6 +34,7 @@ import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.listChemistry;
 import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
@@ -111,12 +112,11 @@ public class Chemistry extends AppCompatActivity {
 
         openNewActivity (listChemistry);
 
-
         hideKeyboard();
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
         navigation.setSelectedItemId(R.id.chemistry2);
-
+        lastBottomNavBar = 3;
         NavigationBar.itemSelected (navigation, getApplicationContext (),R.id.chemistry2);
         overridePendingTransition (0, 0);
     }

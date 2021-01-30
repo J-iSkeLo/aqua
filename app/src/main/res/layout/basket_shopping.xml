@@ -72,7 +72,7 @@
         android:id="@+id/nav_bar_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffff"
+        android:background="#ffffff"
         app:itemTextColor="@color/bottom_nav_color"
         app:itemIconTint="@color/bottom_nav_color"
         app:labelVisibilityMode="labeled"

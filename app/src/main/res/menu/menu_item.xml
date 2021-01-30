@@ -18,8 +18,6 @@
         android:title="Поиск"
         android:icon="@drawable/ic_search_black_24dp"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom"
-        android:orderInCategory="100"/>
-
-
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
 </menu>

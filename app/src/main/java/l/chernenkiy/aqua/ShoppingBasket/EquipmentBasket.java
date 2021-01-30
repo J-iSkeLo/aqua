@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
@@ -66,7 +67,7 @@ public class EquipmentBasket extends Fragment {
         tvBackToCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getActivity(), EquipmentAccessActivity.class);
                 startActivity(intent);
             }
         });

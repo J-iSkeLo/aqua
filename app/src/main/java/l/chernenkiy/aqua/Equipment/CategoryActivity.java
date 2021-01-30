@@ -35,6 +35,7 @@ import java.util.HashMap;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
@@ -140,6 +141,9 @@ public class CategoryActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
         NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
+
+        navigation.getMenu().getItem(lastBottomNavBar).setChecked(true);
+
         overridePendingTransition (0, 0);
 
     }

@@ -21,7 +21,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.WanderingCubes;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +37,6 @@ import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
-import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
@@ -62,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public static HashMap<String, String> dateHashMap = new HashMap<>();
     public static ItemCategory nextSubcategory;
     public static Class lastClass;
+    public static int lastBottomNavBar;
 
     public RequestQueue mQueue;
     public String date = "";
@@ -134,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     Intent intent = new Intent(MainActivity.this, Contacts.class);
                     startActivity(intent);
-                    finish();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -157,21 +155,35 @@ public class MainActivity extends AppCompatActivity {
         cd = new ConnectionDetector (getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
 
-        if (! isInternetPresent)showToastInternetPresent ();
-        if (isInternetPresent
-                && listFish.size() != sizeListFish
-                || listEquip.isEmpty ()         || listFeed.isEmpty ()
-                || listChemistry.isEmpty ()     || listAquariums.isEmpty ()) {
+        if (! isInternetPresent){
+            showToastInternetPresent();
+            btnCatalog.setClickable(false);
+        }
 
+        final boolean hasEmptyList = listEquip.isEmpty()
+                || listFeed.isEmpty()
+                || listChemistry.isEmpty()
+                || listAquariums.isEmpty();
+
+        if (isInternetPresent && (listFish.size() != sizeListFish || hasEmptyList)) {
+            btnCatalog.setClickable(true);
             final Dialog dialog = new Dialog(MainActivity.this, R.style.FullHeightDialog);
             dialog.setContentView(R.layout.dialog_load_main_activity);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
-            listFish.clear(); listAquariums.clear(); listChemistry.clear(); listEquip.clear(); listFeed.clear();
+            clearAllList();
             new AsyncRequestHttp (dialog).execute();
         }
 
         String previouslyLoadedDate = dateHashMap.get ("date");
         if (!listFish.isEmpty ()) updateDate.setText ("Прайс обновлён:\n" + previouslyLoadedDate);
+    }
+
+    private void clearAllList() {
+        listFish.clear();
+        listAquariums.clear();
+        listChemistry.clear();
+        listEquip.clear();
+        listFeed.clear();
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -186,12 +198,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Integer... progress) {
-        }
-
-        @Override
         protected void onPreExecute() {
-            super.onPreExecute ( );
+            super.onPreExecute();
 
             ProgressBar progressBar = dialog.findViewById(R.id.spin_kit);
             Sprite wanderingCubes = new WanderingCubes ();
@@ -206,8 +214,8 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             String url = "https://aqua-m.kh.ua/api/info";
             try {
-                updatePriceDate (url);
-                requestAll ( );
+                updatePriceDate(url);
+                requestAll();
             } catch (IOException e) {
                 e.printStackTrace();
             }
