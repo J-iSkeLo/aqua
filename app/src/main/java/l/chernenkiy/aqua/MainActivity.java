@@ -38,6 +38,8 @@ import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
+import l.chernenkiy.aqua.Test.ItemCategoryTest;
+import l.chernenkiy.aqua.Test.JsonRequestTest;
 
 import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
@@ -54,11 +56,12 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList <Product> listFish = new ArrayList<>();
     public static ArrayList <ItemCategory> listEquip = new ArrayList<>();
     public static ArrayList <ItemCategory> listFeed = new ArrayList<>();
+    public static ArrayList <ItemCategoryTest> testListFeed = new ArrayList<>();
     public static ArrayList <ItemCategory> listChemistry = new ArrayList<>();
     public static ArrayList <ItemCategory> listAquariums = new ArrayList<>();
 
     public static HashMap<String, String> dateHashMap = new HashMap<>();
-    public static ItemCategory nextSubcategory;
+    public static ItemCategoryTest nextSubcategory;
     public static Class lastClass;
     public static int lastBottomNavBar;
 
@@ -214,24 +217,29 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             String url = "https://aqua-m.kh.ua/api/info";
-            try {
-                updatePriceDate(url);
-                requestAll();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            requestAll();
+//            try {
+//                updatePriceDate(url);
+//                requestAll();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
             return null;
         }
 
         private void requestAll() {
-            jsonRequest.makeFishRequest (mQueue, listFish);
+//            jsonRequest.makeFishRequest (mQueue, listFish);
             sizeListFish = listFish.size();
 
-            jsonRequest.makeAllEquipRequest (mQueue, listEquip, ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
-            jsonRequest.makeAllEquipRequest (mQueue, listFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
-            jsonRequest.makeAllEquipRequest (mQueue, listChemistry, ApiInfo.chemistry, ApiInfo.chemistryGeneralColKey);
-            jsonRequest.makeAllEquipRequest (mQueue, listAquariums, ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
+            JsonRequestTest jsonRequestTest = new JsonRequestTest();
+
+            jsonRequestTest.testMakeAllEquipRequest(mQueue, testListFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
+
+//            jsonRequest.makeAllEquipRequest (mQueue, listEquip, ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
+//            jsonRequest.makeAllEquipRequest (mQueue, listFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
+//            jsonRequest.makeAllEquipRequest (mQueue, listChemistry, ApiInfo.chemistry, ApiInfo.chemistryGeneralColKey);
+//            jsonRequest.makeAllEquipRequest (mQueue, listAquariums, ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
 
 
         }

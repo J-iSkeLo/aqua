@@ -14,6 +14,7 @@ import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
 import l.chernenkiy.aqua.Equipment.Feed;
 import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.Test.FeedTest;
 
 public class NavigationBar {
 
@@ -37,7 +38,7 @@ public class NavigationBar {
                     context.startActivity (intent);
                     return false;
                 } else if (itemId == R.id.feed && R.id.feed != current) {
-                    Intent intent = new Intent (context, Feed.class);
+                    Intent intent = new Intent (context, FeedTest.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity (intent);
                     return false;

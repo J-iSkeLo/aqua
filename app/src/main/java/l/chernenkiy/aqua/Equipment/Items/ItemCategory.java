@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class ItemCategory implements Serializable {
 
-
     private String name;
     private ArrayList<ItemEquipment> items;
 

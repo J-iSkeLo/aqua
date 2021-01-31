@@ -148,7 +148,7 @@ public class Chemistry extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
-                nextSubcategory = resultEquip.get(i);
+//                nextSubcategory = resultEquip.get(i);
                 lastClass = Chemistry.class;
                 intent.putExtra ("class", Chemistry.class);
                 startActivity(intent);

@@ -11,12 +11,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -27,10 +27,8 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
@@ -39,7 +37,6 @@ import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
-import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Helpers.CartHelper;
@@ -48,12 +45,16 @@ import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
+import l.chernenkiy.aqua.Test.CategoryAdapterTest;
+import l.chernenkiy.aqua.Test.EquipmentListAdapterTest;
+import l.chernenkiy.aqua.Test.SubCategoryAdapterTest;
 
 public class CategoryActivity extends AppCompatActivity {
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
     ListView lvCategory;
-    EquipmentListAdapter adapter;
+    EquipmentListAdapterTest equipmentListAdapterTest;
+    SubCategoryAdapterTest subCategoryAdapterTest;
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
@@ -111,33 +112,47 @@ public class CategoryActivity extends AppCompatActivity {
 
         cd = new ConnectionDetector(getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
-
-        toolbar(nextSubcategory);
-
-        if (nextSubcategory != null) {
-            adapter = new EquipmentListAdapter(getApplicationContext(), nextSubcategory.getItems ());
-        }else{
-            showToastInternetPresent ("Возникла ошибка!\n Мы постараемся её решить\n В ближайшее время!");
-            finish ();
-        }
         lvCategory = findViewById(R.id.list_equip2);
-        sortBtn = findViewById(R.id.button_sort);
-        sortBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Collections.sort(nextSubcategory.getItems (), new Comparator<ItemEquipment>() {
-                    @Override
-                    public int compare(ItemEquipment itemEquipment, ItemEquipment t1) {
-                        return itemEquipment.getName().compareToIgnoreCase(t1.getName());
-                    }
-                });
-                lvCategory.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-            }
-        });
-        lvCategory.setAdapter(adapter);
 
-        lvOnItemClickListener(nextSubcategory);
+//        toolbar(nextSubcategory);
+        try {
+            if (nextSubcategory != null) {
+                if (!nextSubcategory.getItems().isEmpty()) {
+                    equipmentListAdapterTest = new EquipmentListAdapterTest(getApplicationContext(), nextSubcategory.getItems());
+                    lvCategory.setAdapter(equipmentListAdapterTest);
+                    equipmentListAdapterTest.notifyDataSetChanged();
+                } else if (!nextSubcategory.getItemSubCategoryTests().isEmpty()) {
+                    subCategoryAdapterTest = new SubCategoryAdapterTest(getApplicationContext(), nextSubcategory.getItemSubCategoryTests());
+                    lvCategory.setAdapter(subCategoryAdapterTest);
+                    subCategoryAdapterTest.notifyDataSetChanged();
+                } else {
+                    throw new Exception("Не нашло категорию и подкатегорию в CategoryActivity!");
+                }
+            } else {
+                throw new Exception("Не нашло категорию для открытия CategoryActivity");
+            }
+        } catch (Exception e) {
+            showToastInternetPresent("Возникла ошибка!\n Мы постараемся её решить\n В ближайшее время!");
+            finish();
+            e.printStackTrace();
+        }
+
+        sortBtn = findViewById(R.id.button_sort);
+//        sortBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Collections.sort(nextSubcategory.getItems (), new Comparator<ItemEquipment>() {
+//                    @Override
+//                    public int compare(ItemEquipment itemEquipment, ItemEquipment t1) {
+//                        return itemEquipment.getName().compareToIgnoreCase(t1.getName());
+//                    }
+//                });
+//                lvCategory.setAdapter(adapter);
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+
+//        lvOnItemClickListener(nextSubcategory);
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
         NavigationBar.itemSelected (navigation, getApplicationContext (), 0);

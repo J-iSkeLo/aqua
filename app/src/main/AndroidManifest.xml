@@ -58,6 +58,9 @@
         <activity android:name=".Equipment.Feed"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
+        <activity android:name=".Test.FeedTest"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Equipment.CategoryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>

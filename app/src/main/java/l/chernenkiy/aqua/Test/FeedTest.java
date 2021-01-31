@@ -1,9 +1,4 @@
-package l.chernenkiy.aqua.Equipment;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
+package l.chernenkiy.aqua.Test;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,10 +13,17 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
+import l.chernenkiy.aqua.Equipment.CategoryActivity;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
@@ -37,8 +39,9 @@ import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.listFeed;
 import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
+import static l.chernenkiy.aqua.MainActivity.testListFeed;
 
-public class Feed extends AppCompatActivity {
+public class FeedTest extends AppCompatActivity {
 
     private static ListView lvFeed;
     MenuItem cartIconMenuItem;
@@ -59,8 +62,8 @@ public class Feed extends AppCompatActivity {
         searchView.setOnSearchClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (Feed.this, SearchActivity.class);
-                intent.putExtra ("class", Feed.class);
+                Intent intent = new Intent (FeedTest.this, SearchActivity.class);
+                intent.putExtra ("class", FeedTest.class);
                 startActivity (intent);
             }
         });
@@ -74,10 +77,10 @@ public class Feed extends AppCompatActivity {
         cartImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
-                Intent intent = new Intent(Feed.this, ShoppingBasket.class);
+                Intent intent = new Intent(FeedTest.this, ShoppingBasket.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                intent.putExtra ("class", Feed.class);
+                intent.putExtra ("class", FeedTest.class);
                 startActivity(intent);
             }
         });
@@ -96,7 +99,7 @@ public class Feed extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Feed.this, MainActivity.class);
+                Intent intent = new Intent(FeedTest.this, MainActivity.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 startActivity (intent);
@@ -105,10 +108,10 @@ public class Feed extends AppCompatActivity {
         });
 
         lvFeed = findViewById(R.id.lv_feed);
-        CategoryAdapter adapter = new CategoryAdapter (getApplicationContext (),listFeed);
+        CategoryAdapterTest adapter = new CategoryAdapterTest (getApplicationContext (),testListFeed);
         lvFeed.setAdapter (adapter);
 
-        openNewActivity (listFeed);
+        openNewActivity (testListFeed);
 
         hideKeyboard();
 
@@ -122,7 +125,7 @@ public class Feed extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Feed.this, MainActivity.class);
+        Intent intent = new Intent(FeedTest.this, MainActivity.class);
         intent.putExtra("cartItems", cartItems);
         intent.putExtra("cartEquipmentItem", cartEquipmentItem);
         startActivity (intent);
@@ -144,14 +147,14 @@ public class Feed extends AppCompatActivity {
 
 
 
-    private void openNewActivity (final ArrayList<ItemCategory> resultEquip){
+    private void openNewActivity (final ArrayList<ItemCategoryTest> resultEquip){
         lvFeed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
-//                nextSubcategory = resultEquip.get(i);
-                lastClass = Feed.class;
-                intent.putExtra ("class", Feed.class);
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                nextSubcategory = resultEquip.get(i);
+                lastClass = FeedTest.class;
+                intent.putExtra ("class", FeedTest.class);
                 startActivity(intent);
             }
         });
