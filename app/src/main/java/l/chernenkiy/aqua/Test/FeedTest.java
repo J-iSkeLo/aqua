@@ -154,7 +154,6 @@ public class FeedTest extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
                 nextSubcategory = resultEquip.get(i);
                 lastClass = FeedTest.class;
-                intent.putExtra ("class", FeedTest.class);
                 startActivity(intent);
             }
         });

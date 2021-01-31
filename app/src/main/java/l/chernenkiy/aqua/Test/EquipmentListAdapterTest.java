@@ -2,15 +2,24 @@ package l.chernenkiy.aqua.Test;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
+import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.R;
 
 public class EquipmentListAdapterTest extends BaseAdapter {
@@ -48,6 +57,9 @@ public class EquipmentListAdapterTest extends BaseAdapter {
                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
            convertView = mInflater.inflate(R.layout.cart_accessories, null);
 
+            ConnectionDetector cd = new ConnectionDetector (mContext);
+            boolean isInternetPresent = cd.ConnectingToInternet ( );
+
            ItemEquipmentTest itemEquipmentTest = mItemEquipmentList.get(i);
 
            TextView tvArticle = convertView.findViewById(R.id.vendor_code);
@@ -55,6 +67,7 @@ public class EquipmentListAdapterTest extends BaseAdapter {
            TextView tvProducer = convertView.findViewById(R.id.txt_manufacturer);
            TextView tvDescription = convertView.findViewById(R.id.txt_description);
            TextView tvPrice = convertView.findViewById(R.id.price_equip);
+           ImageView image = convertView.findViewById(R.id.image_equip);
 
            tvName.setText(itemEquipmentTest.getName());
 
@@ -86,8 +99,38 @@ public class EquipmentListAdapterTest extends BaseAdapter {
                 tvPrice.setText(itemEquipmentTest.getPrice() + " грн.");
            }
 
-       return convertView;
+        String urlImage = itemEquipmentTest.getImage();
+        if(isInternetPresent) {
+            loadImage(image, urlImage);
+        }
+        else{
+            showToastInternetPresent("Нет интернет соединения для загрузки изображения!");
+        }
 
+       return convertView;
+    }
+
+    public void loadImage (ImageView image, String imageURL){
+
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(mContext);
+        circularProgressDrawable.setStrokeWidth(10f);
+        circularProgressDrawable.setCenterRadius(60f);
+        circularProgressDrawable.setColorSchemeColors(Color.rgb (155,155,155));
+        circularProgressDrawable.start();
+
+
+
+        Glide.with(mContext)
+                .load(imageURL)
+                .placeholder(circularProgressDrawable)
+                .into(image);
+    }
+
+    private void showToastInternetPresent(String msg) {
+        Toast toast = Toast.makeText
+                (mContext,msg,Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
     }
 
 }

@@ -39,6 +39,7 @@ import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 import l.chernenkiy.aqua.Test.ItemCategoryTest;
+import l.chernenkiy.aqua.Test.ItemSubCategoryTest;
 import l.chernenkiy.aqua.Test.JsonRequestTest;
 
 import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static HashMap<String, String> dateHashMap = new HashMap<>();
     public static ItemCategoryTest nextSubcategory;
+    public static ItemSubCategoryTest nextItemsSubCategory;
     public static Class lastClass;
     public static int lastBottomNavBar;
 

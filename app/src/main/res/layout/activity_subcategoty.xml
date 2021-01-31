@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EBEBEB"
-    tools:context=".Equipment.CategoryActivity">
+    tools:context=".Test.SubCategoryActivity">
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarEquipCategory2"
+        android:id="@+id/toolbarEquipSubCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -28,7 +28,7 @@
 
 
     <ListView
-        android:id="@+id/list_equip2"
+        android:id="@+id/list_equip_subcategory"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#F5F5F5"
@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarEquipCategory2" >
+        app:layout_constraintTop_toBottomOf="@+id/toolbarEquipSubCategory" >
 
     </ListView>
 

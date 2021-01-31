@@ -6,6 +6,8 @@
     <color name="colorTimeBar">#FFFFFF</color>
     <color name="colorAccent">#069fa8</color>
     <color name="colorBlueBackground">#03666C</color>
+    <color name="colorNameCart">#004D51</color>
+    <color name="colorPriceRed">#C70000</color>
     <color name="colorTextCart">#181818</color>
     <color name="statBarColor">#CCCCCC</color>
     <color name="colorActiveNavBar">#075A40</color>
