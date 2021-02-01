@@ -82,6 +82,7 @@ public class Order extends AppCompatActivity {
         final EditText firstLastName = findViewById(R.id.first_last_name);
         final EditText city = findViewById(R.id.city);
         final EditText phoneNumber = findViewById(R.id.number_phone);
+        final EditText email = findViewById(R.id.email);
         final EditText commentOrder = findViewById(R.id.comment_order);
 
         cd = new ConnectionDetector(getApplicationContext());
@@ -90,12 +91,13 @@ public class Order extends AppCompatActivity {
         btnSendMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String tvName = firstLastName.getText().toString();
-                String tvCity = city.getText().toString();
-                String tvNumber = phoneNumber.getText().toString();
-                String tvComment = commentOrder.getText().toString();
+                String sName = firstLastName.getText().toString();
+                String sCity = city.getText().toString();
+                String sNumber = phoneNumber.getText().toString();
+                String sEmail = email.getText().toString();
+                String sComment = commentOrder.getText().toString();
 
-                putToHashMap(tvName, tvCity, tvNumber, tvComment);
+                putToHashMap(sName, sCity, sNumber,sEmail, sComment);
                 if(dataIsWrong()){
                     support.showToast(getApplicationContext(), getError());
                     return;
@@ -103,10 +105,6 @@ public class Order extends AppCompatActivity {
                 isInternetPresent = cd.ConnectingToInternet();
                 if (isInternetPresent){
                     new AsyncSendMail().execute();
-
-
-
-
                     Intent home = new Intent(Order.this, MainActivity.class);
                     startActivity(home);
                 } else{
@@ -122,9 +120,10 @@ public class Order extends AppCompatActivity {
         finish();
     }
 
-    private void putToHashMap(String tvName, String tvCity, String tvNumber, String tvComment) {
+    private void putToHashMap(String tvName, String tvCity, String tvNumber,String tvEmail, String tvComment) {
         clientData.put("name", tvName);
         clientData.put("number", tvNumber);
+        clientData.put("email", tvEmail);
         clientData.put("city", tvCity);
         clientData.put("comment", tvComment);
     }
@@ -177,7 +176,6 @@ public class Order extends AppCompatActivity {
     }
 
     public class AsyncSendMail extends AsyncTask<Void, Void, Void> {
-
 
         private int statusCode;
 

@@ -92,6 +92,25 @@
             android:textSize="15sp" />
 
         <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:cursorVisible="true"
+            android:hint="Email:"
+            android:imeOptions="actionDone"
+            android:inputType="textEmailAddress"
+            android:maxEms="70"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorTextCart"
+            android:textColorHighlight="#AE353535"
+            android:textColorHint="#998B8B8B"
+            android:textColorLink="#00000000"
+            android:textSize="15sp" />
+
+        <EditText
             android:id="@+id/comment_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

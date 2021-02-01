@@ -13,12 +13,14 @@ public final class ClientTable {
                 "<th style=\"padding: 5px;border:1px solid #999;\">Имя Фамилия</th>" +
                 "<th style=\"padding: 5px;border:1px solid #999;\">Город</th>" +
                 "<th style=\"padding: 5px;border:1px solid #999;\">Номер Телефона</th>" +
+                "<th style=\"padding: 5px;border:1px solid #999;\">Email</th>" +
                 "<th style=\"padding: 5px;border:1px solid #999;\">Комментарий</th>" +
                 "</tr>" +
                 "<tr>" +
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("name")+"</td>" +
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("city")+"</td>" +
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("number")+"</td>" +
+                "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("email")+"</td>" +
                 "<td style=\"padding: 5px;border:1px solid #999;\">"+clientData.get("comment")+"</td>" +
                 "</tr>"+
                 "</table><br>";
