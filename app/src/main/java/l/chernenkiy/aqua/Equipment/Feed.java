@@ -1,10 +1,5 @@
 package l.chernenkiy.aqua.Equipment;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
@@ -105,7 +106,7 @@ public class Feed extends AppCompatActivity {
         });
 
         lvFeed = findViewById(R.id.lv_feed);
-        CategoryAdapter adapter = new CategoryAdapter (getApplicationContext (),listFeed);
+        CategoryAdapter adapter = new CategoryAdapter(getApplicationContext (),listFeed);
         lvFeed.setAdapter (adapter);
 
         openNewActivity (listFeed);
@@ -129,7 +130,6 @@ public class Feed extends AppCompatActivity {
         finish();
     }
 
-
     @SuppressLint("ClickableViewAccessibility")
     private void hideKeyboard() {
         lvFeed.setOnTouchListener(new View.OnTouchListener() {
@@ -143,15 +143,13 @@ public class Feed extends AppCompatActivity {
     }
 
 
-
     private void openNewActivity (final ArrayList<ItemCategory> resultEquip){
         lvFeed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
-//                nextSubcategory = resultEquip.get(i);
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                nextSubcategory = resultEquip.get(i);
                 lastClass = Feed.class;
-                intent.putExtra ("class", Feed.class);
                 startActivity(intent);
             }
         });

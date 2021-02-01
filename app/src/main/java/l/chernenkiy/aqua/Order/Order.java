@@ -28,6 +28,7 @@ import java.util.HashMap;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.Order.Tables.ClientTable;
 import l.chernenkiy.aqua.Order.Tables.EquipmentTable;
@@ -41,10 +42,10 @@ import static l.chernenkiy.aqua.MainActivity.cartItems;
 public class Order extends AppCompatActivity {
 
     public static HashMap<String, String> clientData = new HashMap<>();
-
     private ProgressDialog progressDialog;
     private Boolean isInternetPresent = false;
     private ConnectionDetector cd;
+    Support support = new Support();
 
 
     @Override
@@ -96,7 +97,7 @@ public class Order extends AppCompatActivity {
 
                 putToHashMap(tvName, tvCity, tvNumber, tvComment);
                 if(dataIsWrong()){
-                    showToast(getError());
+                    support.showToast(getApplicationContext(), getError());
                     return;
                 }
                 isInternetPresent = cd.ConnectingToInternet();
@@ -109,7 +110,7 @@ public class Order extends AppCompatActivity {
                     Intent home = new Intent(Order.this, MainActivity.class);
                     startActivity(home);
                 } else{
-                    showToast("У Вас нет Интернет соединения");
+                    support.showToast(getApplicationContext(),"У Вас нет Интернет соединения");
                 }
             }
         });
@@ -126,14 +127,6 @@ public class Order extends AppCompatActivity {
         clientData.put("number", tvNumber);
         clientData.put("city", tvCity);
         clientData.put("comment", tvComment);
-    }
-
-    private void showToast(String message) {
-        Toast toast = Toast.makeText
-                (getApplicationContext(),message,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-
     }
 
     public boolean dataIsWrong(){
@@ -242,9 +235,9 @@ public class Order extends AppCompatActivity {
 
 
             if(statusCode == 200)
-                showToast("Спасибо за заказ.\nМенеджеры свяжутся с Вами\nв ближайшее время.");
+                support.showToast(getApplicationContext(),"Спасибо за заказ.\nМенеджеры свяжутся с Вами\nв ближайшее время.");
             else
-                showToast("Возникла ошибка\nпри оформлении заказа\nПопробуйте позже!");
+                support.showToast(getApplicationContext(),"Возникла ошибка\nпри оформлении заказа\nПопробуйте позже!");
         }
     }
 }

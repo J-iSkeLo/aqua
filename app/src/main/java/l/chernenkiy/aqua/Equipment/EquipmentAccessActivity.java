@@ -20,7 +20,6 @@ import androidx.core.view.MenuItemCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
 import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
@@ -43,8 +42,7 @@ import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
 public class EquipmentAccessActivity extends AppCompatActivity {
 
-    public static ListView lvEquipment;
-
+    public static ListView lvEquipmentTest;
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
@@ -70,9 +68,6 @@ public class EquipmentAccessActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         if (actionView != null) {
             cartAddItemText = actionView.findViewById(R.id.text_item_cart);
             cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
@@ -92,9 +87,6 @@ public class EquipmentAccessActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,10 +110,10 @@ public class EquipmentAccessActivity extends AppCompatActivity {
             }
         });
 
-        lvEquipment = findViewById(R.id.lv_equipment);
+        lvEquipmentTest = findViewById(R.id.lv_equipment);
 
-        CategoryAdapter adapter = new CategoryAdapter (getApplicationContext (),listEquip);
-        lvEquipment.setAdapter (adapter);
+        CategoryAdapter adapter = new CategoryAdapter(getApplicationContext (),listEquip);
+        lvEquipmentTest.setAdapter (adapter);
         openNewActivity (listEquip);
 
         hideKeyboard();
@@ -142,10 +134,9 @@ public class EquipmentAccessActivity extends AppCompatActivity {
         startActivity (intent);
     }
 
-
     @SuppressLint("ClickableViewAccessibility")
     private void hideKeyboard() {
-        lvEquipment.setOnTouchListener(new View.OnTouchListener() {
+        lvEquipmentTest.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -155,15 +146,13 @@ public class EquipmentAccessActivity extends AppCompatActivity {
         });
     }
 
-
     private void openNewActivity (final ArrayList<ItemCategory> resultEquip){
-        lvEquipment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvEquipmentTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
-//                nextSubcategory = resultEquip.get(i);
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                nextSubcategory = resultEquip.get(i);
                 lastClass = EquipmentAccessActivity.class;
-                intent.putExtra ("class", EquipmentAccessActivity.class);
                 startActivity(intent);
             }
         });

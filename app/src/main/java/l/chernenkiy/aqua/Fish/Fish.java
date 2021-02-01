@@ -27,10 +27,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
@@ -40,6 +37,7 @@ import java.util.HashMap;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
@@ -53,7 +51,7 @@ import static l.chernenkiy.aqua.MainActivity.sizeListFish;
 
 public class Fish extends AppCompatActivity {
 
-    private ProductListAdapter adapter;
+    private FishListAdapter adapter;
     @SuppressLint("StaticFieldLeak")
     public static ListView lvProduct;
 
@@ -63,6 +61,7 @@ public class Fish extends AppCompatActivity {
     SearchView searchView;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
+    Support support = new Support();
 
 
     @Override
@@ -154,7 +153,7 @@ public class Fish extends AppCompatActivity {
         cartAddItemText = findViewById(R.id.text_item_cart);
 
         lvProduct = findViewById(R.id.listFish);
-        adapter = new ProductListAdapter(getApplicationContext(), listFish);
+        adapter = new FishListAdapter(getApplicationContext(), listFish);
         lvProduct.setAdapter(adapter);
         showDialogOnItemClick(listFish);
 
@@ -165,15 +164,6 @@ public class Fish extends AppCompatActivity {
 
         NavigationBar.itemSelected (navigation, getApplicationContext (), R.id.fish);
         overridePendingTransition (0, 0);
-    }
-
-
-
-    private void showToastInternetPresent(String msg) {
-        Toast toast = Toast.makeText
-                (getApplicationContext(),msg,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -187,7 +177,6 @@ public class Fish extends AppCompatActivity {
             }
         });
     }
-
 
     private void showDialogOnItemClick(final ArrayList result) {
         lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -214,10 +203,10 @@ public class Fish extends AppCompatActivity {
 
                 TouchImageView touchImageView = dialog.findViewById(R.id.imageTouch);
                 if(isInternetPresent) {
-                    loadImage(touchImageView, product.getImage());
+                    support.loadImage(touchImageView, product.getImage(), getApplicationContext());
                 }
                 else{
-                    showToastInternetPresent("Нет интернет соединения для загрузки изображения!");
+                    support.showToast(getApplicationContext(),"Нет интернет соединения для загрузки изображения!");
                 }
 
                 ImageButton btnCloseDialog = dialog.findViewById (R.id.btn_close_fish_dialog);
@@ -244,7 +233,7 @@ public class Fish extends AppCompatActivity {
                         String quantityFish = quantity.getText().toString();
 
                         if (quantity.length () < 1) {
-                            showToastInternetPresent ("Укажите количество");
+                            support.showToast (getApplicationContext(),"Укажите количество");
                             return;
                         }
 
@@ -273,23 +262,6 @@ public class Fish extends AppCompatActivity {
             }
 
         });
-    }
-
-    public void loadImage (TouchImageView touchImageView, String imageURL){
-
-        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
-        circularProgressDrawable.setStrokeWidth(10f);
-        circularProgressDrawable.setCenterRadius(60f);
-        circularProgressDrawable.setColorSchemeColors(Color.WHITE);
-        circularProgressDrawable.start();
-
-
-
-        Glide.with(this)
-                .load(imageURL)
-                .placeholder(circularProgressDrawable)
-                .transform(new CenterCrop (), new RoundedCorners (20))
-                .into(touchImageView);
     }
 
     @Override

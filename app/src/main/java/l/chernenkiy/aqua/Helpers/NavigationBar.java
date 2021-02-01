@@ -10,11 +10,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import l.chernenkiy.aqua.Equipment.Aquariums;
 import l.chernenkiy.aqua.Equipment.Chemistry;
-import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
-import l.chernenkiy.aqua.Equipment.Feed;
 import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.Test.FeedTest;
+import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
+import l.chernenkiy.aqua.Equipment.Feed;
 
 public class NavigationBar {
 
@@ -38,7 +37,7 @@ public class NavigationBar {
                     context.startActivity (intent);
                     return false;
                 } else if (itemId == R.id.feed && R.id.feed != current) {
-                    Intent intent = new Intent (context, FeedTest.class);
+                    Intent intent = new Intent (context, Feed.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity (intent);
                     return false;

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EBEBEB"
-    tools:context=".Test.SubCategoryActivity">
+    tools:context=".Equipment.SubCategoryActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Название категории"
         app:titleTextAppearance="@style/Toolbar.TitleText"
-        app:titleTextColor="#090909" />
+        app:titleTextColor="@color/colorActiveNavBar" />
 
 
 

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.tabs.TabLayout;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
@@ -29,11 +27,11 @@ import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.lvShopEquipBasket;
-import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.shopBaskEquipAdapter;
+import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.adapterEquip;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.tvBackToCatalog;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.tvNotItemsCart;
 import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.lvShopBasket;
-import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.shopBaskFishAdapter;
+import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.adapterFish;
 import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.tvFishBackToCatalog;
 import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.tvFishNotItemsCart;
 
@@ -106,8 +104,8 @@ public class ShoppingBasket extends AppCompatActivity {
         lvShopBasket.setAdapter (null);
         lvShopEquipBasket.setAdapter (null);
 
-        shopBaskEquipAdapter.notifyDataSetChanged ();
-        shopBaskFishAdapter.notifyDataSetChanged ();
+        adapterEquip.notifyDataSetChanged ();
+        adapterFish.notifyDataSetChanged ();
         mSectionPageAdapter.notifyDataSetChanged ();
     }
 

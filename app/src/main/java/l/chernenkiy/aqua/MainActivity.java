@@ -31,16 +31,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
-import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
-import l.chernenkiy.aqua.Helpers.JsonRequest;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
-import l.chernenkiy.aqua.Test.ItemCategoryTest;
-import l.chernenkiy.aqua.Test.ItemSubCategoryTest;
-import l.chernenkiy.aqua.Test.JsonRequestTest;
+import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
+import l.chernenkiy.aqua.Helpers.JsonRequest;
 
 import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
@@ -57,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList <Product> listFish = new ArrayList<>();
     public static ArrayList <ItemCategory> listEquip = new ArrayList<>();
     public static ArrayList <ItemCategory> listFeed = new ArrayList<>();
-    public static ArrayList <ItemCategoryTest> testListFeed = new ArrayList<>();
     public static ArrayList <ItemCategory> listChemistry = new ArrayList<>();
     public static ArrayList <ItemCategory> listAquariums = new ArrayList<>();
 
     public static HashMap<String, String> dateHashMap = new HashMap<>();
-    public static ItemCategoryTest nextSubcategory;
-    public static ItemSubCategoryTest nextItemsSubCategory;
+    public static ItemCategory nextSubcategory;
+    public static ItemSubCategory nextItemsSubCategory;
     public static Class lastClass;
+    public static Class lastClassCategory;
     public static int lastBottomNavBar;
 
     public RequestQueue mQueue;
@@ -72,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
     public TextView updateDate;
     public static int sizeListFish;
 
-
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
+    Support support = new Support();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -162,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         isInternetPresent = cd.ConnectingToInternet();
 
         if (! isInternetPresent){
-            showToastInternetPresent();
+            support.showToast(getApplicationContext(), "Нет интернет соединения!");
             btnCatalog.setClickable(false);
         }
 
@@ -219,31 +218,24 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             String url = "https://aqua-m.kh.ua/api/info";
-            requestAll();
-//            try {
-//                updatePriceDate(url);
-//                requestAll();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                updatePriceDate(url);
+                requestAll();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             return null;
         }
 
         private void requestAll() {
-//            jsonRequest.makeFishRequest (mQueue, listFish);
-            sizeListFish = listFish.size();
-
-            JsonRequestTest jsonRequestTest = new JsonRequestTest();
-
-            jsonRequestTest.testMakeAllEquipRequest(mQueue, testListFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
-
-//            jsonRequest.makeAllEquipRequest (mQueue, listEquip, ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
-//            jsonRequest.makeAllEquipRequest (mQueue, listFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
-//            jsonRequest.makeAllEquipRequest (mQueue, listChemistry, ApiInfo.chemistry, ApiInfo.chemistryGeneralColKey);
-//            jsonRequest.makeAllEquipRequest (mQueue, listAquariums, ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
+            jsonRequest.makeFishRequest (mQueue, listFish);
 
 
+            jsonRequest.makeAllEquipRequest (mQueue, listEquip, ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
+            jsonRequest.makeAllEquipRequest (mQueue, listFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
+            jsonRequest.makeAllEquipRequest (mQueue, listChemistry, ApiInfo.chemistry, ApiInfo.chemistryGeneralColKey);
+            jsonRequest.makeAllEquipRequest (mQueue, listAquariums, ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
         }
 
         private void updatePriceDate(String url) throws IOException {
@@ -272,6 +264,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
+            sizeListFish = listFish.size();
+
             dialog.dismiss ();
             dateHashMap.put ("date", date);
 
@@ -283,13 +277,6 @@ public class MainActivity extends AppCompatActivity {
 
             updateDate.setText("Прайс обновлён:\n" + date);
         }
-    }
-
-    private void showToastInternetPresent() {
-        Toast toast = Toast.makeText
-                (getApplicationContext(), "Нет подключения к интерену",Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
     }
 
     public void onBackPressed(){

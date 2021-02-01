@@ -13,19 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.R;
 
 public class CategoryAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<ItemCategory> mItemCategory;
-    private ArrayList<ItemCategory> filteredData;
+
 
     public CategoryAdapter(Context mContext, List<ItemCategory> mItemCategory) {
         this.mContext = mContext;
         this.mItemCategory = mItemCategory;
-        this.filteredData = new ArrayList<>();
-        this.filteredData.addAll(mItemCategory);
+
     }
 
 
@@ -60,10 +60,21 @@ public class CategoryAdapter extends BaseAdapter {
         TextView tvNumbEquip = convertView.findViewById(R.id.numb_category);
 
 
+
         tvCategory.setText(mItemCategory.get(i).getName());
-        tvNumbEquip.setText(mItemCategory.get(i).getItems().size() + " позиций");
 
 
+        ArrayList<ItemSubCategory> itemSubCategories = mItemCategory.get(i).getItemSubCategories();
+
+        if (itemSubCategories.isEmpty()) {
+            tvNumbEquip.setText(mItemCategory.get(i).getItems().size() + " позиций");
+        } else {
+            int sizeSubCategoryItems = 0;
+            for (int j = 0; j < itemSubCategories.size(); j++){
+                sizeSubCategoryItems += itemSubCategories.get(j).getItems().size();
+            }
+        tvNumbEquip.setText(sizeSubCategoryItems + " позиций");
+        }
         return convertView;
     }
 }

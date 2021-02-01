@@ -108,7 +108,7 @@ public class Aquariums extends AppCompatActivity {
         });
 
         lvAquariums = findViewById(R.id.lv_aquariums);
-        CategoryAdapter adapter = new CategoryAdapter (getApplicationContext (),listAquariums);
+        CategoryAdapter adapter = new CategoryAdapter(getApplicationContext (),listAquariums);
         lvAquariums.setAdapter (adapter);
 
         openNewActivity (listAquariums);
@@ -148,7 +148,7 @@ public class Aquariums extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
-//                nextSubcategory = resultEquip.get(i);
+                nextSubcategory = resultEquip.get(i);
                 lastClass = Aquariums.class;
                 intent.putExtra ("class", Aquariums.class);
                 startActivity(intent);

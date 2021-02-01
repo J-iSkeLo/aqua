@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,47 +19,40 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
-import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
-import static l.chernenkiy.aqua.MainActivity.cartItems;
-import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
-import static l.chernenkiy.aqua.MainActivity.lastClass;
-import static l.chernenkiy.aqua.MainActivity.lastClassCategory;
-import static l.chernenkiy.aqua.MainActivity.nextItemsSubCategory;
-import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
-
+import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
+import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
-import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
-import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
-import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
-import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
-import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
-import l.chernenkiy.aqua.Equipment.Adapters.SubCategoryAdapter;
 
-public class CategoryActivity extends AppCompatActivity {
+import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
+import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
+import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastClass;
+import static l.chernenkiy.aqua.MainActivity.lastClassCategory;
+import static l.chernenkiy.aqua.MainActivity.nextItemsSubCategory;
+
+public class SubCategoryActivity extends AppCompatActivity {
+
+    ListView lvSubCategory;
+    EquipmentListAdapter equipmentListAdapter;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
-    ListView lvCategory;
-    EquipmentListAdapter equipmentListAdapter;
-    SubCategoryAdapter subCategoryAdapter;
+    Support support = new Support();
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
-    Support support = new Support();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,8 +68,8 @@ public class CategoryActivity extends AppCompatActivity {
         searchView.setOnSearchClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (CategoryActivity.this, SearchActivity.class);
-                intent.putExtra ("class", CategoryActivity.class);
+                Intent intent = new Intent (SubCategoryActivity.this, SearchActivity.class);
+                intent.putExtra ("class", SubCategoryActivity.class);
                 startActivity (intent);
             }
         });
@@ -91,10 +83,10 @@ public class CategoryActivity extends AppCompatActivity {
         cartImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {
-                Intent intent = new Intent(CategoryActivity.this, ShoppingBasket.class);
+                Intent intent = new Intent(SubCategoryActivity.this, ShoppingBasket.class);
                 intent.putExtra("cartItems", cartItems);
                 intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                intent.putExtra ("class", CategoryActivity.class);
+                intent.putExtra ("class", SubCategoryActivity.class);
                 intent.putExtra ("position", getIntent().getSerializableExtra("position"));
                 startActivity(intent);
             }
@@ -105,67 +97,36 @@ public class CategoryActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_equip);
-
+        setContentView(R.layout.activity_subcategoty);
 
         cd = new ConnectionDetector(getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
-        lvCategory = findViewById(R.id.list_equip2);
+        lvSubCategory = findViewById(R.id.list_equip_subcategory);
 
-        toolbar(nextSubcategory);
-        try {
-            if (nextSubcategory != null) {
-                if (!nextSubcategory.getItems().isEmpty()) {
-                    equipmentListAdapter = new EquipmentListAdapter(getApplicationContext(), nextSubcategory.getItems());
-                    lvCategory.setAdapter(equipmentListAdapter);
-                    equipmentListAdapter.notifyDataSetChanged();
-                    lvOnItemClickListener(nextSubcategory.getItems());
-                } else if (!nextSubcategory.getItemSubCategories().isEmpty()) {
-                    subCategoryAdapter = new SubCategoryAdapter(getApplicationContext(), nextSubcategory.getItemSubCategories());
-                    lvCategory.setAdapter(subCategoryAdapter);
-                    subCategoryAdapter.notifyDataSetChanged();
-                    openSubCategoryActivity(nextSubcategory.getItemSubCategories());
-                } else {
-                    throw new Exception("Не нашло категорию и подкатегорию в CategoryActivity!");
-                }
-            } else {
-                throw new Exception("Не нашло категорию для открытия CategoryActivity");
-            }
-        } catch (Exception e) {
-            support.showToast(getApplicationContext(),"Возникла ошибка!\n Мы постараемся её решить\n В ближайшее время!");
-            finish();
-            e.printStackTrace();
+        toolbar(nextItemsSubCategory);
+
+        if (nextItemsSubCategory != null){
+            ArrayList<ItemEquipment> nextItemsSubCategoryItems = nextItemsSubCategory.getItems();
+
+            equipmentListAdapter = new EquipmentListAdapter(getApplicationContext(), nextItemsSubCategoryItems);
+            lvSubCategory.setAdapter(equipmentListAdapter);
+            equipmentListAdapter.notifyDataSetChanged();
+
+            lvOnItemClickListener(nextItemsSubCategoryItems);
         }
 
-        BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
-        NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
-        navigation.getMenu().getItem(lastBottomNavBar).setChecked(true);
-        overridePendingTransition (0, 0);
-    }
-
-    private void openSubCategoryActivity(final ArrayList<ItemSubCategory> resultSubCategory) {
-        lvCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), SubCategoryActivity.class);
-                nextItemsSubCategory = resultSubCategory.get(i);
-                lastClassCategory = CategoryActivity.class;
-                startActivity(intent);
-            }
-        });
     }
 
     public void lvOnItemClickListener(final ArrayList<ItemEquipment> itemEquipmentCategory){
-        lvCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvSubCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final Dialog dialog = new Dialog(CategoryActivity.this, R.style.FullHeightDialog);
+                final Dialog dialog = new Dialog(SubCategoryActivity.this, R.style.FullHeightDialog);
                 dialog.setContentView(R.layout.dialog_equip_set);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 final ItemEquipment items = itemEquipmentCategory.get(i);
 
@@ -217,11 +178,12 @@ public class CategoryActivity extends AppCompatActivity {
                         String quantityEquip = quantity.getText().toString();
 
                         if (quantity.length () < 1) {
-                            support.showToast (getApplicationContext(),"Укажите количество");
+
+                            support.showToast(getApplicationContext(),"Укажите количество");
                             return;
                         }
 
-                        HashMap <String, String> singleEquipItem = new HashMap<>();
+                        HashMap<String, String> singleEquipItem = new HashMap<>();
                         singleEquipItem.put("name", items.getName());
                         singleEquipItem.put("article", items.getArticle());
                         singleEquipItem.put("producer", items.getGeneralColKey ());
@@ -237,11 +199,11 @@ public class CategoryActivity extends AppCompatActivity {
                             support.showToast(getApplicationContext(), "Позиция уже в Корзине");
                         }
                         else
-                            {
-                                cartEquipmentItem.add(singleEquipItem);
-                                CartHelper.calculateItemsCart();
-                                dialog.dismiss();
-                            }
+                        {
+                            cartEquipmentItem.add(singleEquipItem);
+                            CartHelper.calculateItemsCart();
+                            dialog.dismiss();
+                        }
                     }
                 });
 
@@ -250,17 +212,17 @@ public class CategoryActivity extends AppCompatActivity {
         });
     }
 
-    private void toolbar(ItemCategory itemCategory){
+    private void toolbar(ItemSubCategory itemSubCategory){
 
-        Toolbar toolbar = findViewById(R.id.toolbarEquipCategory2);
+        Toolbar toolbar = findViewById(R.id.toolbarEquipSubCategory);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         try {
-            if(itemCategory.getName() == null){
+            if(itemSubCategory.getName() == null){
                 toolbar.setTitle ("Оборудование");
             }
-            toolbar.setTitle(itemCategory.getName());
+            toolbar.setTitle(itemSubCategory.getName());
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -270,17 +232,16 @@ public class CategoryActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
         if (onBackClass == null){
-            Intent intent = new Intent(CategoryActivity.this, lastClass);
+            Intent intent = new Intent(SubCategoryActivity.this, lastClassCategory);
             startActivity (intent);
         } else {
-            Intent intent = new Intent(CategoryActivity.this, onBackClass);
+            Intent intent = new Intent(SubCategoryActivity.this, onBackClass);
             intent.putExtra("cartItems", cartItems);
             intent.putExtra("cartEquipmentItem", cartEquipmentItem);
             CartHelper.calculateItemsCart ();

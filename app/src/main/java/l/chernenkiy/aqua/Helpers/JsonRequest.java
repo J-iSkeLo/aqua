@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
-import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Fish.Product;
+import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 
-public class JsonRequest  {
+import static java.nio.file.Paths.get;
 
+public class JsonRequest {
 
     public ArrayList makeFishRequest(RequestQueue mQueue, final ArrayList <Product> resultFish) {
 
@@ -71,8 +73,9 @@ public class JsonRequest  {
 
     }
 
-    public ArrayList makeAllEquipRequest (RequestQueue mQueue, final ArrayList<ItemCategory> arrayList,
-                                          String url, final String generalColKey ) {
+
+    public ArrayList makeAllEquipRequest(RequestQueue mQueue, final ArrayList<ItemCategory> arrayCategory,
+                                         String url, final String generalColKey) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -80,29 +83,58 @@ public class JsonRequest  {
                     public void onResponse(JSONObject response) {
 
                         try {
-                            Iterator<String> keys = response.keys();
+                            Iterator<String> parentKeys = response.keys();
 
-                            while (keys.hasNext()) {
-                                String category = keys.next();
-                                JSONArray allEquipment = response.getJSONArray(category);
+                            while (parentKeys.hasNext()) {
+                                String categoryName = parentKeys.next();
+                                Object allEquipment = response.get(categoryName);
                                 ArrayList <ItemEquipment> resultChildrenCategory = new ArrayList<>();
+                                ArrayList<ItemSubCategory> arraySubCategory = new ArrayList<>();
 
-                                for (int i = 0; i < allEquipment.length(); i++) {
-                                    JSONObject equipItem = allEquipment.getJSONObject(i);
-
-                                    String article = equipItem.getString("article");
-                                    String name = equipItem.getString("name");
-                                    String description = equipItem.getString("description");
-                                    String generalKey = equipItem.getString(generalColKey);
-                                    String price = equipItem.getString("price");
-                                    String image = equipItem.getString("image");
+                                if (allEquipment instanceof  JSONObject){
+                                    JSONObject allObjectEquipment = (JSONObject) allEquipment;
+                                    Iterator<String> childKeys = allObjectEquipment.keys();
 
 
-                                    resultChildrenCategory.add(new ItemEquipment(article, name, description, generalKey,  price, image));
+                                    while (childKeys.hasNext()){
+                                        String subCategoryName = childKeys.next();
+                                        JSONArray allArraySubCategory = (JSONArray) allObjectEquipment.get(subCategoryName);
+                                        ArrayList<ItemEquipment> itemEquipment = new ArrayList<>();
+
+                                        for (int j = 0; j < allArraySubCategory.length(); j++){
+                                            JSONObject subEquipItem = (JSONObject) allArraySubCategory.get(j);
+                                            String article = subEquipItem.getString("article");
+                                            String name = subEquipItem.getString("name");
+                                            String description = subEquipItem.getString("description");
+                                            String generalKey = subEquipItem.getString(generalColKey);
+                                            String price = subEquipItem.getString("price");
+                                            String image = subEquipItem.getString("image");
+
+                                            itemEquipment.add(new ItemEquipment(article, name, description, generalKey,  price, image));
+                                        }
+
+                                        arraySubCategory.add(new ItemSubCategory(subCategoryName, itemEquipment));
+                                    }
+
+                                } else {
+                                    JSONArray allArrayEquipment = (JSONArray) allEquipment;
+
+                                    for (int i = 0; i < allArrayEquipment.length(); i++) {
+                                        JSONObject equipItem = allArrayEquipment.getJSONObject(i);
+
+                                        String article = equipItem.getString("article");
+                                        String name = equipItem.getString("name");
+                                        String description = equipItem.getString("description");
+                                        String generalKey = equipItem.getString(generalColKey);
+                                        String price = equipItem.getString("price");
+                                        String image = equipItem.getString("image");
+
+                                        resultChildrenCategory.add(new ItemEquipment(article, name, description, generalKey,  price, image));
+                                    }
                                 }
-
-                                arrayList.add(new ItemCategory (category, resultChildrenCategory));
+                                arrayCategory.add(new ItemCategory(categoryName, resultChildrenCategory, arraySubCategory));
                             }
+
 
 
                         } catch (JSONException e) {
@@ -117,6 +149,6 @@ public class JsonRequest  {
             }
         });
         mQueue.add(request);
-        return arrayList;
+        return arrayCategory;
     }
 }

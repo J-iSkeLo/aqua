@@ -38,6 +38,7 @@ import java.util.Locale;
 import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
@@ -60,6 +61,7 @@ public class SearchActivity extends AppCompatActivity {
     ImageButton cartImageBtn;
     public static ListView lvSearch;
     public  static ArrayList <ItemEquipment> listResultSearch;
+    Support support = new Support();
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
@@ -82,7 +84,7 @@ public class SearchActivity extends AppCompatActivity {
                 lvSearch = findViewById (R.id.list_search);
                 TextView tvNotFoundSearch = findViewById (R.id.tv_not_found_search);
 
-                adapter = new EquipmentListAdapter (getApplicationContext(), searchItem (query.toLowerCase(Locale.getDefault())));
+                adapter = new EquipmentListAdapter(getApplicationContext(), searchItem (query.toLowerCase(Locale.getDefault())));
                 listResultSearch = new ArrayList<>(searchItem (query.toLowerCase(Locale.getDefault())));
                 lvSearch.setAdapter (adapter);
                 adapter.notifyDataSetChanged ();
@@ -109,8 +111,6 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-
                 return false;
             }
         });
@@ -176,10 +176,10 @@ public class SearchActivity extends AppCompatActivity {
                 TouchImageView touchImageView = dialog.findViewById(R.id.imageTouchEquip);
 
                 if(isInternetPresent) {
-                    loadImage(touchImageView, item.getImage());
+                    support.loadImage(touchImageView, item.getImage(), getApplicationContext());
                 }
                 else{
-                    showToastInternetPresent("Нет интернет соединения для загрузки изображения!");
+                    support.showToast(getApplicationContext(),"Нет интернет соединения для загрузки изображения!");
                 }
 
                 final TextView quantity = dialog.findViewById(R.id.quantity_equip_dialog);
@@ -214,7 +214,7 @@ public class SearchActivity extends AppCompatActivity {
                         String quantityEquip = quantity.getText().toString();
 
                         if (quantity.length () < 1) {
-                            showToastInternetPresent ("Укажите количество");
+                            support.showToast(getApplicationContext(),"Укажите количество");
                             return;
                         }
 
@@ -253,30 +253,6 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    public void loadImage (TouchImageView touchImageView, String imageURL){
-
-        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
-        circularProgressDrawable.setStrokeWidth(10f);
-        circularProgressDrawable.setCenterRadius(60f);
-        circularProgressDrawable.setColorSchemeColors(Color.rgb (155,155,155));
-        circularProgressDrawable.start();
-
-
-
-        Glide.with(this)
-                .load(imageURL)
-                .placeholder(circularProgressDrawable)
-                .into(touchImageView);
-    }
-
-    private void showToastInternetPresent(String msg) {
-        Toast toast = Toast.makeText
-                (getApplicationContext(),msg,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-    }
-
-
     @SuppressLint("ClickableViewAccessibility")
     private void hideKeyboard() {
         lvSearch.setOnTouchListener(new View.OnTouchListener() {
@@ -291,34 +267,37 @@ public class SearchActivity extends AppCompatActivity {
 
 
     public ArrayList<ItemEquipment> searchItem (String query) {
-        if (query == "") return new ArrayList<> ();
+        if (query.equals("")) return new ArrayList<> ();
 
-        ArrayList resultSearch = new ArrayList<ItemEquipment>();
+        ArrayList<ItemEquipment> resultSearch = new ArrayList<>();
+        ArrayList<ItemCategory> allEquipment = new ArrayList<>();
 
-        addMatchingItem (query, resultSearch, listEquip);
-        addMatchingItem (query, resultSearch, listAquariums);
-        addMatchingItem (query, resultSearch, listChemistry);
-        addMatchingItem (query, resultSearch, listFeed);
+        allEquipment.addAll(listFeed);
+        allEquipment.addAll(listChemistry);
+        allEquipment.addAll(listAquariums);
+        allEquipment.addAll(listEquip);
+
+        addMatchingItem (query, resultSearch, allEquipment);
 
         return resultSearch;
     }
 
-    private void addMatchingItem(String query, ArrayList category, ArrayList<ItemCategory> list) {
-        for (int i = 0; i<list.size(); i++){
-            ArrayList<ItemEquipment> items = list.get(i).getItems();
+    private void addMatchingItem(String query, ArrayList arrayResultEquipment, ArrayList<ItemCategory> arrayEquipment) {
 
-            for (int j = 0; j<items.size(); j++){
+        for (int i = 0; i<arrayEquipment.size(); i++){
 
-                String name = items.get (j).getName ()
-                        .toLowerCase(Locale.getDefault());
-                String generalColKey = items.get (j).getGeneralColKey ()
-                        .toLowerCase (Locale.getDefault ());
+            ArrayList<ItemEquipment> itemsInCategory = arrayEquipment.get(i).getAllItems();
+
+            for (int j = 0; j<itemsInCategory.size(); j++){
+
+                String name = itemsInCategory.get(j).getName().toLowerCase(Locale.getDefault());
+                String generalColKey = itemsInCategory.get(j).getGeneralColKey().toLowerCase (Locale.getDefault ());
 
                 boolean queryContainsName = name != null && name.contains (query);
                 boolean queryContainsProducer = generalColKey != null && generalColKey.contains (query);
 
                 if (queryContainsName || queryContainsProducer){
-                    category.add (items.get (j));
+                    arrayResultEquipment.add (itemsInCategory.get (j));
                 }
             }
         }

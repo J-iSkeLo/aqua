@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +27,7 @@ import java.util.HashMap;
 
 import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
 import l.chernenkiy.aqua.Helpers.CartHelper;
-import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
@@ -40,13 +38,12 @@ import static l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket.btnOrder;
 public class EquipmentBasket extends Fragment {
     private static final String TAG = "Оборудование";
 
-    public static ShopBaskEquipAdapter shopBaskEquipAdapter;
-    public ArrayList<HashMap> cartEquipItemShop;
-
+    public static AdapterEquip adapterEquip;
+    public static ArrayList<HashMap> cartEquipItemShop;
     public static ListView lvShopEquipBasket;
-
     public static TextView tvNotItemsCart;
     public static TextView tvBackToCatalog;
+    Support support = new Support();
 
     @Nullable
     @Override
@@ -72,8 +69,8 @@ public class EquipmentBasket extends Fragment {
             }
         });
 
-        shopBaskEquipAdapter = new ShopBaskEquipAdapter(getContext(), cartEquipItemShop);
-        lvShopEquipBasket.setAdapter(shopBaskEquipAdapter);
+        adapterEquip = new AdapterEquip(getContext(), cartEquipItemShop);
+        lvShopEquipBasket.setAdapter(adapterEquip);
 
         cartItemOnClick(view);
 
@@ -104,8 +101,8 @@ public class EquipmentBasket extends Fragment {
                     public void onClick(View view) {
                         cartEquipmentItem.remove(i);
                         btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder()+ " грн.");
-                        shopBaskEquipAdapter = new ShopBaskEquipAdapter (getContext(), cartEquipmentItem);
-                        lvShopEquipBasket.setAdapter(shopBaskEquipAdapter);
+                        adapterEquip = new AdapterEquip(getContext(), cartEquipmentItem);
+                        lvShopEquipBasket.setAdapter(adapterEquip);
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
                         String newCartItemText = String.valueOf((cartItemText-1));
                         cartAddItemText.setText(newCartItemText);
@@ -157,7 +154,7 @@ public class EquipmentBasket extends Fragment {
                 String quantityFish = editQuantity.getText().toString();
 
                 if (editQuantity.length () < 1) {
-                    showToastInternetPresent ("Укажите количество");
+                    support.showToast (getContext(), "Укажите количество");
                     return;
                 }
 
@@ -169,8 +166,8 @@ public class EquipmentBasket extends Fragment {
 
                 btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
 
-                ShopBaskEquipAdapter shopBaskEquipAdapter = new ShopBaskEquipAdapter(getContext(), editListQuantity);
-                lvShopEquipBasket.setAdapter(shopBaskEquipAdapter);
+                AdapterEquip adapterEquip = new AdapterEquip(getContext(), editListQuantity);
+                lvShopEquipBasket.setAdapter(adapterEquip);
 
                 dialog.dismiss();
             }
@@ -200,13 +197,5 @@ public class EquipmentBasket extends Fragment {
             }
 
         });
-
-    }
-
-    private void showToastInternetPresent(String msg) {
-        Toast toast = Toast.makeText
-                (getContext (),msg,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
     }
 }

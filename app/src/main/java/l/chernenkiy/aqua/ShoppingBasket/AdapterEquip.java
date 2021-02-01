@@ -22,16 +22,18 @@ import java.util.HashMap;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 
 
-public class ShopBaskEquipAdapter extends BaseAdapter {
+public class AdapterEquip extends BaseAdapter {
 
     private ArrayList<HashMap> cartEquipmentItem;
     private Context context;
+    Support support = new Support();
 
 
-    public ShopBaskEquipAdapter(Context context, ArrayList<HashMap> cartEquipmentItem){
+    public AdapterEquip(Context context, ArrayList<HashMap> cartEquipmentItem){
         this.cartEquipmentItem = cartEquipmentItem;
         this.context = context;
     }
@@ -85,16 +87,13 @@ public class ShopBaskEquipAdapter extends BaseAdapter {
 
         String urlImage = (String) cartGetPosition.get ("image");
         if(isInternetPresent) {
-            loadImage(image, urlImage);
+            support.loadImage(image, urlImage, context);
         }
         else{
-            showToastInternetPresent("Нет интернет соединения для загрузки изображения!");
+            support.showToast(context,"Нет интернет соединения для загрузки изображения!");
         }
 
-
         convertView.setTag(i);
-
-
         return convertView;
     }
 
@@ -104,29 +103,6 @@ public class ShopBaskEquipAdapter extends BaseAdapter {
         BigDecimal bigDecimal = new BigDecimal(sumEquip);
         bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_UP);
         return String.valueOf(bigDecimal);
-    }
-
-    public void loadImage (ImageView image, String imageURL){
-
-        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(context);
-        circularProgressDrawable.setStrokeWidth(10f);
-        circularProgressDrawable.setCenterRadius(60f);
-        circularProgressDrawable.setColorSchemeColors(Color.rgb (155,155,155));
-        circularProgressDrawable.start();
-
-
-
-        Glide.with(context)
-                .load(imageURL)
-                .placeholder(circularProgressDrawable)
-                .into(image);
-    }
-
-    private void showToastInternetPresent(String msg) {
-        Toast toast = Toast.makeText
-                (context,msg,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
     }
 
 }

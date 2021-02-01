@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +29,7 @@ import java.util.HashMap;
 
 import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
@@ -39,7 +38,7 @@ import static l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket.btnOrder;
 
 public class FishBasket extends Fragment {
     private static final String TAG = "Рыба";
-    public static ShopBaskFishAdapter shopBaskFishAdapter;
+    public static AdapterFish adapterFish;
     public static ListView lvShopBasket;
 
     public static TextView tvFishNotItemsCart;
@@ -71,9 +70,9 @@ public class FishBasket extends Fragment {
             }
         });
 
-        shopBaskFishAdapter = new ShopBaskFishAdapter(getActivity(), cartItemsShop);
+        adapterFish = new AdapterFish(getActivity(), cartItemsShop);
 
-        lvShopBasket.setAdapter(shopBaskFishAdapter);
+        lvShopBasket.setAdapter(adapterFish);
         cartItemOnClick(view);
 
         lvShopBasket.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -97,8 +96,8 @@ public class FishBasket extends Fragment {
 
                         cartItems.remove(i);
                         btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
-                        shopBaskFishAdapter = new ShopBaskFishAdapter(getContext(), cartItems);
-                        lvShopBasket.setAdapter(shopBaskFishAdapter);
+                        adapterFish = new AdapterFish(getContext(), cartItems);
+                        lvShopBasket.setAdapter(adapterFish);
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
                         String newCartItemText = String.valueOf((cartItemText-1));
                         cartAddItemText.setText(newCartItemText);
@@ -172,7 +171,8 @@ public class FishBasket extends Fragment {
                 String quantityFish = editQuantity.getText().toString();
 
                 if (editQuantity.length () < 1) {
-                    showToastInternetPresent ("Укажите количество");
+                    Support support = new Support();
+                    support.showToast (getContext(), "Укажите количество");
                     return;
                 }
 
@@ -184,21 +184,11 @@ public class FishBasket extends Fragment {
 
                 btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder()+ " грн.");
 
-                shopBaskFishAdapter = new ShopBaskFishAdapter(getContext(), editListQuantity);
-                lvShopBasket.setAdapter(shopBaskFishAdapter);
+                adapterFish = new AdapterFish(getContext(), editListQuantity);
+                lvShopBasket.setAdapter(adapterFish);
 
                 dialog.dismiss();
             }
         });
     }
-
-    private void showToastInternetPresent(String msg) {
-        Toast toast = Toast.makeText
-                (getContext (),msg,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-    }
-
-
-
 }

@@ -4,6 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/relativeLayout2"
 android:layout_width="match_parent"
+android:background="@color/colorTimeBar"
 android:layout_height="wrap_content"
 android:orientation="vertical"
 android:padding="5dp">
@@ -66,7 +67,7 @@ android:padding="5dp">
                 android:layout_width="204dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingStart="3dp"
+                android:paddingStart="7dp"
                 android:paddingEnd="3dp">
 
                 <TextView
@@ -75,7 +76,7 @@ android:padding="5dp">
                     android:layout_height="wrap_content"
                     android:paddingEnd="5dp"
                     android:text="Название должно быть длинным"
-                    android:textColor="@color/colorNameCart"
+                    android:textColor="@color/colorTextCart"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.Test;
+package l.chernenkiy.aqua.Equipment.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,17 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.R;
 
-public class SubCategoryAdapterTest extends BaseAdapter {
+public class SubCategoryAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<ItemSubCategoryTest> mItemCategory;
+    private ArrayList<ItemSubCategory> mItemCategory;
 
 
-    public SubCategoryAdapterTest(Context mContext, ArrayList<ItemSubCategoryTest> mItemCategory) {
+    public SubCategoryAdapter(Context mContext, ArrayList<ItemSubCategory> mItemCategory) {
         this.mContext = mContext;
         this.mItemCategory = mItemCategory;
 
@@ -56,10 +56,10 @@ public class SubCategoryAdapterTest extends BaseAdapter {
         TextView tvCategory = convertView.findViewById(R.id.name_category);
         TextView tvNumbEquip = convertView.findViewById(R.id.numb_category);
 
-        ItemSubCategoryTest itemSubCategoryTest = mItemCategory.get(i);
+        ItemSubCategory itemSubCategory = mItemCategory.get(i);
 
-        tvCategory.setText(itemSubCategoryTest.getName());
-        tvNumbEquip.setText(itemSubCategoryTest.getItems().size() + " позиций");
+        tvCategory.setText(itemSubCategory.getName());
+        tvNumbEquip.setText(itemSubCategory.getItems().size() + " позиций");
 
         return convertView;
     }
