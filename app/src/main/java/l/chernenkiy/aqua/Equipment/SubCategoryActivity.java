@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
@@ -39,6 +41,7 @@ import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.lastClassCategory;
 import static l.chernenkiy.aqua.MainActivity.nextItemsSubCategory;
@@ -117,7 +120,10 @@ public class SubCategoryActivity extends AppCompatActivity {
 
             lvOnItemClickListener(nextItemsSubCategoryItems);
         }
-
+        BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
+        NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
+        navigation.getMenu().getItem(lastBottomNavBar).setChecked(true);
+        overridePendingTransition (0, 0);
     }
 
     public void lvOnItemClickListener(final ArrayList<ItemEquipment> itemEquipmentCategory){

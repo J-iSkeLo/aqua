@@ -48,7 +48,7 @@ public class SubCategoryAdapter extends BaseAdapter {
 
         LayoutInflater mInflater = (LayoutInflater) mContext
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        convertView = mInflater.inflate(R.layout.cart_equipment_test, null);
+        convertView = mInflater.inflate(R.layout.cart_equipment_subcategory, null);
 
         ImageView ivRightArrow = convertView.findViewById(R.id.imageRightArrow);
         ivRightArrow.setImageResource(R.drawable.right_arrow_equipment_list);

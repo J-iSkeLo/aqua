@@ -20,33 +20,47 @@
         app:title="Оборудование"
         app:titleTextColor="#090909" />
 
-
-
     <ListView
         android:id="@+id/lv_equipment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="#F5F5F5"
         android:dividerHeight="1dp"
-        android:layout_marginTop="2dp"
         android:drawSelectorOnTop="true"
         android:drawingCacheQuality="high"
-        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarEquipAccess">
+
     </ListView>
 
-
-
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_above="@id/nav_bar_bottom"
-        android:background="@drawable/shadow"
-        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
+        android:layout_height="1dp"
+        android:background="#D6D6D6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lv_equipment" />
+
+
+    <Button
+        android:id="@+id/btn_all_items_in_category_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F5F5F5"
+        android:drawableRight="@drawable/ic_baseline_notes_24"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        android:text="Показать общим списком"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -54,14 +68,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        app:labelVisibilityMode="labeled"
-        app:itemTextColor="@color/bottom_nav_color"
         app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" >
-
+        app:menu="@menu/bottom_nav_menu">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 

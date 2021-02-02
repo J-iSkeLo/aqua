@@ -22,6 +22,7 @@ public class CategoryAdapter extends BaseAdapter {
     private List<ItemCategory> mItemCategory;
 
 
+
     public CategoryAdapter(Context mContext, List<ItemCategory> mItemCategory) {
         this.mContext = mContext;
         this.mItemCategory = mItemCategory;
@@ -55,21 +56,16 @@ public class CategoryAdapter extends BaseAdapter {
         ImageView ivRightArrow = convertView.findViewById(R.id.imageRightArrow);
         ivRightArrow.setImageResource(R.drawable.right_arrow_equipment_list);
 
-
         TextView tvCategory = convertView.findViewById(R.id.name_category);
         TextView tvNumbEquip = convertView.findViewById(R.id.numb_category);
 
-
-
         tvCategory.setText(mItemCategory.get(i).getName());
 
-
         ArrayList<ItemSubCategory> itemSubCategories = mItemCategory.get(i).getItemSubCategories();
-
+        int sizeSubCategoryItems = 0;
         if (itemSubCategories.isEmpty()) {
             tvNumbEquip.setText(mItemCategory.get(i).getItems().size() + " позиций");
         } else {
-            int sizeSubCategoryItems = 0;
             for (int j = 0; j < itemSubCategories.size(); j++){
                 sizeSubCategoryItems += itemSubCategories.get(j).getItems().size();
             }

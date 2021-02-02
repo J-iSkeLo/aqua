@@ -21,12 +21,17 @@ import androidx.core.view.MenuItemCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import l.chernenkiy.aqua.Equipment.Adapters.CategoryAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
@@ -45,6 +50,7 @@ public class Feed extends AppCompatActivity {
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
+    Support support = new Support();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,6 +113,7 @@ public class Feed extends AppCompatActivity {
 
         lvFeed = findViewById(R.id.lv_feed);
         CategoryAdapter adapter = new CategoryAdapter(getApplicationContext (),listFeed);
+//        support.sortListSize_ItemCategory(listFeed);
         lvFeed.setAdapter (adapter);
 
         openNewActivity (listFeed);
@@ -118,7 +125,6 @@ public class Feed extends AppCompatActivity {
         lastBottomNavBar = 2;
         NavigationBar.itemSelected (navigation, getApplicationContext (),R.id.feed);
         overridePendingTransition (0, 0);
-
     }
 
     @Override

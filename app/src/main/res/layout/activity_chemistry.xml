@@ -8,33 +8,55 @@
     android:background="#EBEBEB"
     tools:context=".Equipment.Chemistry">
 
-
-    <ListView
-        android:id="@+id/lv_chemistry"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#F5F5F5"
-        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarChemistry" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarChemistry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Химия"
         app:titleTextColor="#090909" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_above="@id/nav_bar_bottom"
-        android:background="@drawable/shadow"
-        app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
+
+    <ListView
+        android:id="@+id/lv_chemistry"
+        android:layout_width="402dp"
+        android:layout_height="0dp"
+        android:background="#F5F5F5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarChemistry" />
+
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D6D6D6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lv_chemistry" />
+
+    <Button
+        android:id="@+id/btn_all_items_in_category_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F5F5F5"
+        android:drawableRight="@drawable/ic_baseline_notes_24"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        android:text="Показать общим списком"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bar_bottom"
