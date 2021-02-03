@@ -29,15 +29,28 @@ public class ItemCategory implements Serializable {
     }
 
     public ArrayList<ItemEquipment> getAllItems () {
+        ArrayList<ItemEquipment> items = getItems();
+        ArrayList<ItemEquipment> result = new ArrayList<>(items);
+        ArrayList<ItemSubCategory> subCategoryArrayList = getItemSubCategories();
 
-        ArrayList<ItemEquipment> result = getItems();
-
-        for (int j = 0; j < getItemSubCategories().size(); j++){
-
-            ArrayList<ItemEquipment> childrenSubcategory = getItemSubCategories().get(j).getItems();
-
+        for (int j = 0; j < subCategoryArrayList.size(); j++){
+            ArrayList<ItemEquipment> childrenSubcategory = subCategoryArrayList.get(j).getItems();
             result.addAll(childrenSubcategory);
         }
+
+        return result;
+    }
+
+    public ArrayList<ItemEquipment> getSubCategoryItems() {
+        ArrayList<ItemSubCategory> itemSubCategories = getItemSubCategories();
+        ArrayList<ItemEquipment> result = new ArrayList<>();
+
+        if (!itemSubCategories.isEmpty()) {
+            for (int i = 0; i < itemSubCategories.size(); i++) {
+                result.addAll(itemSubCategories.get(i).getItems());
+            }
+        }
+
         return result;
     }
 }

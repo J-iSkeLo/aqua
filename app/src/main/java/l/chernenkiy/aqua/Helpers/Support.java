@@ -1,21 +1,36 @@
 package l.chernenkiy.aqua.Helpers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
+
+import static androidx.core.content.ContextCompat.startActivity;
+import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
+import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastClass;
 
 public class Support {
 
@@ -42,22 +57,58 @@ public class Support {
                 .into(image);
     }
 
-    public void sortListSize_ItemCategory(ArrayList<ItemCategory> arrayList) {
+    public void sortListSizeItemCategory(final ArrayList<ItemCategory> arrayList) {
         Collections.sort(arrayList, new Comparator<ItemCategory>() {
+
             @Override
-            public int compare(ItemCategory itemCategory, ItemCategory t1) {
-                int v3 = 0;
-                int v1 = itemCategory.getItems().size();
-                int v2 = t1.getItems().size();
-                ArrayList<ItemSubCategory> subCategoryArrayList = itemCategory.getItemSubCategories();
-                if (!itemCategory.getItemSubCategories().isEmpty()){
-                    for (int i = 0; i < itemCategory.getItemSubCategories().size(); i++){
-                        v3 += subCategoryArrayList.get(i).getItems().size();
-                    }
-                    return Integer.compare(v3, v1);
-                }
-                return Integer.compare(v1, v2);
+            public int compare(ItemCategory current, ItemCategory next) {
+
+                int v1 = current.getItems().size();
+                int v2 = next.getItems().size();
+
+                int subCategoriesItemsCount = current.getSubCategoryItems().size();
+                int nextSubCategoriesItemsCount = next.getSubCategoryItems().size();
+
+                int x1 = (v1 + subCategoriesItemsCount);
+                int x2 = (v2 + nextSubCategoriesItemsCount);
+
+                return Integer.compare(x2, x1);
             }
         });
     }
+
+
+
+    public void openShopBask(ImageButton btn, final Context context, final Class backClass) {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View actionView) {
+                Intent intent = new Intent(context, ShoppingBasket.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("cartItems", cartItems);
+                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                intent.putExtra ("class", backClass);
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    public void search(SearchView searchView, final Context context, final Class backClass) {
+
+        searchView.setQueryHint("Поиск позиции...");
+        searchView.setIconifiedByDefault(true);
+        searchView.setFocusable(false);
+        searchView.setOnSearchClickListener (new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (context, SearchActivity.class);
+                lastClass = backClass;
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra ("class", backClass);
+                context.startActivity (intent);
+            }
+        });
+    }
+
+
 }

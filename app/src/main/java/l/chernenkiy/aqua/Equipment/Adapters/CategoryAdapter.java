@@ -61,16 +61,14 @@ public class CategoryAdapter extends BaseAdapter {
 
         tvCategory.setText(mItemCategory.get(i).getName());
 
-        ArrayList<ItemSubCategory> itemSubCategories = mItemCategory.get(i).getItemSubCategories();
-        int sizeSubCategoryItems = 0;
-        if (itemSubCategories.isEmpty()) {
-            tvNumbEquip.setText(mItemCategory.get(i).getItems().size() + " позиций");
-        } else {
-            for (int j = 0; j < itemSubCategories.size(); j++){
-                sizeSubCategoryItems += itemSubCategories.get(j).getItems().size();
-            }
-        tvNumbEquip.setText(sizeSubCategoryItems + " позиций");
-        }
+        ItemCategory item = mItemCategory.get(i);
+
+        int size = item.getItemSubCategories().isEmpty()
+            ? item.getItems().size()
+            : item.getSubCategoryItems().size();
+
+        tvNumbEquip.setText(size + " позиций");
+
         return convertView;
     }
 }

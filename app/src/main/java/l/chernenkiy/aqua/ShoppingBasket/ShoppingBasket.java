@@ -196,15 +196,13 @@ public class ShoppingBasket extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
-        if (onBackClass == null){
-            finish ();
-        } else {
+        if (onBackClass != null) {
             Intent intent = new Intent(ShoppingBasket.this, onBackClass);
-            intent.putExtra("position", getIntent ().getSerializableExtra ("position"));
-            startActivity (intent);
-            getIntent ().removeExtra ("class");
-            finish ();
+            intent.putExtra("position", getIntent().getSerializableExtra("position"));
+            startActivity(intent);
+            getIntent().removeExtra("class");
         }
+        finish ();
     }
 
 

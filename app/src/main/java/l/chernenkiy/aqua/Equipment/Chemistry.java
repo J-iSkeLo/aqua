@@ -27,6 +27,7 @@ import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
@@ -45,6 +46,7 @@ public class Chemistry extends AppCompatActivity {
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
+    Support support = new Support();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,36 +56,19 @@ public class Chemistry extends AppCompatActivity {
         final View actionView = cartIconMenuItem.getActionView();
         final MenuItem menuSearchItem = menu.findItem(R.id.app_bar_search);
         searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
-        searchView.setQueryHint("Поиск позиции...");
-        searchView.setIconifiedByDefault(true);
-        searchView.setFocusable(false);
-        searchView.setOnSearchClickListener (new View.OnClickListener ( ) {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent (Chemistry.this, SearchActivity.class);
-                intent.putExtra ("class", Chemistry.class);
-                startActivity (intent);
-            }
-        });
 
+        calculateItemsInShopBask(actionView);
+        support.search(searchView, getApplicationContext(), Chemistry.class);
+        support.openShopBask(cartImageBtn, getApplicationContext(), Chemistry.class);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    private void calculateItemsInShopBask(View actionView) {
         if (actionView != null) {
             cartAddItemText = actionView.findViewById(R.id.text_item_cart);
             cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
             CartHelper.calculateItemsCart();
         }
-
-        cartImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View actionView) {
-                Intent intent = new Intent(Chemistry.this, ShoppingBasket.class);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                intent.putExtra ("class", Chemistry.class);
-                startActivity(intent);
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

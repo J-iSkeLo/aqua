@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.view.Gravity;
@@ -26,19 +25,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
-import com.bumptech.glide.Glide;
 import com.ortiz.touchview.TouchImageView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
+import l.chernenkiy.aqua.Equipment.Adapters.SearchListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
-import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
@@ -55,7 +53,7 @@ public class SearchActivity extends AppCompatActivity {
 
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
-    EquipmentListAdapter adapter;
+    SearchListAdapter adapter;
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
@@ -71,20 +69,38 @@ public class SearchActivity extends AppCompatActivity {
         final MenuItem menuSearchItem = menu.findItem(R.id.app_bar_search);
         final View actionView = cartIconMenuItem.getActionView();
         searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
+        searchSetCustomization();
+        searchItem();
+        calculateItemsInShopBask(actionView);
+        support.openShopBask(cartImageBtn, getApplicationContext(), SearchActivity.class);
 
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void searchSetCustomization() {
         searchView.setQueryHint("Поиск позиции...");
         searchView.setIconifiedByDefault(true);
         searchView.setImeOptions (EditorInfo.IME_ACTION_SEARCH);
         searchView.setFocusable(true);
         searchView.setIconified(false);
+    }
 
+    private void calculateItemsInShopBask(View actionView) {
+        if (actionView != null) {
+            cartAddItemText = actionView.findViewById(R.id.text_item_cart);
+            cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
+            CartHelper.calculateItemsCart();
+        }
+    }
+
+    private void searchItem() {
         searchView.setOnQueryTextListener (new SearchView.OnQueryTextListener ( ) {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 lvSearch = findViewById (R.id.list_search);
                 TextView tvNotFoundSearch = findViewById (R.id.tv_not_found_search);
 
-                adapter = new EquipmentListAdapter(getApplicationContext(), searchItem (query.toLowerCase(Locale.getDefault())));
+                adapter = new SearchListAdapter(getApplicationContext(), searchItem (query.toLowerCase(Locale.getDefault())));
                 listResultSearch = new ArrayList<>(searchItem (query.toLowerCase(Locale.getDefault())));
                 lvSearch.setAdapter (adapter);
                 adapter.notifyDataSetChanged ();
@@ -114,29 +130,7 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-        if (actionView != null) {
-            cartAddItemText = actionView.findViewById(R.id.text_item_cart);
-            cartImageBtn = actionView.findViewById(R.id.btn_image_cart);
-            CartHelper.calculateItemsCart();
-        }
-
-        cartImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View actionView) {
-                Intent intent = new Intent(SearchActivity.this, ShoppingBasket.class);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                intent.putExtra ("class", SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        return super.onCreateOptionsMenu(menu);
     }
-
 
 
     @Override
@@ -146,20 +140,18 @@ public class SearchActivity extends AppCompatActivity {
 
         cd = new ConnectionDetector(getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
-
-        Toolbar toolbar = findViewById(R.id.toolbarSearch);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
         lvSearch = findViewById (R.id.list_search);
 
+        toolbarCreate();
+
+
+        addItemInShopBask();
+
+        hideKeyboard();
+
+    }
+
+    private void addItemInShopBask() {
         lvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -168,6 +160,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 final ItemEquipment item = listResultSearch.get (i);
 
+                final TextView quantity = dialog.findViewById(R.id.quantity_equip_dialog);
                 TextView nameEquip = dialog.findViewById(R.id.name_dialog_equip);
                 TextView articleEquip = dialog.findViewById(R.id.article_dialog);
                 TextView producerEquip = dialog.findViewById(R.id.dialog_producer_equip);
@@ -182,13 +175,7 @@ public class SearchActivity extends AppCompatActivity {
                     support.showToast(getApplicationContext(),"Нет интернет соединения для загрузки изображения!");
                 }
 
-                final TextView quantity = dialog.findViewById(R.id.quantity_equip_dialog);
-
-                nameEquip.setText(item.getName());
-                articleEquip.setText("Артикул: " + item.getArticle());
-                producerEquip.setText(item.getGeneralColKey ());
-                priceEquip.setText(item.getPrice() + " грн.");
-                descriptionEquip.setText(item.getDescription());
+                dialogSetText(item, nameEquip, articleEquip, producerEquip, priceEquip, descriptionEquip);
 
                 Button btnCancelDialog = dialog.findViewById(R.id.cancel_dialogEquip_btn);
                 Button btnAddShopBask = dialog.findViewById(R.id.addShopBaskEquip_btn);
@@ -218,23 +205,13 @@ public class SearchActivity extends AppCompatActivity {
                             return;
                         }
 
-                        HashMap<String, String> singleEquipItem = new HashMap<> ();
-                        singleEquipItem.put("name", item.getName());
-                        singleEquipItem.put("article", item.getArticle());
-                        singleEquipItem.put("producer", item.getGeneralColKey ());
-                        singleEquipItem.put("price", item.getPrice());
-                        singleEquipItem.put("description", item.getDescription());
-                        singleEquipItem.put("quantity", quantityEquip);
-                        singleEquipItem.put ("image" , item.getImage ());
+                        HashMap<String, String> singleEquipItem = getStringStringHashMap(quantityEquip);
 
                         boolean hasDuplicate = CartHelper.findCartItem(singleEquipItem.get("name"),singleEquipItem.get("price"), cartEquipmentItem);
 
                         if (hasDuplicate)
                         {
-                            Toast toast = Toast.makeText
-                                    (getApplicationContext(),"Позиция уже в Корзине",Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER,0,0);
-                            toast.show();
+                            support.showToast(getApplicationContext(),"Позиция уже в Корзине");
                         }
                         else
                         {
@@ -243,14 +220,47 @@ public class SearchActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     }
+
+                    @NotNull
+                    private HashMap<String, String> getStringStringHashMap(String quantityEquip) {
+                        HashMap<String, String> singleEquipItem = new HashMap<> ();
+                        singleEquipItem.put("name", item.getName());
+                        singleEquipItem.put("article", item.getArticle());
+                        singleEquipItem.put("producer", item.getGeneralColKey ());
+                        singleEquipItem.put("price", item.getPrice());
+                        singleEquipItem.put("description", item.getDescription());
+                        singleEquipItem.put("quantity", quantityEquip);
+                        singleEquipItem.put ("image" , item.getImage ());
+                        return singleEquipItem;
+                    }
                 });
 
                 dialog.show();
             }
+
+            private void dialogSetText(ItemEquipment item, TextView nameEquip,
+                                       TextView articleEquip, TextView producerEquip,
+                                       TextView priceEquip, TextView descriptionEquip) {
+                nameEquip.setText(item.getName());
+                articleEquip.setText("Артикул: " + item.getArticle());
+                producerEquip.setText(item.getGeneralColKey ());
+                priceEquip.setText(item.getPrice() + " грн.");
+                descriptionEquip.setText(item.getDescription());
+            }
         });
+    }
 
-        hideKeyboard();
-
+    private void toolbarCreate() {
+        Toolbar toolbar = findViewById(R.id.toolbarSearch);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -265,39 +275,33 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-
     public ArrayList<ItemEquipment> searchItem (String query) {
         if (query.equals("")) return new ArrayList<> ();
 
         ArrayList<ItemEquipment> resultSearch = new ArrayList<>();
-        ArrayList<ItemCategory> allEquipment = new ArrayList<>();
 
-        allEquipment.addAll(listFeed);
-        allEquipment.addAll(listChemistry);
-        allEquipment.addAll(listAquariums);
-        allEquipment.addAll(listEquip);
-
-        addMatchingItem (query, resultSearch, allEquipment);
+        addMatchingItem (query, resultSearch, listEquip);
+        addMatchingItem (query, resultSearch, listFeed);
+        addMatchingItem (query, resultSearch, listChemistry);
+        addMatchingItem (query, resultSearch, listAquariums);
 
         return resultSearch;
     }
 
-    private void addMatchingItem(String query, ArrayList arrayResultEquipment, ArrayList<ItemCategory> arrayEquipment) {
+    private void addMatchingItem(String query, ArrayList<ItemEquipment> arrayResultEquipment, ArrayList<ItemCategory> arrayEquipment) {
 
         for (int i = 0; i<arrayEquipment.size(); i++){
 
             ArrayList<ItemEquipment> itemsInCategory = arrayEquipment.get(i).getAllItems();
 
-            for (int j = 0; j<itemsInCategory.size(); j++){
-
-                String name = itemsInCategory.get(j).getName().toLowerCase(Locale.getDefault());
-                String generalColKey = itemsInCategory.get(j).getGeneralColKey().toLowerCase (Locale.getDefault ());
-
+            for (int j = 0; j < itemsInCategory.size(); j++){
+                ItemEquipment equipment = itemsInCategory.get(j);
+                String name = equipment.getName().toLowerCase(Locale.getDefault());
+                String generalColKey = equipment.getGeneralColKey().toLowerCase (Locale.getDefault ());
                 boolean queryContainsName = name != null && name.contains (query);
                 boolean queryContainsProducer = generalColKey != null && generalColKey.contains (query);
-
                 if (queryContainsName || queryContainsProducer){
-                    arrayResultEquipment.add (itemsInCategory.get (j));
+                    arrayResultEquipment.add (equipment);
                 }
             }
         }
@@ -306,19 +310,16 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
+        Intent intent;
         if (onBackClass == null){
-            Intent intent = new Intent(getApplicationContext (), lastClass);
-            CartHelper.calculateItemsCart ();
-            startActivity (intent);
+            intent = new Intent(getApplicationContext(), lastClass);
 
         } else {
-            Intent intent = new Intent(getApplicationContext (), onBackClass);
+            intent = new Intent(getApplicationContext(), onBackClass);
             intent.putExtra("cartItems", cartItems);
             intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-            CartHelper.calculateItemsCart ();
-            startActivity (intent);
         }
-
-
+        CartHelper.calculateItemsCart ();
+        startActivity (intent);
     }
 }
