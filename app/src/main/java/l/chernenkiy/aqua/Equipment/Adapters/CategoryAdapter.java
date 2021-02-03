@@ -1,5 +1,6 @@
 package l.chernenkiy.aqua.Equipment.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class CategoryAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(final int i, View convertView, ViewGroup viewGroup) {
 
