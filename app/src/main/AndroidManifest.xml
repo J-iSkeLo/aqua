@@ -87,6 +87,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".LastOrder.LastOrder"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Helpers.SearchActivity"
             android:configChanges="orientation"
             android:launchMode="singleTop"

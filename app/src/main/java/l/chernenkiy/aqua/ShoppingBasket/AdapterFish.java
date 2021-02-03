@@ -28,12 +28,12 @@ import l.chernenkiy.aqua.R;
 public class AdapterFish extends BaseAdapter {
 
     public static ArrayList<HashMap> cartItems;
-    private Context context;
+    private final Context context;
     Support support = new Support();
 
 
     public AdapterFish(Context context, ArrayList<HashMap> cartItems){
-        this.cartItems = cartItems;
+        AdapterFish.cartItems = cartItems;
         this.context = context;
     }
 

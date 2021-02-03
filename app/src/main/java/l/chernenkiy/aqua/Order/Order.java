@@ -3,6 +3,7 @@ package l.chernenkiy.aqua.Order;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.gson.Gson;
 
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -182,6 +185,8 @@ public class Order extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            saveDataFish();
+            saveDataEquip();
             progressDialog.show();
         }
 
@@ -237,5 +242,21 @@ public class Order extends AppCompatActivity {
             else
                 support.showToast(getApplicationContext(),"Возникла ошибка\nпри оформлении заказа\nПопробуйте позже!");
         }
+    }
+    private void saveDataFish(){
+        SharedPreferences sharedPref = getSharedPreferences("shared preferences fish", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        String jsonFish = gson.toJson(cartItems);
+        editor.putString("cartItems", jsonFish);
+        editor.apply();
+    }
+    private void saveDataEquip(){
+        SharedPreferences sharedPref = getSharedPreferences("shared preferences equip", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Gson gson = new Gson();
+        String jsonEquip = gson.toJson(cartEquipmentItem);
+        editor.putString("cartEquipmentItems", jsonEquip);
+        editor.apply();
     }
 }

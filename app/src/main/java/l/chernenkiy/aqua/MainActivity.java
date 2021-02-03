@@ -9,13 +9,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -36,6 +34,7 @@ import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.Support;
+import l.chernenkiy.aqua.LastOrder.LastOrder;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
@@ -87,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
         cartAddItemTextMain = findViewById (R.id.text_item_cart_main);
         calculateItemsCartMain();
 
-
-
         shopBaskButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {
@@ -104,8 +101,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnCatalog = findViewById(R.id.btn_catalog);
+        Button btnLastOrder = findViewById(R.id.last_order);
+        btnLastOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent intent = new Intent(MainActivity.this, LastOrder.class);
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
+        Button btnCatalog = findViewById(R.id.btn_catalog);
         btnCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

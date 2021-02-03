@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorTimeBar"
+    android:layout_height="match_parent"
+    tools:context=".LastOrder.LastOrder">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar6"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Последний заказ"
+        android:elevation="10dp"
+        app:titleTextColor="#090909"  />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutLastOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/tab_background_selected"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar6"
+        app:tabBackground="@drawable/tab_color_selector"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="@color/colorTextCart" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/containerLastOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutLastOrder"
+        app:layout_constraintVertical_bias="1.0">
+    </androidx.viewpager.widget.ViewPager>
+
+
+</LinearLayout>

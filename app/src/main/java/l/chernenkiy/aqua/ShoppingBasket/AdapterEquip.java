@@ -28,13 +28,13 @@ import l.chernenkiy.aqua.R;
 
 public class AdapterEquip extends BaseAdapter {
 
-    private ArrayList<HashMap> cartEquipmentItem;
-    private Context context;
+    public static ArrayList<HashMap> cartEquipmentItem;
+    private final Context context;
     Support support = new Support();
 
 
     public AdapterEquip(Context context, ArrayList<HashMap> cartEquipmentItem){
-        this.cartEquipmentItem = cartEquipmentItem;
+        AdapterEquip.cartEquipmentItem = cartEquipmentItem;
         this.context = context;
     }
 
