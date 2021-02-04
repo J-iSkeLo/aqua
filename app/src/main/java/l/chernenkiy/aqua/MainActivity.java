@@ -1,7 +1,5 @@
 package l.chernenkiy.aqua;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -29,16 +29,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
+import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.LastOrder.LastOrder;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
-import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
-import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
-import l.chernenkiy.aqua.Helpers.JsonRequest;
 
 import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     public static TextView cartAddItemTextMain;
     public static ArrayList<HashMap> cartItems = new ArrayList<>();
     public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
+    public static ArrayList<HashMap> lastFishShopArray = new ArrayList<>();
+    public static ArrayList<HashMap> lastEquipShopArray = new ArrayList<>();
 
     public static ArrayList <Product> listFish = new ArrayList<>();
     public static ArrayList <ItemCategory> listEquip = new ArrayList<>();

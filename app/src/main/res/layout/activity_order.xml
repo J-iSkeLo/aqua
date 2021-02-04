@@ -149,6 +149,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Оформить заказ"
-        app:titleTextColor="#090909" />
+        app:titleTextColor="@color/colorTextToolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

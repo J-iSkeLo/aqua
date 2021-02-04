@@ -1,13 +1,11 @@
 package l.chernenkiy.aqua.LastOrder;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,14 +21,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import l.chernenkiy.aqua.MainActivity;
-import l.chernenkiy.aqua.Order.Order;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.AdapterEquip;
-import l.chernenkiy.aqua.ShoppingBasket.AdapterFish;
 
 import static android.content.Context.MODE_PRIVATE;
-import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
+import static l.chernenkiy.aqua.MainActivity.lastEquipShopArray;
 
 public class LastOrderEquipment extends Fragment {
 
@@ -48,13 +43,12 @@ public class LastOrderEquipment extends Fragment {
         lvEquipCart = view.findViewById(R.id.lv_last_order_equip);
         TextView TvLastShop = view.findViewById(R.id.tv_last_shop);
         TextView TvCommonToCatalog = view.findViewById(R.id.tv_back_to_catalog_equip);
-        fabEquip = view.findViewById(R.id.fab_equip);
 
         loadData();
-        adapterEquip = new AdapterEquip(getActivity(), cartEquipmentItem);
+        adapterEquip = new AdapterEquip(getActivity(), lastEquipShopArray);
         lvEquipCart.setAdapter(adapterEquip);
 
-        if(!cartEquipmentItem.isEmpty()){
+        if(!lastEquipShopArray.isEmpty()){
             TvLastShop.setVisibility(View.INVISIBLE);
             TvCommonToCatalog.setVisibility(View.INVISIBLE);
         }
@@ -62,31 +56,6 @@ public class LastOrderEquipment extends Fragment {
             fabEquip.setVisibility(View.INVISIBLE);
         }
 
-        fabEquip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Order.class);
-                startActivity(intent);
-            }
-        });
-
-        lvEquipCart.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == SCROLL_STATE_IDLE){
-                    fabEquip.animate().scaleX(1f).scaleY(1f).start();
-                    flag = true;
-                }
-            }
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount) {
-                if (flag){
-                    fabEquip.animate().scaleX(0f).scaleY(0f).start();
-                    flag = false;
-                }
-            }
-        });
         return view;
     }
 
@@ -95,9 +64,9 @@ public class LastOrderEquipment extends Fragment {
         Gson gson = new Gson();
         String json = sharedPref.getString("cartEquipmentItems", null);
         Type type = new TypeToken<ArrayList<HashMap>>() {}.getType();
-        cartEquipmentItem = gson.fromJson(json, type);
-        if(cartEquipmentItem == null){
-            cartEquipmentItem = new ArrayList<>();
+        lastEquipShopArray = gson.fromJson(json, type);
+        if(lastEquipShopArray == null){
+            lastEquipShopArray = new ArrayList<>();
         }
     }
 }

@@ -9,8 +9,10 @@
     <color name="colorPriceRed">#C70000</color>
     <color name="colorTextCart">#181818</color>
     <color name="statBarColor">#CCCCCC</color>
-    <color name="colorActiveNavBar">#075A40</color>
+    <color name="colorOrderButton">#00796b</color>
+    <color name="colorTextToolbar">#00796b</color>
+    <color name="colorActiveNavBar">#00796b</color>
     <color name="colorPassiveNavBar">#858585</color>
-    <color name="tab_background_selected">#2B2B2B</color>
+    <color name="tab_background_selected">#00796b</color>
     <color name="tab_background_unselected">#E4E4E4</color>
 </resources>

@@ -14,14 +14,14 @@
         android:id="@+id/toolbarDelivery"
         android:background="#ffffff"
         app:title="Доставка"
-        app:titleTextColor="#090909"/>
+        app:titleTextColor="@color/colorTextToolbar"/>
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabBackground="@drawable/tab_color_selector"
         app:tabTextColor="@color/colorTextCart"
-        app:tabIndicatorColor="#1D1D1D"
+        app:tabIndicatorColor="@color/tab_background_selected"
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="#FFFFFF"
         android:id="@+id/tabLayout"/>

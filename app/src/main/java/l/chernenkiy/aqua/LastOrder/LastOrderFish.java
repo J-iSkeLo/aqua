@@ -23,13 +23,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Order.Order;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.AdapterFish;
 
 import static android.content.Context.MODE_PRIVATE;
-import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastFishShopArray;
 
 public class LastOrderFish extends Fragment {
 
@@ -47,14 +46,13 @@ public class LastOrderFish extends Fragment {
         lvLoadCart = view.findViewById(R.id.myListCart);
         TextView TvLastShop = view.findViewById(R.id.txt_last_shop);
         TextView TvCommonToCatalog = view.findViewById(R.id.txt_common_to_catalog);
-        fab = view.findViewById(R.id.floatingActionButton);
 
         loadData();
 
-        adapterFish = new AdapterFish(getActivity(), cartItems);
+        adapterFish = new AdapterFish(getActivity(), lastFishShopArray);
         lvLoadCart.setAdapter(adapterFish);
 
-        if(!cartItems.isEmpty()){
+        if(!lastFishShopArray.isEmpty()){
             TvLastShop.setVisibility(View.INVISIBLE);
             TvCommonToCatalog.setVisibility(View.INVISIBLE);
         }
@@ -95,10 +93,10 @@ public class LastOrderFish extends Fragment {
         Gson gson = new Gson();
         String json = sharedPref.getString("cartItems", null);
         Type type = new TypeToken<ArrayList<HashMap>>() {}.getType();
-        cartItems = gson.fromJson(json, type);
+        lastFishShopArray = gson.fromJson(json, type);
 
-        if(cartItems == null){
-            cartItems = new ArrayList<>();
+        if(lastFishShopArray == null){
+            lastFishShopArray = new ArrayList<>();
         }
     }
 

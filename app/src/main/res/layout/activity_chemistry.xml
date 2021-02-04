@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Химия"
-        app:titleTextColor="#090909" />
+        app:titleTextColor="@color/colorTextToolbar" />
 
     <ListView
         android:id="@+id/lv_chemistry"
