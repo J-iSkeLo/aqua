@@ -55,7 +55,7 @@
         android:text="Сумма покупки "
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"
         tools:layout_editor_absoluteX="20dp" />
 

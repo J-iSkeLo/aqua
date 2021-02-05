@@ -23,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,6 +30,7 @@ import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
+
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
@@ -95,7 +95,7 @@ public class FishBasket extends Fragment {
                     public void onClick(View view) {
 
                         cartItems.remove(i);
-                        btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
+                        btnOrder.setText ("Купить за " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
                         adapterFish = new AdapterFish(getContext(), cartItems);
                         lvShopBasket.setAdapter(adapterFish);
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
@@ -165,6 +165,7 @@ public class FishBasket extends Fragment {
     private void updateCartItemShop(final int i, final Dialog dialog, final EditText editQuantity) {
         final Button btnEditQuantity = dialog.findViewById(R.id.edit_quantity_btn);
         btnEditQuantity.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
 
@@ -182,7 +183,7 @@ public class FishBasket extends Fragment {
 
                 editListQuantity.get(i).put("quantity", quantityFish);
 
-                btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder()+ " грн.");
+                btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
 
                 adapterFish = new AdapterFish(getContext(), editListQuantity);
                 lvShopBasket.setAdapter(adapterFish);

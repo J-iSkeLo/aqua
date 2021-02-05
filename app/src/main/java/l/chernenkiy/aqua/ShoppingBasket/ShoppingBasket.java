@@ -1,5 +1,6 @@
 package l.chernenkiy.aqua.ShoppingBasket;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,12 +29,12 @@ import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.listFish;
 import static l.chernenkiy.aqua.MainActivity.sizeListFish;
-import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.lvShopEquipBasket;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.adapterEquip;
+import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.lvShopEquipBasket;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.tvBackToCatalog;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.tvNotItemsCart;
-import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.lvShopBasket;
 import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.adapterFish;
+import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.lvShopBasket;
 import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.tvFishBackToCatalog;
 import static l.chernenkiy.aqua.ShoppingBasket.FishBasket.tvFishNotItemsCart;
 
@@ -128,6 +129,7 @@ public class ShoppingBasket extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +154,7 @@ public class ShoppingBasket extends AppCompatActivity {
         else vp.setCurrentItem (0);
 
         btnOrder = findViewById(R.id.btnOrder);
-        btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder()+ " грн.");
+        btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
         if (!cartItems.isEmpty() || !cartEquipmentItem.isEmpty())
         {
             btnOrder.setVisibility(View.VISIBLE);

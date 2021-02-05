@@ -56,11 +56,13 @@ public class EquipmentBasket extends Fragment {
 
         tvNotItemsCart = view.findViewById(R.id.tv_equip_not_item_cart);
         tvBackToCatalog = view.findViewById(R.id.tv_equip_back_to_catalog);
+
         if(!cartEquipItemShop.isEmpty()){
             tvNotItemsCart.setVisibility(View.INVISIBLE);
             tvBackToCatalog.setVisibility(View.INVISIBLE);
 
         }
+
         tvBackToCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,10 +99,11 @@ public class EquipmentBasket extends Fragment {
                 });
                 Button btnDeleteItem = dialogDeleteItem.findViewById(R.id.ok_btn_dialog_deleteItem);
                 btnDeleteItem.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onClick(View view) {
                         cartEquipmentItem.remove(i);
-                        btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder()+ " грн.");
+                        btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
                         adapterEquip = new AdapterEquip(getContext(), cartEquipmentItem);
                         lvShopEquipBasket.setAdapter(adapterEquip);
                         Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
@@ -148,6 +151,7 @@ public class EquipmentBasket extends Fragment {
     private void updateCartItemShop(final int i, final Dialog dialog, final EditText editQuantity) {
         final Button btnEditQuantity = dialog.findViewById(R.id.edit_quantity_btn);
         btnEditQuantity.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
 
@@ -164,7 +168,7 @@ public class EquipmentBasket extends Fragment {
 
                 editListQuantity.get(i).put("quantity", quantityFish);
 
-                btnOrder.setText ("Купить за " + CartHelper.finalSumOrder()+ " грн.");
+                btnOrder.setText ("Купить за " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
 
                 AdapterEquip adapterEquip = new AdapterEquip(getContext(), editListQuantity);
                 lvShopEquipBasket.setAdapter(adapterEquip);

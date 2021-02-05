@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemTextMain;
@@ -66,7 +67,7 @@ public class CartHelper {
         return Double.valueOf(number);
     }
 
-    public static BigDecimal finalSumOrder (){
+    public static BigDecimal finalSumOrder (ArrayList<HashMap> cartItems, ArrayList<HashMap> cartEquipmentItem ){
         double finalSumOrder;
 
         double fish = CartHelper.countFinalSum(cartItems);
@@ -82,7 +83,7 @@ public class CartHelper {
 
     public static boolean findCartItem(String name, String price, ArrayList<HashMap> arrayList) {
         for (int i=0; i<arrayList.size(); i++) {
-            if (arrayList.get(i).get("name").equals(name)&&arrayList.get(i).get("price").equals(price)) {
+            if (Objects.equals(arrayList.get(i).get("name"), name) && Objects.equals(arrayList.get(i).get("price"), price)) {
                 return true;
             }
 
@@ -91,12 +92,13 @@ public class CartHelper {
     }
 
     public static void calculateItemsCart() {
-        if (!cartItems.isEmpty() || !cartEquipmentItem.isEmpty()){
-            cartAddItemText.setVisibility(View.VISIBLE);
-            cartAddItemText.setText(String.valueOf(cartItems.size() + cartEquipmentItem.size()));
-
-        }else {
-            cartAddItemText.setVisibility(View.INVISIBLE);
+        if (!(cartAddItemText == null)) {
+            if (cartItems.isEmpty() && cartEquipmentItem.isEmpty()) {
+                cartAddItemText.setVisibility(View.INVISIBLE);
+            } else {
+                cartAddItemText.setVisibility(View.VISIBLE);
+                cartAddItemText.setText(String.valueOf(cartItems.size() + cartEquipmentItem.size()));
+            }
         }
     }
 

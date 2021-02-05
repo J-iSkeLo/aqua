@@ -1,8 +1,5 @@
 package l.chernenkiy.aqua.Fish;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,6 +21,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
@@ -42,9 +43,9 @@ import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
+import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
-import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.listFish;
 import static l.chernenkiy.aqua.MainActivity.sizeListFish;
 
@@ -130,25 +131,7 @@ public class Fish extends AppCompatActivity {
         isInternetPresent = cd.ConnectingToInternet();
 
         toolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-
-        if (supportActionBar == null){
-            return;
-        }
-
-        supportActionBar.setDisplayHomeAsUpEnabled(true);
-        supportActionBar.setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Fish.this, MainActivity.class);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                startActivity (intent);
-            }
-        });
+        if (toolbarCreate()) return;
 
         cartAddItemText = findViewById(R.id.text_item_cart);
 
@@ -164,6 +147,26 @@ public class Fish extends AppCompatActivity {
 
         NavigationBar.itemSelected (navigation, getApplicationContext (), R.id.fish);
         overridePendingTransition (0, 0);
+    }
+
+    private boolean toolbarCreate() {
+        setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null){
+            return true;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Fish.this, MainActivity.class);
+                intent.putExtra("cartItems", cartItems);
+                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
+                startActivity (intent);
+            }
+        });
+        return false;
     }
 
     @SuppressLint("ClickableViewAccessibility")

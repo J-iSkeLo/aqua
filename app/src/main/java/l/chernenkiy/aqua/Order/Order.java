@@ -1,33 +1,36 @@
 package l.chernenkiy.aqua.Order;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
@@ -37,7 +40,6 @@ import l.chernenkiy.aqua.Order.Tables.ClientTable;
 import l.chernenkiy.aqua.Order.Tables.EquipmentTable;
 import l.chernenkiy.aqua.Order.Tables.FishTable;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
@@ -45,10 +47,27 @@ import static l.chernenkiy.aqua.MainActivity.cartItems;
 public class Order extends AppCompatActivity {
 
     public static HashMap<String, String> clientData = new HashMap<>();
-    private ProgressDialog progressDialog;
+
+    public ProgressDialog progressDialog;
+    public ConnectionDetector cd;
+
     private Boolean isInternetPresent = false;
-    private ConnectionDetector cd;
+
     Support support = new Support();
+
+    private EditText firstLastName;
+    private EditText city;
+    private EditText phoneNumber;
+    private EditText email;
+    private EditText commentOrder;
+
+    public String sName;
+    public String sCity;
+    public String sNumber;
+    public String sEmail;
+    public String sComment;
+
+    private Button btnSendMail;
 
 
     @Override
@@ -56,56 +75,50 @@ public class Order extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        Toolbar toolbar3 = findViewById (R.id.toolbar3);
-        setSupportActionBar(toolbar3);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar3.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        cd = new ConnectionDetector(getApplicationContext());
+        isInternetPresent = cd.ConnectingToInternet();
 
         ConstraintLayout constraintLayout = findViewById (R.id.constrLayout);
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+        Toolbar toolbar3 = findViewById (R.id.toolbar3);
 
-            }
-        });
+        if (toolbarCreate(toolbar3)) return;
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Подождите. Отправка заказа..");
+        hideSoftInput(constraintLayout);
+        progressDialogCreate();
 
-        final EditText firstLastName = findViewById(R.id.first_last_name);
-        final EditText city = findViewById(R.id.city);
-        final EditText phoneNumber = findViewById(R.id.number_phone);
-        final EditText email = findViewById(R.id.email);
-        final EditText commentOrder = findViewById(R.id.comment_order);
+        findViewById();
 
-        cd = new ConnectionDetector(getApplicationContext());
+        loadClientData();
 
-        Button btnSendMail = findViewById(R.id.finish_btn);
+        sendOrderToEmail();
+    }
+
+    private void findViewById() {
+        firstLastName = findViewById(R.id.first_last_name);
+        city = findViewById(R.id.city);
+        phoneNumber = findViewById(R.id.number_phone);
+        email = findViewById(R.id.email);
+        commentOrder = findViewById(R.id.comment_order);
+        btnSendMail = findViewById(R.id.finish_btn);
+    }
+
+    private void sendOrderToEmail() {
         btnSendMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sName = firstLastName.getText().toString();
-                String sCity = city.getText().toString();
-                String sNumber = phoneNumber.getText().toString();
-                String sEmail = email.getText().toString();
-                String sComment = commentOrder.getText().toString();
+
+                sName = firstLastName.getText().toString();
+                sCity = city.getText().toString();
+                sNumber = phoneNumber.getText().toString();
+                sEmail = email.getText().toString();
+                sComment = commentOrder.getText().toString();
 
                 putToHashMap(sName, sCity, sNumber,sEmail, sComment);
                 if(dataIsWrong()){
                     support.showToast(getApplicationContext(), getError());
                     return;
                 }
-                isInternetPresent = cd.ConnectingToInternet();
+
                 if (isInternetPresent){
                     new AsyncSendMail().execute();
                     Intent home = new Intent(Order.this, MainActivity.class);
@@ -115,6 +128,43 @@ public class Order extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+
+    private void progressDialogCreate() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Подождите. Отправка заказа..");
+    }
+
+    private void hideSoftInput(ConstraintLayout constraintLayout) {
+        constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+
+            }
+        });
+    }
+
+    private boolean toolbarCreate(Toolbar toolbar3) {
+        setSupportActionBar(toolbar3);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null){
+            return true;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
+        toolbar3.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        return false;
     }
 
     @Override
@@ -132,24 +182,19 @@ public class Order extends AppCompatActivity {
     }
 
     public boolean dataIsWrong(){
-         if (   clientData.get("name").isEmpty()
-             || clientData.get("number").isEmpty()
-             || clientData.get("city").isEmpty())
-        {
-            return true;
-        }
-
-        return false;
+        return Objects.requireNonNull(clientData.get("name")).isEmpty()
+                || Objects.requireNonNull(clientData.get("number")).isEmpty()
+                || Objects.requireNonNull(clientData.get("city")).isEmpty();
     }
 
     public String getError(){
-        if (clientData.get("name").isEmpty()){
+        if (Objects.requireNonNull(clientData.get("name")).isEmpty()){
             return "Введите Имя Фамилию";
         }
-        if (clientData.get("number").isEmpty()){
+        if (Objects.requireNonNull(clientData.get("number")).isEmpty()){
             return "Введите Номер телефона";
         }
-        if (clientData.get("city").isEmpty()){
+        if (Objects.requireNonNull(clientData.get("city")).isEmpty()){
             return "Укажите Ваш Город";
         }
         return "";
@@ -173,11 +218,12 @@ public class Order extends AppCompatActivity {
 
     private static String getTotalSumOrder() {
 
-        String sum = String.valueOf (CartHelper.finalSumOrder());
+        String sum = String.valueOf (CartHelper.finalSumOrder(cartItems , cartEquipmentItem));
 
         return "<h3 style=\"margin-top:10px;text-align:right;\">Общая сумма заказа: " +sum+" грн.</h3>";
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class AsyncSendMail extends AsyncTask<Void, Void, Void> {
 
         private int statusCode;
@@ -187,6 +233,7 @@ public class Order extends AppCompatActivity {
             super.onPreExecute();
             saveDataFish();
             saveDataEquip();
+            saveDataClient();
             progressDialog.show();
         }
 
@@ -204,17 +251,13 @@ public class Order extends AppCompatActivity {
                 String subject = "Приложение - " + clientData.get("name");
 
                 DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "utf-8"));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, StandardCharsets.UTF_8));
                 writer.write("message=" + tableInfo + "&pass=" + password + "&subject=" + subject);
                 writer.close();
                 wr.close();
 
                 statusCode = con.getResponseCode();
 
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -236,27 +279,74 @@ public class Order extends AppCompatActivity {
             CartHelper.calculateItemsCart ();
             CartHelper.calculateItemsCartMain ();
 
-
             if(statusCode == 200)
                 support.showToast(getApplicationContext(),"Спасибо за заказ.\nМенеджеры свяжутся с Вами\nв ближайшее время.");
             else
                 support.showToast(getApplicationContext(),"Возникла ошибка\nпри оформлении заказа\nПопробуйте позже!");
         }
     }
+
+    private void saveDataClient() {
+        SharedPreferences sharedPref = getSharedPreferences("shared preferences date client", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        Gson gson = new Gson();
+
+        String name = gson.toJson(sName);
+        String city = gson.toJson(sCity);
+        String number = gson.toJson(sNumber);
+        String email = gson.toJson(sEmail);
+
+        editor.putString("nameClient", name);
+        editor.putString("cityClient", city);
+        editor.putString("numberClient", number);
+        editor.putString("emailClient", email);
+
+        editor.apply();
+    }
+
     private void saveDataFish(){
         SharedPreferences sharedPref = getSharedPreferences("shared preferences fish", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
         Gson gson = new Gson();
         String jsonFish = gson.toJson(cartItems);
+
         editor.putString("cartItems", jsonFish);
         editor.apply();
     }
     private void saveDataEquip(){
         SharedPreferences sharedPref = getSharedPreferences("shared preferences equip", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
         Gson gson = new Gson();
         String jsonEquip = gson.toJson(cartEquipmentItem);
+
         editor.putString("cartEquipmentItems", jsonEquip);
         editor.apply();
+    }
+
+    private void loadClientData() {
+        SharedPreferences sharedPref = getSharedPreferences("shared preferences date client", MODE_PRIVATE);
+
+        Gson gson = new Gson();
+
+        String loadName = sharedPref.getString("nameClient", null);
+        String loadCity = sharedPref.getString("cityClient", null);
+        String loadNumber = sharedPref.getString("numberClient", null);
+        String loadEmail = sharedPref.getString("emailClient", null);
+
+        Type type = new TypeToken<String>() {}.getType();
+
+        sName = gson.fromJson(loadName, type);
+        sCity = gson.fromJson(loadCity, type);
+        sNumber = gson.fromJson(loadNumber, type);
+        sEmail = gson.fromJson(loadEmail, type);
+
+        firstLastName.setText(sName);
+        city.setText(sCity);
+        phoneNumber.setText(sNumber);
+        email.setText(sEmail);
+
     }
 }

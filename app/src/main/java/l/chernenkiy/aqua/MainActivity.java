@@ -45,9 +45,7 @@ import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
 public class MainActivity extends AppCompatActivity {
 
-    @SuppressLint("StaticFieldLeak")
     public static TextView cartAddItemText;
-    @SuppressLint("StaticFieldLeak")
     public static TextView cartAddItemTextMain;
     public static ArrayList<HashMap> cartItems = new ArrayList<>();
     public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();

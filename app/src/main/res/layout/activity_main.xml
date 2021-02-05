@@ -17,7 +17,6 @@
         android:layout_height="145dp"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +47,7 @@
             android:drawablePadding="40dp"
             android:elevation="5dp"
             android:paddingStart="30dp"
-            android:text="Каталог"
+            android:text="@string/name_button_catalog"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextCart"
             android:textSize="15sp" />
@@ -65,7 +64,7 @@
             android:drawablePadding="40dp"
             android:elevation="5dp"
             android:paddingStart="30dp"
-            android:text="Прошлый заказ"
+            android:text="@string/name_button_last_order"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextCart"
             android:textSize="15sp" />
@@ -82,7 +81,7 @@
             android:drawablePadding="40dp"
             android:elevation="5dp"
             android:paddingStart="30dp"
-            android:text="@string/about_us"
+            android:text="@string/name_button_about_us"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextCart"
             android:textSize="15sp" />
@@ -98,9 +97,8 @@
             android:drawableLeft="@drawable/delivery_icon_logo_btn"
             android:drawablePadding="40dp"
             android:elevation="5dp"
-
             android:paddingStart="30dp"
-            android:text="Доставка"
+            android:text="@string/name_button_delivery"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextCart"
             android:textSize="15sp" />
@@ -117,7 +115,7 @@
             android:drawablePadding="40dp"
             android:elevation="5dp"
             android:paddingStart="30dp"
-            android:text="@string/contacts"
+            android:text="@string/name_button_delivery"
             android:textAlignment="textStart"
             android:textSize="15sp" />
     </LinearLayout>
@@ -127,7 +125,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="Дата обновления прайса"
+        android:text="@string/date_update"
         android:textAlignment="center"
         android:textColor="@color/colorTextCart"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -160,7 +158,7 @@
             android:background="@drawable/rounded_text_view"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="8dp"
+            android:textSize="8sp"
             android:textStyle="bold"
             android:visibility="visible" />
 
