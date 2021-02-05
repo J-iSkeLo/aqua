@@ -1,11 +1,5 @@
 package l.chernenkiy.aqua.Equipment;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,7 +14,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
@@ -42,7 +40,6 @@ import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
-import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.lastClassCategory;
 import static l.chernenkiy.aqua.MainActivity.nextItemsSubCategory;
 

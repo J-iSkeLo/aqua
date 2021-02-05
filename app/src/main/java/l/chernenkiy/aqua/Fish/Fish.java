@@ -99,7 +99,6 @@ public class Fish extends AppCompatActivity {
             }
         }
 
-
         btnBask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View actionView) {

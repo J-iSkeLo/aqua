@@ -61,8 +61,11 @@ public class MainActivity extends AppCompatActivity {
     public static HashMap<String, String> dateHashMap = new HashMap<>();
     public static ItemCategory nextSubcategory;
     public static ItemSubCategory nextItemsSubCategory;
+
     public static Class lastClass;
     public static Class lastClassCategory;
+    public static Class orderClass;
+
     public static int lastBottomNavBar;
 
     public RequestQueue mQueue;
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, ShoppingBasket.class);
                     intent.putExtra("cartItems", cartItems);
                     intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-                    intent.putExtra ("class", MainActivity.class);
+                    lastClass = MainActivity.class;
                     startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();

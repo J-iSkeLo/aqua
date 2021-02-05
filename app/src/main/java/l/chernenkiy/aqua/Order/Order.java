@@ -35,6 +35,7 @@ import java.util.Objects;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.Support;
+import l.chernenkiy.aqua.LastOrder.LastOrder;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.Order.Tables.ClientTable;
 import l.chernenkiy.aqua.Order.Tables.EquipmentTable;
@@ -43,6 +44,9 @@ import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
+import static l.chernenkiy.aqua.MainActivity.lastEquipShopArray;
+import static l.chernenkiy.aqua.MainActivity.lastFishShopArray;
+import static l.chernenkiy.aqua.MainActivity.orderClass;
 
 public class Order extends AppCompatActivity {
 
@@ -106,6 +110,11 @@ public class Order extends AppCompatActivity {
         btnSendMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (orderClass == LastOrder.class) {
+                    cartItems = lastFishShopArray;
+                    cartEquipmentItem = lastEquipShopArray;
+                }
 
                 sName = firstLastName.getText().toString();
                 sCity = city.getText().toString();
@@ -246,7 +255,7 @@ public class Order extends AppCompatActivity {
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
                 con.setRequestMethod("POST");
 
-                String tableInfo = generateMailContent(cartItems, cartEquipmentItem,clientData);
+                String tableInfo = generateMailContent(cartItems, cartEquipmentItem, clientData);
                 String password = "55555";
                 String subject = "Приложение - " + clientData.get("name");
 
@@ -310,6 +319,7 @@ public class Order extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
 
         Gson gson = new Gson();
+
         String jsonFish = gson.toJson(cartItems);
 
         editor.putString("cartItems", jsonFish);
@@ -320,6 +330,7 @@ public class Order extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
 
         Gson gson = new Gson();
+
         String jsonEquip = gson.toJson(cartEquipmentItem);
 
         editor.putString("cartEquipmentItems", jsonEquip);
@@ -347,6 +358,5 @@ public class Order extends AppCompatActivity {
         city.setText(sCity);
         phoneNumber.setText(sNumber);
         email.setText(sEmail);
-
     }
 }

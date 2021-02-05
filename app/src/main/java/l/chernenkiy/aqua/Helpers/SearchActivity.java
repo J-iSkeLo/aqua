@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -38,7 +36,6 @@ import l.chernenkiy.aqua.Equipment.Adapters.SearchListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
@@ -311,15 +308,19 @@ public class SearchActivity extends AppCompatActivity {
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
         Intent intent;
+
         if (onBackClass == null){
             intent = new Intent(getApplicationContext(), lastClass);
-
         } else {
             intent = new Intent(getApplicationContext(), onBackClass);
-            intent.putExtra("cartItems", cartItems);
-            intent.putExtra("cartEquipmentItem", cartEquipmentItem);
         }
+        putCartItemsCartEquipItems(intent);
         CartHelper.calculateItemsCart ();
         startActivity (intent);
+    }
+
+    private void putCartItemsCartEquipItems(Intent intent) {
+        intent.putExtra("cartItems", cartItems);
+        intent.putExtra("cartEquipmentItem", cartEquipmentItem);
     }
 }

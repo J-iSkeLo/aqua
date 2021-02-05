@@ -4,30 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
-import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
-import static androidx.core.content.ContextCompat.startActivity;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
@@ -109,6 +102,4 @@ public class Support {
             }
         });
     }
-
-
 }

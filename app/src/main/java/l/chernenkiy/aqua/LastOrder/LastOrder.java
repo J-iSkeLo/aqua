@@ -25,11 +25,10 @@ import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.Order.Order;
 import l.chernenkiy.aqua.R;
 
-import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
-import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.lastEquipShopArray;
 import static l.chernenkiy.aqua.MainActivity.lastFishShopArray;
 import static l.chernenkiy.aqua.MainActivity.listFish;
+import static l.chernenkiy.aqua.MainActivity.orderClass;
 import static l.chernenkiy.aqua.MainActivity.sizeListFish;
 
 
@@ -67,8 +66,7 @@ public class LastOrder extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (getApplicationContext(), Order.class);
-                cartItems = lastFishShopArray;
-                cartEquipmentItem = lastEquipShopArray;
+                orderClass = LastOrder.class;
                 startActivity(intent);
             }
         });
