@@ -54,10 +54,11 @@ public class LastOrder extends AppCompatActivity {
         mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
         setupViewPager(vp);
         tabLayout.setupWithViewPager(vp);
-        vpSetCurrentItem();
 
         loadDataFish();
         loadDataEquip();
+
+        vpSetCurrentItem();
 
         setVisibilityBtnSendLastOrder();
         String sumLastOrder = String.valueOf(CartHelper.finalSumOrder(lastFishShopArray, lastEquipShopArray));
