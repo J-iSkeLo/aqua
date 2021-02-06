@@ -103,13 +103,15 @@ public class CartHelper {
     }
 
     public static void calculateItemsCartMain() {
-        if (!cartItems.isEmpty() || !cartEquipmentItem.isEmpty()){
+
+        if (!cartItems.isEmpty() || !cartEquipmentItem.isEmpty()) {
             cartAddItemTextMain.setVisibility(View.VISIBLE);
             cartAddItemTextMain.setText(String.valueOf(cartItems.size() + cartEquipmentItem.size()));
 
-        }else {
+        } else {
             cartAddItemTextMain.setVisibility(View.INVISIBLE);
         }
+
     }
 
 

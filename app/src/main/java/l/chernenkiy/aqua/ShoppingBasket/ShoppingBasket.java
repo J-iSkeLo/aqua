@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SectionPageAdapter;
+import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.Order.Order;
 import l.chernenkiy.aqua.R;
 
@@ -45,6 +46,21 @@ public class ShoppingBasket extends AppCompatActivity {
     SectionPageAdapter mSectionPageAdapter;
     public static ViewPager vp;
     public static Button btnOrder;
+    MySettings mySettings = new MySettings();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -114,8 +130,10 @@ public class ShoppingBasket extends AppCompatActivity {
     }
 
     private void calcItemText() {
-        cartAddItemText.setText("");
-        cartAddItemText.setVisibility(View.INVISIBLE);
+        if (!(cartAddItemText == null)) {
+            cartAddItemText.setText("");
+            cartAddItemText.setVisibility(View.INVISIBLE);
+        }
 
         CartHelper.calculateItemsCartMain ();
         CartHelper.calculateItemsCart();

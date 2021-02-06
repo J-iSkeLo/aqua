@@ -28,6 +28,7 @@ import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
@@ -45,6 +46,21 @@ public class Feed extends AppCompatActivity {
     SearchView searchView;
     ImageButton cartImageBtn;
     Support support = new Support();
+    MySettings mySettings = new MySettings();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

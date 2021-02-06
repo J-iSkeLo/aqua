@@ -37,6 +37,7 @@ import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.LastOrder.LastOrder;
 import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.Order.Tables.ClientTable;
 import l.chernenkiy.aqua.Order.Tables.EquipmentTable;
 import l.chernenkiy.aqua.Order.Tables.FishTable;
@@ -58,6 +59,7 @@ public class Order extends AppCompatActivity {
     private Boolean isInternetPresent = false;
 
     Support support = new Support();
+    MySettings mySettings = new MySettings();
 
     private EditText firstLastName;
     private EditText city;
@@ -72,6 +74,20 @@ public class Order extends AppCompatActivity {
     public String sComment;
 
     private Button btnSendMail;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+    }
 
 
     @Override

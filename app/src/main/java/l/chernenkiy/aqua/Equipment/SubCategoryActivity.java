@@ -33,6 +33,7 @@ import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.SearchActivity;
 import l.chernenkiy.aqua.Helpers.Support;
+import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
@@ -53,6 +54,21 @@ public class SubCategoryActivity extends AppCompatActivity {
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
+    MySettings mySettings = new MySettings();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

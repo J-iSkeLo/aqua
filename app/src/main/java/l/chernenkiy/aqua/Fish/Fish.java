@@ -40,6 +40,7 @@ import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.NavigationBar;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
@@ -63,6 +64,22 @@ public class Fish extends AppCompatActivity {
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
     Support support = new Support();
+    MySettings mySettings = new MySettings();
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+    }
 
 
     @Override

@@ -3,6 +3,7 @@ package l.chernenkiy.aqua;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -34,6 +35,7 @@ import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Helpers.ApiInfo;
+import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.Support;
@@ -73,15 +75,40 @@ public class MainActivity extends AppCompatActivity {
     public TextView updateDate;
     public static int sizeListFish;
 
+    public static SharedPreferences sharedPreferences;
+
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
     Support support = new Support();
+    MySettings mySettings = new MySettings();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+
+        CartHelper.calculateItemsCartMain();
+
+    }
+
+
+
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences = getSharedPreferences("shopping basket" , MODE_PRIVATE);
 
         mQueue = Volley.newRequestQueue(this);
         updateDate = findViewById(R.id.updateDate);

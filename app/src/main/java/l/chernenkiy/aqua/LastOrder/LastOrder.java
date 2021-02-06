@@ -22,6 +22,7 @@ import java.util.HashMap;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.SectionPageAdapter;
 import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.Order.Order;
 import l.chernenkiy.aqua.R;
 
@@ -37,6 +38,21 @@ public class LastOrder extends AppCompatActivity {
     public static SectionPageAdapter mSectionPageAdapter;
     public static ViewPager vp;
     public Button btnSendLastOrder;
+    MySettings mySettings = new MySettings();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+    }
 
     @SuppressLint({"RestrictedApi", "SetTextI18n"})
     @Override

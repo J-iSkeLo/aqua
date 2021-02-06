@@ -1,21 +1,37 @@
 package l.chernenkiy.aqua.Delivery;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
 
-import l.chernenkiy.aqua.MainActivity;
-import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.Helpers.SectionPageAdapter;
+import l.chernenkiy.aqua.MainActivity;
+import l.chernenkiy.aqua.MySettings;
+import l.chernenkiy.aqua.R;
 
 public class Delivery extends AppCompatActivity {
     Toolbar toolbar;
+    MySettings mySettings = new MySettings();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+    }
 
 
     @Override

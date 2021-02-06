@@ -35,6 +35,7 @@ import java.util.Locale;
 import l.chernenkiy.aqua.Equipment.Adapters.SearchListAdapter;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
+import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
@@ -57,6 +58,21 @@ public class SearchActivity extends AppCompatActivity {
     public static ListView lvSearch;
     public  static ArrayList <ItemEquipment> listResultSearch;
     Support support = new Support();
+    MySettings mySettings = new MySettings();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySettings.saveFishShopBask();
+        mySettings.saveEquipShopBask();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySettings.loadEquipShopBask();
+        mySettings.loadFishShopBask();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
