@@ -110,7 +110,7 @@ public class SubCategoryActivity extends AppCompatActivity {
 
         if (nextItemsSubCategory != null){
             ArrayList<ItemEquipment> nextItemsSubCategoryItems = nextItemsSubCategory.getItems();
-
+            support.sortItemEquipmentAlphabetical(nextItemsSubCategory.getItems());
             equipmentListAdapter = new EquipmentListAdapter(getApplicationContext(), nextItemsSubCategoryItems);
             lvSubCategory.setAdapter(equipmentListAdapter);
             equipmentListAdapter.notifyDataSetChanged();

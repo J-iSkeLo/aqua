@@ -1,17 +1,10 @@
 package l.chernenkiy.aqua.Equipment;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +13,30 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
+import l.chernenkiy.aqua.Equipment.Adapters.SubCategoryAdapter;
+import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
+import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
+import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.Helpers.ConnectionDetector;
+import l.chernenkiy.aqua.Helpers.NavigationBar;
+import l.chernenkiy.aqua.Helpers.SearchActivity;
+import l.chernenkiy.aqua.Helpers.Support;
+import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
@@ -38,26 +47,14 @@ import static l.chernenkiy.aqua.MainActivity.lastClassCategory;
 import static l.chernenkiy.aqua.MainActivity.nextItemsSubCategory;
 import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
-import l.chernenkiy.aqua.Helpers.CartHelper;
-import l.chernenkiy.aqua.Helpers.ConnectionDetector;
-import l.chernenkiy.aqua.Helpers.NavigationBar;
-import l.chernenkiy.aqua.Helpers.SearchActivity;
-import l.chernenkiy.aqua.Helpers.Support;
-import l.chernenkiy.aqua.R;
-import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
-import l.chernenkiy.aqua.Equipment.Adapters.EquipmentListAdapter;
-import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
-import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
-import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
-import l.chernenkiy.aqua.Equipment.Adapters.SubCategoryAdapter;
-
 public class CategoryActivity extends AppCompatActivity {
+
+    MenuItem cartIconMenuItem;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
     ListView lvCategory;
     EquipmentListAdapter equipmentListAdapter;
     SubCategoryAdapter subCategoryAdapter;
-    MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
     Support support = new Support();
@@ -120,6 +117,7 @@ public class CategoryActivity extends AppCompatActivity {
         try {
             if (nextSubcategory != null) {
                 if (!nextSubcategory.getItems().isEmpty()) {
+                    support.sortItemEquipmentAlphabetical(nextSubcategory.getItems());
                     equipmentListAdapter = new EquipmentListAdapter(getApplicationContext(), nextSubcategory.getItems());
                     lvCategory.setAdapter(equipmentListAdapter);
                     equipmentListAdapter.notifyDataSetChanged();

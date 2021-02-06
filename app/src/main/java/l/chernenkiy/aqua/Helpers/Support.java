@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
@@ -66,6 +67,16 @@ public class Support {
                 int x2 = (v2 + nextSubCategoriesItemsCount);
 
                 return Integer.compare(x2, x1);
+            }
+        });
+    }
+
+    public void sortItemEquipmentAlphabetical(final ArrayList<ItemEquipment> arrayList) {
+        Collections.sort(arrayList, new Comparator<ItemEquipment>() {
+            @Override
+            public int compare(ItemEquipment current, ItemEquipment next) {
+
+                return current.getName().compareToIgnoreCase(next.getName());
             }
         });
     }
