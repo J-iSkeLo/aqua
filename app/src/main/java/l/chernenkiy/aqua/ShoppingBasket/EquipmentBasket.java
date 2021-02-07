@@ -39,7 +39,6 @@ public class EquipmentBasket extends Fragment {
     private static final String TAG = "Оборудование";
 
     public static AdapterEquip adapterEquip;
-    public static ArrayList<HashMap> cartEquipItemShop;
     public static ListView lvShopEquipBasket;
     public static TextView tvNotItemsCart;
     public static TextView tvBackToCatalog;
@@ -51,13 +50,12 @@ public class EquipmentBasket extends Fragment {
         View view = inflater.inflate(R.layout.basket_equip, container, false);
 
 
-        cartEquipItemShop  = (ArrayList<HashMap>) getExtras().get("cartEquipmentItem");
         lvShopEquipBasket = view.findViewById(R.id.shopping_basketEquip_list);
 
         tvNotItemsCart = view.findViewById(R.id.tv_equip_not_item_cart);
         tvBackToCatalog = view.findViewById(R.id.tv_equip_back_to_catalog);
 
-        if(!cartEquipItemShop.isEmpty()){
+        if(!cartEquipmentItem.isEmpty()){
             tvNotItemsCart.setVisibility(View.INVISIBLE);
             tvBackToCatalog.setVisibility(View.INVISIBLE);
 
@@ -71,7 +69,7 @@ public class EquipmentBasket extends Fragment {
             }
         });
 
-        adapterEquip = new AdapterEquip(getContext(), cartEquipItemShop);
+        adapterEquip = new AdapterEquip(getContext(), cartEquipmentItem);
         lvShopEquipBasket.setAdapter(adapterEquip);
 
         cartItemOnClick(view);

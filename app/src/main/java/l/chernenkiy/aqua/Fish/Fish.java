@@ -121,8 +121,6 @@ public class Fish extends AppCompatActivity {
             public void onClick(View actionView) {
                 try{
                     Intent intent = new Intent(Fish.this, ShoppingBasket.class);
-                    intent.putExtra("cartItems", cartItems);
-                    intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                     intent.putExtra ("class", Fish.class);
                     startActivity(intent);
                 }catch (Exception e){
@@ -177,8 +175,6 @@ public class Fish extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Fish.this, MainActivity.class);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 startActivity (intent);
             }
         });
@@ -286,8 +282,6 @@ public class Fish extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Fish.this, MainActivity.class);
-        intent.putExtra("cartItems", cartItems);
-        intent.putExtra("cartEquipmentItem", cartEquipmentItem);
         startActivity (intent);
     }
 }

@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.view.Menu;
@@ -40,7 +42,6 @@ import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
-import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.listAquariums;
 import static l.chernenkiy.aqua.MainActivity.listChemistry;
@@ -170,6 +171,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final Dialog dialog = new Dialog(SearchActivity.this, R.style.FullHeightDialog);
                 dialog.setContentView(R.layout.dialog_equip_set);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 final ItemEquipment item = listResultSearch.get (i);
 
@@ -330,13 +332,8 @@ public class SearchActivity extends AppCompatActivity {
         } else {
             intent = new Intent(getApplicationContext(), onBackClass);
         }
-        putCartItemsCartEquipItems(intent);
         CartHelper.calculateItemsCart ();
         startActivity (intent);
     }
 
-    private void putCartItemsCartEquipItems(Intent intent) {
-        intent.putExtra("cartItems", cartItems);
-        intent.putExtra("cartEquipmentItem", cartEquipmentItem);
-    }
 }

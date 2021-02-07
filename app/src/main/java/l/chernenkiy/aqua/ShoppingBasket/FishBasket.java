@@ -51,7 +51,6 @@ public class FishBasket extends Fragment {
         View view = inflater.inflate(R.layout.basket_fish, container, false);
 
         lvShopBasket = view.findViewById(R.id.shopping_basket_list);
-        final ArrayList<HashMap> cartItemsShop = (ArrayList<HashMap>) getActivity().getIntent().getExtras().get("cartItems");
         tvFishNotItemsCart = view.findViewById(R.id.txt_not_item_cart);
         tvFishBackToCatalog = view.findViewById(R.id.txt_back_to_catalog);
 
@@ -64,13 +63,12 @@ public class FishBasket extends Fragment {
         tvFishBackToCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                    Intent intent = new Intent(getActivity(), Fish.class);
-                    startActivity(intent);
+                Intent intent = new Intent(getActivity(), Fish.class);
+                startActivity(intent);
             }
         });
 
-        adapterFish = new AdapterFish(getActivity(), cartItemsShop);
+        adapterFish = new AdapterFish(getActivity(), cartItems);
 
         lvShopBasket.setAdapter(adapterFish);
         cartItemOnClick(view);
@@ -98,7 +96,7 @@ public class FishBasket extends Fragment {
                         btnOrder.setText ("Купить за " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
                         adapterFish = new AdapterFish(getContext(), cartItems);
                         lvShopBasket.setAdapter(adapterFish);
-                        Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
+                        int cartItemText = Integer.parseInt((String) cartAddItemText.getText());
                         String newCartItemText = String.valueOf((cartItemText-1));
                         cartAddItemText.setText(newCartItemText);
                         if(cartItems.isEmpty()){

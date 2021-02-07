@@ -39,7 +39,6 @@ import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
-import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClassCategory;
 import static l.chernenkiy.aqua.MainActivity.nextItemsSubCategory;
@@ -100,8 +99,6 @@ public class SubCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View actionView) {
                 Intent intent = new Intent(SubCategoryActivity.this, ShoppingBasket.class);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 intent.putExtra ("class", SubCategoryActivity.class);
                 intent.putExtra ("position", getIntent().getSerializableExtra("position"));
                 startActivity(intent);
@@ -261,8 +258,6 @@ public class SubCategoryActivity extends AppCompatActivity {
             startActivity (intent);
         } else {
             Intent intent = new Intent(SubCategoryActivity.this, onBackClass);
-            intent.putExtra("cartItems", cartItems);
-            intent.putExtra("cartEquipmentItem", cartEquipmentItem);
             CartHelper.calculateItemsCart ();
             getIntent ().removeExtra ("class");
             startActivity (intent);

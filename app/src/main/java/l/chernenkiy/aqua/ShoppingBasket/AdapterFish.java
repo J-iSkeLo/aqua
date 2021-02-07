@@ -3,19 +3,12 @@ package l.chernenkiy.aqua.ShoppingBasket;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +20,13 @@ import l.chernenkiy.aqua.R;
 
 public class AdapterFish extends BaseAdapter {
 
-    public static ArrayList<HashMap> cartItems;
+    private final ArrayList<HashMap> cartItems;
     private final Context context;
     Support support = new Support();
 
 
     public AdapterFish(Context context, ArrayList<HashMap> cartItems){
-        AdapterFish.cartItems = cartItems;
+        this.cartItems = cartItems;
         this.context = context;
     }
 
@@ -52,7 +45,7 @@ public class AdapterFish extends BaseAdapter {
         return i;
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ViewHolder", "InflateParams"})
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
 

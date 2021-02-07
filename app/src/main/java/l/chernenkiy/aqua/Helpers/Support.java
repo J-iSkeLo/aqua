@@ -22,8 +22,6 @@ import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
-import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
-import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 
 public class Support {
@@ -89,8 +87,6 @@ public class Support {
             public void onClick(View actionView) {
                 Intent intent = new Intent(context, ShoppingBasket.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 intent.putExtra ("class", backClass);
                 context.startActivity(intent);
             }

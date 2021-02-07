@@ -32,8 +32,6 @@ import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
-import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
-import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.listChemistry;
@@ -98,8 +96,6 @@ public class Chemistry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Chemistry.this, MainActivity.class);
-                intent.putExtra("cartItems", cartItems);
-                intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                 startActivity (intent);
                 finish();
             }
@@ -123,8 +119,6 @@ public class Chemistry extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Chemistry.this, MainActivity.class);
-        intent.putExtra("cartItems", cartItems);
-        intent.putExtra("cartEquipmentItem", cartEquipmentItem);
         startActivity (intent);
         finish();
     }

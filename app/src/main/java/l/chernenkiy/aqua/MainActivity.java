@@ -121,8 +121,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try{
                     Intent intent = new Intent(MainActivity.this, ShoppingBasket.class);
-                    intent.putExtra("cartItems", cartItems);
-                    intent.putExtra("cartEquipmentItem", cartEquipmentItem);
                     lastClass = MainActivity.class;
                     startActivity(intent);
                 }catch (Exception e){
