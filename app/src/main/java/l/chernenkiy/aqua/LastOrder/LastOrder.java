@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
+import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.SectionPageAdapter;
 import l.chernenkiy.aqua.MainActivity;
 import l.chernenkiy.aqua.MySettings;
@@ -35,10 +36,12 @@ import static l.chernenkiy.aqua.MainActivity.sizeListFish;
 
 public class LastOrder extends AppCompatActivity {
 
-    public static SectionPageAdapter mSectionPageAdapter;
     public static ViewPager vp;
     public Button btnSendLastOrder;
+
     MySettings mySettings = new MySettings();
+    Boolean isInternetPresent = false;
+    ConnectionDetector cd;
 
     @Override
     protected void onPause() {
@@ -67,7 +70,6 @@ public class LastOrder extends AppCompatActivity {
         btnSendLastOrder = findViewById(R.id.btn_send_last_order);
         vp = findViewById(R.id.containerLastOrder);
 
-        mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
         setupViewPager(vp);
         tabLayout.setupWithViewPager(vp);
 
@@ -76,17 +78,28 @@ public class LastOrder extends AppCompatActivity {
 
         vpSetCurrentItem();
 
+        cd = new ConnectionDetector(getApplicationContext());
+        isInternetPresent = cd.ConnectingToInternet();
+
         setVisibilityBtnSendLastOrder();
         String sumLastOrder = String.valueOf(CartHelper.finalSumOrder(lastFishShopArray, lastEquipShopArray));
+
         btnSendLastOrder.setText ("Сумма покупки " + sumLastOrder + " грн.");
-        btnSendLastOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent (getApplicationContext(), Order.class);
-                orderClass = LastOrder.class;
-                startActivity(intent);
-            }
-        });
+
+        if (!isInternetPresent){
+            btnSendLastOrder.setClickable(false);
+        } else {
+            btnSendLastOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent (getApplicationContext(), Order.class);
+                    orderClass = LastOrder.class;
+                    startActivity(intent);
+                }
+            });
+        }
+
+
     }
 
     private void setVisibilityBtnSendLastOrder() {

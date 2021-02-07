@@ -1,5 +1,6 @@
 package l.chernenkiy.aqua.Equipment.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,14 +13,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
-import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 
 public class SearchListAdapter extends BaseAdapter {
 
-    private Context mContext;
-    private ArrayList<ItemEquipment> mItemEquipmentList;
+    private final Context mContext;
+    private final ArrayList<ItemEquipment> mItemEquipmentList;
     Support support = new Support();
 
     public SearchListAdapter(Context mContext, ArrayList<ItemEquipment> mItemEquipmentList) {
@@ -27,8 +27,6 @@ public class SearchListAdapter extends BaseAdapter {
         this.mItemEquipmentList = mItemEquipmentList;
 
     }
-
-
 
     @Override
     public int getCount() {
@@ -45,15 +43,13 @@ public class SearchListAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint({"ViewHolder", "SetTextI18n", "InflateParams"})
     @Override
     public View getView(final int i, View convertView, ViewGroup viewGroup) {
 
        LayoutInflater mInflater = (LayoutInflater) mContext
                .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
            convertView = mInflater.inflate(R.layout.cart_accessories, null);
-
-            ConnectionDetector cd = new ConnectionDetector (mContext);
-            boolean isInternetPresent = cd.ConnectingToInternet ( );
 
            ItemEquipment itemEquipment = mItemEquipmentList.get(i);
 
@@ -74,33 +70,22 @@ public class SearchListAdapter extends BaseAdapter {
            }
 
            if (itemEquipment.getGeneralColKey ().equals("null")) {
-                itemEquipment.setGeneralColKey (" - ");
-                tvProducer.setText( itemEquipment.getGeneralColKey());
-           } else {
-                tvProducer.setText(itemEquipment.getGeneralColKey ());
+               itemEquipment.setGeneralColKey (" - ");
            }
+           tvProducer.setText( itemEquipment.getGeneralColKey());
 
            if (itemEquipment.getDescription().equals("null")) {
-                    itemEquipment.setDescription ("Без описания");
-                    tvDescription.setText( itemEquipment.getDescription());
-           } else {
-                tvDescription.setText(itemEquipment.getDescription());
+                        itemEquipment.setDescription ("Без описания");
            }
+           tvDescription.setText( itemEquipment.getDescription());
 
            if (itemEquipment.getPrice().equals("null")) {
-                itemEquipment.setPrice ("0");
-                tvPrice.setText(itemEquipment.getPrice() + " грн.");
-           } else {
-                tvPrice.setText(itemEquipment.getPrice() + " грн.");
+                    itemEquipment.setPrice ("0");
            }
+           tvPrice.setText(itemEquipment.getPrice() + " грн.");
 
-        String urlImage = itemEquipment.getImage();
-        if(isInternetPresent) {
-            support.loadImage(image, urlImage, mContext);
-        }
-        else{
-            support.showToast(mContext,"Нет интернет соединения для загрузки изображения!");
-        }
+           String urlImage = itemEquipment.getImage();
+           support.loadImage(image, urlImage, mContext);
 
        return convertView;
     }

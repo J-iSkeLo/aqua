@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
-import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 
@@ -52,8 +51,6 @@ public class AdapterFish extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        ConnectionDetector cd = new ConnectionDetector (context);
-        boolean isInternetPresent = cd.ConnectingToInternet ( );
 
         convertView = mInflater.inflate(R.layout.basket_cart_fish, null);
 
@@ -70,16 +67,10 @@ public class AdapterFish extends BaseAdapter {
         tvName.setText((String) getPosition.get("name"));
         tvSize.setText(getPosition.get("size") + " см.");
         tvPrice.setText(CartHelper.itemSum(getPosition) + " грн.");
-
         priceOneItem.setText (getPosition.get ("price") + " грн." + " x  ");
 
         String urlImage = (String) getPosition.get ("image");
-        if(isInternetPresent) {
-            support.loadImage(image, urlImage, context);
-        }
-        else{
-            support.showToast(context,"Нет интернет соединения для загрузки изображения!");
-        }
+        support.loadImage(image, urlImage, context);
 
         convertView.setTag(i);
 

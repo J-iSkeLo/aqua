@@ -1,32 +1,25 @@
 package l.chernenkiy.aqua.Equipment.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
-import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 
 public class EquipmentListAdapter extends BaseAdapter {
 
-    private Context mContext;
-    private ArrayList<ItemEquipment> mItemEquipmentList;
+    private final Context mContext;
+    private final ArrayList<ItemEquipment> mItemEquipmentList;
     Support support = new Support();
 
     public EquipmentListAdapter(Context mContext, ArrayList<ItemEquipment> mItemEquipmentList) {
@@ -34,8 +27,6 @@ public class EquipmentListAdapter extends BaseAdapter {
         this.mItemEquipmentList = mItemEquipmentList;
 
     }
-
-
 
     @Override
     public int getCount() {
@@ -52,62 +43,52 @@ public class EquipmentListAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint({"ViewHolder", "InflateParams", "SetTextI18n"})
     @Override
     public View getView(final int i, View convertView, ViewGroup viewGroup) {
 
-       LayoutInflater mInflater = (LayoutInflater) mContext
-               .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-           convertView = mInflater.inflate(R.layout.cart_accessories, null);
+       LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-            ConnectionDetector cd = new ConnectionDetector (mContext);
-            boolean isInternetPresent = cd.ConnectingToInternet ( );
+       convertView = mInflater.inflate(R.layout.cart_accessories, null);
 
-           ItemEquipment itemEquipment = mItemEquipmentList.get(i);
 
-           TextView tvArticle = convertView.findViewById(R.id.vendor_code);
-           TextView tvName = convertView.findViewById(R.id.name_equip);
-           TextView tvProducer = convertView.findViewById(R.id.txt_manufacturer);
-           TextView tvDescription = convertView.findViewById(R.id.txt_description);
-           TextView tvPrice = convertView.findViewById(R.id.price_equip);
-           ImageView image = convertView.findViewById(R.id.image_equip);
 
-           tvName.setText(itemEquipment.getName());
+       ItemEquipment itemEquipment = mItemEquipmentList.get(i);
 
-           if (itemEquipment.getArticle ().equals("null")) {
-                itemEquipment.setArticle (" - ");
-                tvArticle.setText(itemEquipment.getArticle());
-           } else {
-                tvArticle.setText("Артикул: " + itemEquipment.getArticle());
-           }
+       TextView tvArticle = convertView.findViewById(R.id.vendor_code);
+       TextView tvName = convertView.findViewById(R.id.name_equip);
+       TextView tvProducer = convertView.findViewById(R.id.txt_manufacturer);
+       TextView tvDescription = convertView.findViewById(R.id.txt_description);
+       TextView tvPrice = convertView.findViewById(R.id.price_equip);
+       ImageView image = convertView.findViewById(R.id.image_equip);
 
-           if (itemEquipment.getGeneralColKey ().equals("null")) {
-                itemEquipment.setGeneralColKey (" - ");
-                tvProducer.setText( itemEquipment.getGeneralColKey());
-           } else {
-                tvProducer.setText(itemEquipment.getGeneralColKey ());
-           }
+            tvName.setText(itemEquipment.getName());
 
-           if (itemEquipment.getDescription().equals("null")) {
-                    itemEquipment.setDescription ("Без описания");
-                    tvDescription.setText( itemEquipment.getDescription());
-           } else {
-                tvDescription.setText(itemEquipment.getDescription());
-           }
+       if (itemEquipment.getArticle ().equals("null")) {
+           itemEquipment.setArticle (" - ");
+           tvArticle.setText(itemEquipment.getArticle());
+       } else {
+           tvArticle.setText("Артикул: " + itemEquipment.getArticle());
+       }
 
-           if (itemEquipment.getPrice().equals("null")) {
-                itemEquipment.setPrice ("0");
-                tvPrice.setText(itemEquipment.getPrice() + " грн.");
-           } else {
-                tvPrice.setText(itemEquipment.getPrice() + " грн.");
-           }
+       if (itemEquipment.getGeneralColKey ().equals("null")) {
+           itemEquipment.setGeneralColKey (" - ");
+       }
+           tvProducer.setText( itemEquipment.getGeneralColKey());
 
-        String urlImage = itemEquipment.getImage();
-        if(isInternetPresent) {
-            support.loadImage(image, urlImage, mContext);
-        }
-        else{
-            support.showToast(mContext,"Нет интернет соединения для загрузки изображения!");
-        }
+       if (itemEquipment.getDescription().equals("null")) {
+           itemEquipment.setDescription ("Без описания");
+       }
+           tvDescription.setText( itemEquipment.getDescription());
+
+       if (itemEquipment.getPrice().equals("null")) {
+           itemEquipment.setPrice ("0");
+       }
+           tvPrice.setText(itemEquipment.getPrice() + " грн.");
+
+       String urlImage = itemEquipment.getImage();
+       support.loadImage(image, urlImage, mContext);
+
 
        return convertView;
     }

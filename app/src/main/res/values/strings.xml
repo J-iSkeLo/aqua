@@ -96,6 +96,7 @@
     <string name="menu_send">Send</string>
     <string name="finalSum">0 грн.</string>
     <string name="results_activity_label">Search Item</string>
+    <string name="s_btn_send_last_order">Сумма покупки</string>
 
 
 </resources>

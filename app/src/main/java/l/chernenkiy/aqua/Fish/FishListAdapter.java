@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 
@@ -56,8 +56,6 @@ public class FishListAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater) mContext
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        ConnectionDetector cd = new ConnectionDetector (mContext);
-        boolean isInternetPresent = cd.ConnectingToInternet ( );
         Product product = mProductList.get(i);
 
         if (hasNotTitle(mProductList, i)) {
@@ -73,12 +71,7 @@ public class FishListAdapter extends BaseAdapter {
             tvPrice.setText(product.getPrice() + " грн.");
 
             String urlImage = product.getImage();
-            if(isInternetPresent) {
-                support.loadImage(image, urlImage, mContext);
-            }
-            else{
-                support.showToast(mContext,"Нет интернет соединения для загрузки изображения!");
-            }
+            support.loadImage(image, urlImage, mContext);
 
         } else {
             convertView = mInflater.inflate(R.layout.cart_fish_title_category, null);

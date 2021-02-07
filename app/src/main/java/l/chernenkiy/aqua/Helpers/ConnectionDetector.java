@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 public class ConnectionDetector {
 
-    private Context context;
+    private final Context context;
 
     public ConnectionDetector(Context context){
         this.context = context;
@@ -17,13 +17,10 @@ public class ConnectionDetector {
         if (connectivity != null)
         {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
-                    {
-                        return true;
-                    }
-
+            for (NetworkInfo networkInfo : info)
+                if (networkInfo.getState() == NetworkInfo.State.CONNECTED) {
+                    return true;
+                }
         }
         return false;
     }

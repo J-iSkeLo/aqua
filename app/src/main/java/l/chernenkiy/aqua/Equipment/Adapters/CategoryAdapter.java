@@ -10,27 +10,22 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
-import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
 import l.chernenkiy.aqua.R;
 
 public class CategoryAdapter extends BaseAdapter {
 
-    private Context mContext;
-    private List<ItemCategory> mItemCategory;
+    private final Context mContext;
+    private final List<ItemCategory> mItemCategory;
 
 
 
     public CategoryAdapter(Context mContext, List<ItemCategory> mItemCategory) {
         this.mContext = mContext;
         this.mItemCategory = mItemCategory;
-
     }
-
-
 
     @Override
     public int getCount() {
@@ -47,7 +42,7 @@ public class CategoryAdapter extends BaseAdapter {
         return i;
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ViewHolder", "InflateParams"})
     @Override
     public View getView(final int i, View convertView, ViewGroup viewGroup) {
 

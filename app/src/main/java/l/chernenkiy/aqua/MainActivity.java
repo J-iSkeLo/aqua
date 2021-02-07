@@ -200,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
         if (! isInternetPresent){
             support.showToast(getApplicationContext(), "Нет интернет соединения!");
             btnCatalog.setClickable(false);
+            shopBaskButton.setClickable(false);
         }
 
         final boolean hasEmptyList = listEquip.isEmpty()

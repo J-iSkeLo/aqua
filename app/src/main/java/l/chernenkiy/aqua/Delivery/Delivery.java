@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -41,8 +42,6 @@ public class Delivery extends AppCompatActivity {
 
         toolbar();
 
-
-        SectionPageAdapter mSectionPageAdapter = new SectionPageAdapter (getSupportFragmentManager ( ));
         ViewPager vp = findViewById (R.id.container);
         setupViewPager(vp);
 
@@ -62,8 +61,12 @@ public class Delivery extends AppCompatActivity {
     private void toolbar() {
         toolbar = findViewById(R.id.toolbarDelivery);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null ){
+            return;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

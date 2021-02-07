@@ -1,19 +1,15 @@
 package l.chernenkiy.aqua.ShoppingBasket;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-import com.bumptech.glide.Glide;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -21,20 +17,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import l.chernenkiy.aqua.Helpers.CartHelper;
-import l.chernenkiy.aqua.Helpers.ConnectionDetector;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 
 
 public class AdapterEquip extends BaseAdapter {
 
-    public static ArrayList<HashMap> cartEquipmentItem;
+    private final ArrayList<HashMap> cartEquipmentItem;
     private final Context context;
     Support support = new Support();
 
 
     public AdapterEquip(Context context, ArrayList<HashMap> cartEquipmentItem){
-        AdapterEquip.cartEquipmentItem = cartEquipmentItem;
+        this.cartEquipmentItem = cartEquipmentItem;
         this.context = context;
     }
 
@@ -53,14 +48,12 @@ public class AdapterEquip extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint({"ViewHolder", "InflateParams", "SetTextI18n"})
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-        ConnectionDetector cd = new ConnectionDetector (context);
-        boolean isInternetPresent = cd.ConnectingToInternet ( );
 
         convertView = mInflater.inflate(R.layout.basket_cart_equip, null);
 
@@ -86,12 +79,7 @@ public class AdapterEquip extends BaseAdapter {
         tvArticle.setText("Арт: " + cartGetPosition.get("article"));
 
         String urlImage = (String) cartGetPosition.get ("image");
-        if(isInternetPresent) {
-            support.loadImage(image, urlImage, context);
-        }
-        else{
-            support.showToast(context,"Нет интернет соединения для загрузки изображения!");
-        }
+        support.loadImage(image, urlImage, context);
 
         convertView.setTag(i);
         return convertView;

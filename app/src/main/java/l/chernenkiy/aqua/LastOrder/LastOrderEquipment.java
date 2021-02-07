@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
+import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.AdapterEquip;
 
@@ -23,7 +24,7 @@ public class LastOrderEquipment extends Fragment {
 
     public ListView lvEquipCart;
     public AdapterEquip adapterEquip;
-    private boolean flag;
+    Support support = new Support();
 
     @SuppressLint("RestrictedApi")
     @Nullable
