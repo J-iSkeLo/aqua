@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -45,6 +46,7 @@ public class ShoppingBasket extends AppCompatActivity {
     Toolbar toolbar;
     SectionPageAdapter mSectionPageAdapter;
     public static ViewPager vp;
+    @SuppressLint("StaticFieldLeak")
     public static Button btnOrder;
     MySettings mySettings = new MySettings();
 
@@ -205,8 +207,12 @@ public class ShoppingBasket extends AppCompatActivity {
     private void toolbar() {
         toolbar = findViewById(R.id.toolbarShopBask);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null ){
+            return;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

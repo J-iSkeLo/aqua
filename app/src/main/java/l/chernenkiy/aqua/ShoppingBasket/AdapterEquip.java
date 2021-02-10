@@ -23,12 +23,12 @@ import l.chernenkiy.aqua.R;
 
 public class AdapterEquip extends BaseAdapter {
 
-    private final ArrayList<HashMap> cartEquipmentItem;
+    private final ArrayList<HashMap<String, String>> cartEquipmentItem;
     private final Context context;
     Support support = new Support();
 
 
-    public AdapterEquip(Context context, ArrayList<HashMap> cartEquipmentItem){
+    public AdapterEquip(Context context, ArrayList<HashMap<String, String>> cartEquipmentItem){
         this.cartEquipmentItem = cartEquipmentItem;
         this.context = context;
     }
@@ -57,7 +57,7 @@ public class AdapterEquip extends BaseAdapter {
 
         convertView = mInflater.inflate(R.layout.basket_cart_equip, null);
 
-        HashMap cartGetPosition = cartEquipmentItem.get(i);
+        HashMap<String, String> cartGetPosition = cartEquipmentItem.get(i);
 
         String finalSum = bigDecimal(cartGetPosition);
 
@@ -70,15 +70,15 @@ public class AdapterEquip extends BaseAdapter {
         TextView quantity = convertView.findViewById(R.id.quantity_equip);
         ImageView image = convertView.findViewById (R.id.image_shop_bask);
 
-        quantity.setText((String) cartGetPosition.get("quantity"));
+        quantity.setText(cartGetPosition.get("quantity"));
         tvPriceOneItem.setText (cartGetPosition.get ("price") + " грн." + " x  ");
-        tvName.setText((String) cartGetPosition.get("name"));
-        tvDescription.setText((String) cartGetPosition.get("description"));
-        tvProducer.setText((String) cartGetPosition.get("producer"));
+        tvName.setText(cartGetPosition.get("name"));
+        tvDescription.setText(cartGetPosition.get("description"));
+        tvProducer.setText(cartGetPosition.get("producer"));
         tvPrice.setText(finalSum + " грн.");
         tvArticle.setText("Арт: " + cartGetPosition.get("article"));
 
-        String urlImage = (String) cartGetPosition.get ("image");
+        String urlImage = cartGetPosition.get ("image");
         support.loadImage(image, urlImage, context);
 
         convertView.setTag(i);
@@ -86,7 +86,7 @@ public class AdapterEquip extends BaseAdapter {
     }
 
     @NotNull
-    private String bigDecimal(HashMap cartGetPosition) {
+    private String bigDecimal(HashMap<String, String> cartGetPosition) {
         double sumEquip = CartHelper.itemSum(cartGetPosition);
         BigDecimal bigDecimal = new BigDecimal(sumEquip);
         bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_UP);

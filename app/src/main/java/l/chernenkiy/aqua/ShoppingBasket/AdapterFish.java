@@ -19,12 +19,12 @@ import l.chernenkiy.aqua.R;
 
 public class AdapterFish extends BaseAdapter {
 
-    private final ArrayList<HashMap> cartItems;
+    private final ArrayList<HashMap<String, String>> cartItems;
     private final Context context;
     Support support = new Support();
 
 
-    public AdapterFish(Context context, ArrayList<HashMap> cartItems){
+    public AdapterFish(Context context, ArrayList<HashMap<String, String>> cartItems){
         this.cartItems = cartItems;
         this.context = context;
     }
@@ -54,7 +54,7 @@ public class AdapterFish extends BaseAdapter {
 
         convertView = mInflater.inflate(R.layout.basket_cart_fish, null);
 
-        HashMap getPosition = cartItems.get(i);
+        HashMap <String, String> getPosition = cartItems.get(i);
 
         TextView tvName = convertView.findViewById(R.id.name_cart);
         TextView tvSize = convertView.findViewById(R.id.size_cart);
@@ -63,13 +63,13 @@ public class AdapterFish extends BaseAdapter {
         TextView priceOneItem = convertView.findViewById (R.id.priceFish_one_item);
         ImageView image = convertView.findViewById (R.id.imageFish_shop_bask);
 
-        quantity.setText((String) getPosition.get("quantity"));
-        tvName.setText((String) getPosition.get("name"));
+        quantity.setText(getPosition.get("quantity"));
+        tvName.setText(getPosition.get("name"));
         tvSize.setText(getPosition.get("size") + " см.");
         tvPrice.setText(CartHelper.itemSum(getPosition) + " грн.");
         priceOneItem.setText (getPosition.get ("price") + " грн." + " x  ");
 
-        String urlImage = (String) getPosition.get ("image");
+        String urlImage = getPosition.get ("image");
         support.loadImage(image, urlImage, context);
 
         convertView.setTag(i);

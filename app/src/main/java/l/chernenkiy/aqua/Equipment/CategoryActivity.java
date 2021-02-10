@@ -1,5 +1,6 @@
 package l.chernenkiy.aqua.Equipment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -172,6 +174,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     public void lvOnItemClickListener(final ArrayList<ItemEquipment> itemEquipmentCategory){
         lvCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final Dialog dialog = new Dialog(CategoryActivity.this, R.style.FullHeightDialog);
@@ -265,8 +268,12 @@ public class CategoryActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarEquipCategory2);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null ){
+            return;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
         try {
             if(itemCategory.getName() == null){
                 toolbar.setTitle ("Оборудование");
@@ -287,14 +294,14 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Class onBackClass = (Class) getIntent ().getSerializableExtra ("class");
+        Intent intent;
         if (onBackClass == null){
-            Intent intent = new Intent(CategoryActivity.this, lastClass);
-            startActivity (intent);
+            intent = new Intent(CategoryActivity.this, lastClass);
         } else {
-            Intent intent = new Intent(CategoryActivity.this, onBackClass);
+            intent = new Intent(CategoryActivity.this, onBackClass);
             CartHelper.calculateItemsCart ();
             getIntent ().removeExtra ("class");
-            startActivity (intent);
         }
+        startActivity (intent);
     }
 }

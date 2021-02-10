@@ -36,7 +36,7 @@
         android:id="@+id/tabLayoutShopBask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/tab_background_selected"
+        app:tabIndicatorColor="#05a3bc"
         app:layout_constraintTop_toBottomOf="@+id/toolbarShopBask"
         app:tabBackground="@drawable/tab_color_selector"
         app:tabIndicatorHeight="3dp"

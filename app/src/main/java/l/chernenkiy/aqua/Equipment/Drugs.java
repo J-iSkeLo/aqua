@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -34,12 +35,13 @@ import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
-import static l.chernenkiy.aqua.MainActivity.listChemistry;
+import static l.chernenkiy.aqua.MainActivity.listDrugs;
 import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
-public class Chemistry extends AppCompatActivity {
+public class Drugs extends AppCompatActivity {
 
-    private static ListView lvChemistry;
+    @SuppressLint("StaticFieldLeak")
+    private static ListView lvDrugs;
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
@@ -70,8 +72,8 @@ public class Chemistry extends AppCompatActivity {
         searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
 
         calculateItemsInShopBask(actionView);
-        support.search(searchView, getApplicationContext(), Chemistry.class);
-        support.openShopBask(cartImageBtn, getApplicationContext(), Chemistry.class);
+        support.search(searchView, getApplicationContext(), Drugs.class);
+        support.openShopBask(cartImageBtn, getApplicationContext(), Drugs.class);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -86,46 +88,50 @@ public class Chemistry extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chemistry);
+        setContentView(R.layout.activity_drugs);
 
-        Toolbar toolbar = findViewById(R.id.toolbarChemistry);
+        Toolbar toolbar = findViewById(R.id.toolbarDrugs);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null ){
+            return;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Chemistry.this, MainActivity.class);
+                Intent intent = new Intent(Drugs.this, MainActivity.class);
                 startActivity (intent);
                 finish();
             }
         });
 
-        lvChemistry = findViewById(R.id.lv_chemistry);
-        CategoryAdapter adapter = new CategoryAdapter (getApplicationContext (),listChemistry);
-        lvChemistry.setAdapter (adapter);
+        lvDrugs = findViewById(R.id.lv_drugs);
+        CategoryAdapter adapter = new CategoryAdapter (getApplicationContext (), listDrugs);
+        lvDrugs.setAdapter (adapter);
 
-        openNewActivity (listChemistry);
+        openNewActivity (listDrugs);
 
         hideKeyboard();
 
         BottomNavigationView navigation = findViewById(R.id.nav_bar_bottom);
-        navigation.setSelectedItemId(R.id.chemistry2);
+        navigation.setSelectedItemId(R.id.drugs);
         lastBottomNavBar = 3;
-        NavigationBar.itemSelected (navigation, getApplicationContext (),R.id.chemistry2);
+        NavigationBar.itemSelected (navigation, getApplicationContext (),R.id.drugs);
         overridePendingTransition (0, 0);
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Chemistry.this, MainActivity.class);
+        Intent intent = new Intent(Drugs.this, MainActivity.class);
         startActivity (intent);
         finish();
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void hideKeyboard() {
-        lvChemistry.setOnTouchListener(new View.OnTouchListener() {
+        lvDrugs.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -137,12 +143,12 @@ public class Chemistry extends AppCompatActivity {
 
 
     private void openNewActivity (final ArrayList<ItemCategory> resultEquip){
-        lvChemistry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvDrugs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(),CategoryActivity.class);
                 nextSubcategory = resultEquip.get(i);
-                lastClass = Chemistry.class;
+                lastClass = Drugs.class;
                 startActivity(intent);
             }
         });

@@ -96,7 +96,12 @@
     <string name="menu_send">Send</string>
     <string name="finalSum">0 грн.</string>
     <string name="results_activity_label">Search Item</string>
-    <string name="s_btn_send_last_order">Сумма покупки</string>
+    <string name="s_btn_send_last_order">Повторить заказ</string>
+    <string name="name_nav_fish">Рыба</string>
+    <string name="name_nav_equipment">Оборудование</string>
+    <string name="name_nav_feed">Корма</string>
+    <string name="name_nav_drugs">Препараты</string>
+    <string name="name_nav_aquariums">Аквариумы</string>
 
 
 </resources>

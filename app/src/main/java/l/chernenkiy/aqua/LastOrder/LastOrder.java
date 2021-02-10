@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -84,7 +85,7 @@ public class LastOrder extends AppCompatActivity {
         setVisibilityBtnSendLastOrder();
         String sumLastOrder = String.valueOf(CartHelper.finalSumOrder(lastFishShopArray, lastEquipShopArray));
 
-        btnSendLastOrder.setText ("Сумма покупки " + sumLastOrder + " грн.");
+        btnSendLastOrder.setText ("Повторить заказ " + sumLastOrder + " грн.");
 
         if (!isInternetPresent){
             btnSendLastOrder.setClickable(false);
@@ -140,8 +141,12 @@ public class LastOrder extends AppCompatActivity {
     public void toolbarCreate() {
         Toolbar toolbar = findViewById(R.id.toolbar6);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null){
+            return;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

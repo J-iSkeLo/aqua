@@ -1,6 +1,5 @@
 package l.chernenkiy.aqua;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
@@ -15,8 +14,6 @@ import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.sharedPreferences;
 
 public class MySettings  {
-
-    Context context;
 
     public void loadFishShopBask(){
 

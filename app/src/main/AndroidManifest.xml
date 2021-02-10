@@ -51,7 +51,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Equipment.Chemistry"
+            android:name=".Equipment.Drugs"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -39,6 +40,7 @@ import static l.chernenkiy.aqua.MainActivity.nextSubcategory;
 
 public class EquipmentAccessActivity extends AppCompatActivity {
 
+    @SuppressLint("StaticFieldLeak")
     public static ListView lvEquipment;
     MenuItem cartIconMenuItem;
     SearchView searchView;
@@ -114,8 +116,12 @@ public class EquipmentAccessActivity extends AppCompatActivity {
     private void toolbarCreate() {
         Toolbar toolbar = findViewById(R.id.toolbarEquipAccess);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null ){
+            return;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

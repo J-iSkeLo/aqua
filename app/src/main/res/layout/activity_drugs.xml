@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EBEBEB"
-    tools:context=".Equipment.Chemistry">
+    tools:context=".Equipment.Drugs">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarChemistry"
+        android:id="@+id/toolbarDrugs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -21,13 +21,13 @@
         app:titleTextColor="@color/colorTextToolbar" />
 
     <ListView
-        android:id="@+id/lv_chemistry"
+        android:id="@+id/lv_drugs"
         android:layout_width="402dp"
         android:layout_height="0dp"
         android:background="#F5F5F5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarChemistry" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarDrugs" />
 
     <View
         android:id="@+id/view2"
@@ -36,7 +36,7 @@
         android:background="@drawable/shadow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lv_chemistry" />
+        app:layout_constraintTop_toBottomOf="@+id/lv_drugs" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bar_bottom"

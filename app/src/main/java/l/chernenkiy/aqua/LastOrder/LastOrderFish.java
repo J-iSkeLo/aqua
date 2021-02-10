@@ -23,7 +23,6 @@ public class LastOrderFish extends Fragment {
 
     public ListView lvLoadCart;
     public AdapterFish adapterFish;
-    private boolean flag;
 
     @SuppressLint("RestrictedApi")
     @Nullable

@@ -16,7 +16,7 @@ import static l.chernenkiy.aqua.MainActivity.cartItems;
 
 public class CartHelper {
 
-    public static double countFinalSum(ArrayList<HashMap> arrayList){
+    public static double countFinalSum(ArrayList<HashMap<String, String>> arrayList){
         double result = 0;
 
         for (int i=0; i<arrayList.size(); i++){
@@ -25,14 +25,14 @@ public class CartHelper {
         return result;
     }
 
-    public static double itemSum(HashMap<String, String> cartItems){
-        Double quantity = convertDoublePoint(cartItems.get("quantity"));
-        Double price = convertDoublePoint(cartItems.get("price"));
+    public static double itemSum(HashMap <String, String> hashMap){
+        Double quantity = convertDoublePoint(Objects.requireNonNull(hashMap.get("quantity")));
+        Double price = convertDoublePoint(Objects.requireNonNull(hashMap.get("price")));
         return price * quantity;
 
     }
 
-    public static double countFinalSumEquip(ArrayList<HashMap> arrayList){
+    public static double countFinalSumEquip(ArrayList<HashMap<String, String> > arrayList){
         double result = 0;
 
         for (int i=0; i<arrayList.size(); i++){
@@ -42,14 +42,12 @@ public class CartHelper {
         BigDecimal bigDecimal = new BigDecimal(result);
         bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
 
-        double finalResult = bigDecimal.doubleValue ();
-
-        return finalResult;
+        return bigDecimal.doubleValue ();
     }
 
     public static double itemSumEquip(HashMap<String, String> cartEquipmentItem){
-        Double quantity = convertDoublePoint(cartEquipmentItem.get("quantity"));
-        Double price = convertDoublePoint(cartEquipmentItem.get("price"));
+        Double quantity = convertDoublePoint(Objects.requireNonNull(cartEquipmentItem.get("quantity")));
+        Double price = convertDoublePoint(Objects.requireNonNull(cartEquipmentItem.get("price")));
 
         BigDecimal bigDecimal = new BigDecimal(quantity * price);
         bigDecimal = bigDecimal.setScale(2, RoundingMode.DOWN);
@@ -67,7 +65,7 @@ public class CartHelper {
         return Double.valueOf(number);
     }
 
-    public static BigDecimal finalSumOrder (ArrayList<HashMap> cartItems, ArrayList<HashMap> cartEquipmentItem ){
+    public static BigDecimal finalSumOrder (ArrayList<HashMap<String, String> > cartItems, ArrayList<HashMap<String, String> > cartEquipmentItem ){
         double finalSumOrder;
 
         double fish = CartHelper.countFinalSum(cartItems);
@@ -81,7 +79,7 @@ public class CartHelper {
         return bigDecimal;
     }
 
-    public static boolean findCartItem(String name, String price, ArrayList<HashMap> arrayList) {
+    public static boolean findCartItem(String name, String price, ArrayList<HashMap<String, String> > arrayList) {
         for (int i=0; i<arrayList.size(); i++) {
             if (Objects.equals(arrayList.get(i).get("name"), name) && Objects.equals(arrayList.get(i).get("price"), price)) {
                 return true;

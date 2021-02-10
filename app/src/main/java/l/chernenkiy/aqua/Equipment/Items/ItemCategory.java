@@ -2,7 +2,6 @@ package l.chernenkiy.aqua.Equipment.Items;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ItemCategory implements Serializable {
 

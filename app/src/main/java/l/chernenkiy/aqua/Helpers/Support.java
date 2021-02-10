@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
@@ -75,6 +76,15 @@ public class Support {
             public int compare(ItemEquipment current, ItemEquipment next) {
 
                 return current.getName().compareToIgnoreCase(next.getName());
+            }
+        });
+    }
+
+    public void sortShopBaskAlphabetical(final ArrayList<HashMap<String, String>> arrayList) {
+        Collections.sort(arrayList, new Comparator<HashMap<String, String>>() {
+            @Override
+            public int compare(HashMap<String, String> current, HashMap<String, String> next) {
+                return current.get("name").compareToIgnoreCase(next.get("name"));
             }
         });
     }

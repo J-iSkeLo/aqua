@@ -1,5 +1,6 @@
 package l.chernenkiy.aqua.Equipment.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,8 +17,8 @@ import l.chernenkiy.aqua.R;
 
 public class SubCategoryAdapter extends BaseAdapter {
 
-    private Context mContext;
-    private ArrayList<ItemSubCategory> mItemCategory;
+    private final Context mContext;
+    private final ArrayList<ItemSubCategory> mItemCategory;
 
 
     public SubCategoryAdapter(Context mContext, ArrayList<ItemSubCategory> mItemCategory) {
@@ -25,8 +26,6 @@ public class SubCategoryAdapter extends BaseAdapter {
         this.mItemCategory = mItemCategory;
 
     }
-
-
 
     @Override
     public int getCount() {
@@ -43,6 +42,7 @@ public class SubCategoryAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint({"ViewHolder", "InflateParams", "SetTextI18n"})
     @Override
     public View getView(final int i, View convertView, ViewGroup viewGroup) {
 

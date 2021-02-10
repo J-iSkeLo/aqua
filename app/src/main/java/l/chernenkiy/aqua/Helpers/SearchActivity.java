@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -44,7 +45,7 @@ import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.lastClass;
 import static l.chernenkiy.aqua.MainActivity.listAquariums;
-import static l.chernenkiy.aqua.MainActivity.listChemistry;
+import static l.chernenkiy.aqua.MainActivity.listDrugs;
 import static l.chernenkiy.aqua.MainActivity.listEquip;
 import static l.chernenkiy.aqua.MainActivity.listFeed;
 
@@ -56,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
     MenuItem cartIconMenuItem;
     SearchView searchView;
     ImageButton cartImageBtn;
+    @SuppressLint("StaticFieldLeak")
     public static ListView lvSearch;
     public  static ArrayList <ItemEquipment> listResultSearch;
     Support support = new Support();
@@ -253,6 +255,7 @@ public class SearchActivity extends AppCompatActivity {
                 dialog.show();
             }
 
+            @SuppressLint("SetTextI18n")
             private void dialogSetText(ItemEquipment item, TextView nameEquip,
                                        TextView articleEquip, TextView producerEquip,
                                        TextView priceEquip, TextView descriptionEquip) {
@@ -268,8 +271,12 @@ public class SearchActivity extends AppCompatActivity {
     private void toolbarCreate() {
         Toolbar toolbar = findViewById(R.id.toolbarSearch);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar == null){
+            return;
+        }
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,7 +304,7 @@ public class SearchActivity extends AppCompatActivity {
 
         addMatchingItem (query, resultSearch, listEquip);
         addMatchingItem (query, resultSearch, listFeed);
-        addMatchingItem (query, resultSearch, listChemistry);
+        addMatchingItem (query, resultSearch, listDrugs);
         addMatchingItem (query, resultSearch, listAquariums);
 
         return resultSearch;

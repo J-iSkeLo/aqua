@@ -14,15 +14,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
-import l.chernenkiy.aqua.Fish.Product;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
+import l.chernenkiy.aqua.Fish.Product;
 
-import static java.nio.file.Paths.get;
 
 public class JsonRequest {
 
-    public ArrayList makeFishRequest(RequestQueue mQueue, final ArrayList <Product> resultFish) {
+    public void makeFishRequest(RequestQueue mQueue, final ArrayList <Product> resultFish) {
 
         String url = "https://aqua-m.kh.ua/api/price-list";
 
@@ -69,13 +68,12 @@ public class JsonRequest {
 
         });
         mQueue.add(request);
-        return resultFish;
 
     }
 
 
-    public ArrayList makeAllEquipRequest(RequestQueue mQueue, final ArrayList<ItemCategory> arrayCategory,
-                                         String url, final String generalColKey) {
+    public void makeAllEquipRequest(RequestQueue mQueue, final ArrayList<ItemCategory> arrayCategory,
+                                    String url, final String generalColKey) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -149,6 +147,5 @@ public class JsonRequest {
             }
         });
         mQueue.add(request);
-        return arrayCategory;
     }
 }

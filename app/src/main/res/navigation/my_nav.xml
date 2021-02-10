@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav">
 
@@ -20,10 +19,10 @@
         android:label="activity_feed"
         tools:layout="@layout/activity_feed" />
     <activity
-        android:id="@+id/chemistry2"
-        android:name="l.chernenkiy.aqua.Equipment.Chemistry"
+        android:id="@+id/drugs"
+        android:name="l.chernenkiy.aqua.Equipment.Drugs"
         android:label="activity_chemistry"
-        tools:layout="@layout/activity_chemistry" />
+        tools:layout="@layout/activity_drugs" />
     <activity
         android:id="@+id/aquariums"
         android:name="l.chernenkiy.aqua.Equipment.Aquariums"

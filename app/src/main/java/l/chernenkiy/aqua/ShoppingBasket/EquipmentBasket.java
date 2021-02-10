@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
 import l.chernenkiy.aqua.Helpers.CartHelper;
@@ -36,12 +37,16 @@ import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket.btnOrder;
 
 public class EquipmentBasket extends Fragment {
-    private static final String TAG = "Оборудование";
 
+    @SuppressLint("StaticFieldLeak")
     public static AdapterEquip adapterEquip;
+    @SuppressLint("StaticFieldLeak")
     public static ListView lvShopEquipBasket;
+    @SuppressLint("StaticFieldLeak")
     public static TextView tvNotItemsCart;
+    @SuppressLint("StaticFieldLeak")
     public static TextView tvBackToCatalog;
+
     Support support = new Support();
 
     @Nullable
@@ -70,9 +75,10 @@ public class EquipmentBasket extends Fragment {
         });
 
         adapterEquip = new AdapterEquip(getContext(), cartEquipmentItem);
+        support.sortShopBaskAlphabetical(cartEquipmentItem);
         lvShopEquipBasket.setAdapter(adapterEquip);
 
-        cartItemOnClick(view);
+        cartItemOnClick();
 
         deleteItem (tvNotItemsCart, tvBackToCatalog);
 
@@ -104,9 +110,11 @@ public class EquipmentBasket extends Fragment {
                         btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
                         adapterEquip = new AdapterEquip(getContext(), cartEquipmentItem);
                         lvShopEquipBasket.setAdapter(adapterEquip);
-                        Integer cartItemText = Integer.valueOf((String) cartAddItemText.getText());
-                        String newCartItemText = String.valueOf((cartItemText-1));
-                        cartAddItemText.setText(newCartItemText);
+                        if (cartAddItemText != null) {
+                            int cartItemText = Integer.parseInt((String) cartAddItemText.getText());
+                            String newCartItemText = String.valueOf((cartItemText - 1));
+                            cartAddItemText.setText(newCartItemText);
+                        }
                         if(cartEquipmentItem.isEmpty()){
                             tvNotItemsCart.setVisibility(View.VISIBLE);
                             tvBackToCatalog.setVisibility(View.VISIBLE);
@@ -129,16 +137,12 @@ public class EquipmentBasket extends Fragment {
         });
     }
 
-    private Bundle getExtras() {
-        return getActivity().getIntent().getExtras();
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     private void hideKeyboard() {
         lvShopEquipBasket.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
                 return false;
             }
@@ -162,7 +166,7 @@ public class EquipmentBasket extends Fragment {
 
                 cartEquipmentItem.get(i).put("quantity", quantityFish);
 
-                ArrayList<HashMap> editListQuantity = cartEquipmentItem;
+                ArrayList<HashMap<String, String> > editListQuantity = cartEquipmentItem;
 
                 editListQuantity.get(i).put("quantity", quantityFish);
 
@@ -176,7 +180,7 @@ public class EquipmentBasket extends Fragment {
         });
     }
 
-    private void cartItemOnClick (View v){
+    private void cartItemOnClick (){
         lvShopEquipBasket.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {

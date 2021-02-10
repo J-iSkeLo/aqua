@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import l.chernenkiy.aqua.Fish.Fish;
 import l.chernenkiy.aqua.Helpers.CartHelper;
@@ -37,12 +38,20 @@ import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket.btnOrder;
 
 public class FishBasket extends Fragment {
-    private static final String TAG = "Рыба";
+
+    @SuppressLint("StaticFieldLeak")
     public static AdapterFish adapterFish;
+
+    @SuppressLint("StaticFieldLeak")
     public static ListView lvShopBasket;
 
+    @SuppressLint("StaticFieldLeak")
     public static TextView tvFishNotItemsCart;
+
+    @SuppressLint("StaticFieldLeak")
     public static TextView tvFishBackToCatalog;
+
+    Support support = new Support();
 
 
     @Nullable
@@ -69,9 +78,9 @@ public class FishBasket extends Fragment {
         });
 
         adapterFish = new AdapterFish(getActivity(), cartItems);
-
+        support.sortShopBaskAlphabetical(cartItems);
         lvShopBasket.setAdapter(adapterFish);
-        cartItemOnClick(view);
+        cartItemOnClick();
 
         lvShopBasket.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -89,6 +98,7 @@ public class FishBasket extends Fragment {
                 });
                 Button btnDeleteItem = dialogDeleteItem.findViewById(R.id.ok_btn_dialog_deleteItem);
                 btnDeleteItem.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onClick(View view) {
 
@@ -127,7 +137,7 @@ public class FishBasket extends Fragment {
         lvShopBasket.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
                 return false;
             }
@@ -135,7 +145,7 @@ public class FishBasket extends Fragment {
     }
 
 
-    private void cartItemOnClick (View v){
+    private void cartItemOnClick (){
         lvShopBasket.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
@@ -177,7 +187,7 @@ public class FishBasket extends Fragment {
 
                 cartItems.get(i).put("quantity", quantityFish);
 
-                ArrayList<HashMap> editListQuantity = cartItems;
+                ArrayList<HashMap<String, String> > editListQuantity = cartItems;
 
                 editListQuantity.get(i).put("quantity", quantityFish);
 

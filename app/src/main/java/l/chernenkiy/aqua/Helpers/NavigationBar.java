@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import l.chernenkiy.aqua.Equipment.Aquariums;
-import l.chernenkiy.aqua.Equipment.Chemistry;
-import l.chernenkiy.aqua.Fish.Fish;
-import l.chernenkiy.aqua.R;
+import l.chernenkiy.aqua.Equipment.Drugs;
 import l.chernenkiy.aqua.Equipment.EquipmentAccessActivity;
 import l.chernenkiy.aqua.Equipment.Feed;
+import l.chernenkiy.aqua.Fish.Fish;
+import l.chernenkiy.aqua.R;
 
 public class NavigationBar {
 
@@ -41,8 +41,8 @@ public class NavigationBar {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity (intent);
                     return false;
-                } else if (itemId == R.id.chemistry2 && R.id.chemistry2 != current) {
-                    Intent intent = new Intent (context, Chemistry.class);
+                } else if (itemId == R.id.drugs && R.id.drugs != current) {
+                    Intent intent = new Intent (context, Drugs.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity (intent);
                     return false;

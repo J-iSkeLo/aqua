@@ -9,7 +9,7 @@ public class ItemEquipment implements Serializable {
     private String description;
     private String generalColKey;
     private String price;
-    private String image;
+    private final String image;
 
 
 

@@ -47,17 +47,21 @@ import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressLint("StaticFieldLeak")
     public static TextView cartAddItemText;
+
+    @SuppressLint("StaticFieldLeak")
     public static TextView cartAddItemTextMain;
-    public static ArrayList<HashMap> cartItems = new ArrayList<>();
-    public static ArrayList<HashMap> cartEquipmentItem = new ArrayList<>();
-    public static ArrayList<HashMap> lastFishShopArray = new ArrayList<>();
-    public static ArrayList<HashMap> lastEquipShopArray = new ArrayList<>();
+
+    public static ArrayList<HashMap<String, String> > cartItems = new ArrayList<>();
+    public static ArrayList<HashMap<String, String> > cartEquipmentItem = new ArrayList<>();
+    public static ArrayList<HashMap<String, String> > lastFishShopArray = new ArrayList<>();
+    public static ArrayList<HashMap<String, String> > lastEquipShopArray = new ArrayList<>();
 
     public static ArrayList <Product> listFish = new ArrayList<>();
     public static ArrayList <ItemCategory> listEquip = new ArrayList<>();
     public static ArrayList <ItemCategory> listFeed = new ArrayList<>();
-    public static ArrayList <ItemCategory> listChemistry = new ArrayList<>();
+    public static ArrayList <ItemCategory> listDrugs = new ArrayList<>();
     public static ArrayList <ItemCategory> listAquariums = new ArrayList<>();
 
     public static HashMap<String, String> dateHashMap = new HashMap<>();
@@ -205,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
         final boolean hasEmptyList = listEquip.isEmpty()
                 || listFeed.isEmpty()
-                || listChemistry.isEmpty()
+                || listDrugs.isEmpty()
                 || listAquariums.isEmpty();
 
         if (isInternetPresent && (listFish.size() != sizeListFish || hasEmptyList)) {
@@ -224,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
     private void clearAllList() {
         listFish.clear();
         listAquariums.clear();
-        listChemistry.clear();
+        listDrugs.clear();
         listEquip.clear();
         listFeed.clear();
     }
@@ -272,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
 
             jsonRequest.makeAllEquipRequest (mQueue, listEquip, ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
             jsonRequest.makeAllEquipRequest (mQueue, listFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
-            jsonRequest.makeAllEquipRequest (mQueue, listChemistry, ApiInfo.chemistry, ApiInfo.chemistryGeneralColKey);
+            jsonRequest.makeAllEquipRequest (mQueue, listDrugs, ApiInfo.drugs, ApiInfo.drugsGeneralColKey);
             jsonRequest.makeAllEquipRequest (mQueue, listAquariums, ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
         }
 

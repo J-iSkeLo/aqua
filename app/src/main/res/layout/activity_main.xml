@@ -42,14 +42,14 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_black_press_white"
-            android:drawableLeft="@drawable/catalog_icon_nav_btn"
+            android:background="@drawable/btn_catalog"
+            android:drawableLeft="@drawable/catalog_icon"
             android:drawablePadding="40dp"
             android:elevation="5dp"
-            android:paddingStart="30dp"
+            android:paddingStart="50dp"
             android:text="@string/name_button_catalog"
             android:textAlignment="textStart"
-            android:textColor="@color/colorTextCart"
+            android:textColor="#ffffff"
             android:textSize="15sp" />
 
         <Button
@@ -59,14 +59,14 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_black_press_white"
+            android:background="@drawable/btn_last_order"
             android:drawableLeft="@drawable/ic_baseline_notes_24"
             android:drawablePadding="40dp"
             android:elevation="5dp"
-            android:paddingStart="30dp"
+            android:paddingStart="50dp"
             android:text="@string/name_button_last_order"
             android:textAlignment="textStart"
-            android:textColor="@color/colorTextCart"
+            android:textColor="#ffffff"
             android:textSize="15sp" />
 
         <Button
@@ -76,14 +76,14 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_black_press_white"
-            android:drawableLeft="@drawable/about_logo_btn"
+            android:background="@drawable/btn_about_us"
+            android:drawableLeft="@drawable/ic_baseline_group_24"
             android:drawablePadding="40dp"
             android:elevation="5dp"
-            android:paddingStart="30dp"
+            android:paddingStart="50dp"
             android:text="@string/name_button_about_us"
             android:textAlignment="textStart"
-            android:textColor="@color/colorTextCart"
+            android:textColor="#ffffff"
             android:textSize="15sp" />
 
         <Button
@@ -93,14 +93,14 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_black_press_white"
-            android:drawableLeft="@drawable/delivery_icon_logo_btn"
+            android:background="@drawable/btn_delivery"
+            android:drawableLeft="@drawable/ic_baseline_local_shipping_24"
             android:drawablePadding="40dp"
             android:elevation="5dp"
-            android:paddingStart="30dp"
+            android:paddingStart="50dp"
             android:text="@string/name_button_delivery"
             android:textAlignment="textStart"
-            android:textColor="@color/colorTextCart"
+            android:textColor="#ffffff"
             android:textSize="15sp" />
 
         <Button
@@ -110,12 +110,13 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_black_press_white"
-            android:drawableLeft="@drawable/contact_icon_logo_btn"
+            android:background="@drawable/btn_contacts"
+            android:drawableLeft="@drawable/ic_baseline_contact_phone_24"
             android:drawablePadding="40dp"
             android:elevation="5dp"
-            android:paddingStart="30dp"
-            android:text="@string/name_button_delivery"
+            android:paddingStart="50dp"
+            android:text="@string/name_button_contacts"
+            android:textColor="#ffffff"
             android:textAlignment="textStart"
             android:textSize="15sp" />
     </LinearLayout>

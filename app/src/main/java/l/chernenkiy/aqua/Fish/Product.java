@@ -4,9 +4,9 @@ public class Product {
 
     private String name;
     private String size;
-    private String price;
+    private final String price;
     private String title;
-    private String image;
+    private final String image;
 
     public Product(String name, String size, String price, String title, String image) {
 

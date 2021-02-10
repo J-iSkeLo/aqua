@@ -169,7 +169,6 @@ public class Fish extends AppCompatActivity {
         if (supportActionBar == null){
             return true;
         }
-
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

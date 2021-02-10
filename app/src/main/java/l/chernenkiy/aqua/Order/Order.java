@@ -225,8 +225,8 @@ public class Order extends AppCompatActivity {
         return "";
     }
 
-    public static String generateMailContent(ArrayList<HashMap> cartItems,
-                                             ArrayList<HashMap> cartEquipmentItem,
+    public static String generateMailContent(ArrayList<HashMap<String, String> > cartItems,
+                                             ArrayList<HashMap<String, String> > cartEquipmentItem,
                                              HashMap<String, String> clientData)
     {
 

@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         app:tabBackground="@drawable/tab_color_selector"
         app:tabTextColor="@color/colorTextCart"
-        app:tabIndicatorColor="@color/tab_background_selected"
+        app:tabIndicatorColor="#05a3bc"
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="#FFFFFF"
         android:id="@+id/tabLayout"/>
