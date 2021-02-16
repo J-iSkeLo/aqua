@@ -21,7 +21,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name=".Equipment.SubCategoryActivity"></activity>
+
+
         <activity
             android:name=".SplashScreen"
             android:configChanges="orientation"
@@ -42,6 +43,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Fish.CategoryFish"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Fish.Fish"
             android:configChanges="orientation"
@@ -66,6 +71,10 @@
             android:name=".Equipment.CategoryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Equipment.SubCategoryActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Delivery.Delivery"
             android:configChanges="orientation"

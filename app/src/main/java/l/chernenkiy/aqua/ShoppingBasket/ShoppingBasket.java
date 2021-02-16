@@ -175,7 +175,7 @@ public class ShoppingBasket extends AppCompatActivity {
         else vp.setCurrentItem (0);
 
         btnOrder = findViewById(R.id.btnOrder);
-        btnOrder.setText ("Сумма покупки " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
+        btnOrder.setText ("Сумма покупки: " + CartHelper.finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
         if (!cartItems.isEmpty() || !cartEquipmentItem.isEmpty())
         {
             btnOrder.setVisibility(View.VISIBLE);

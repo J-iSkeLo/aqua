@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#EBEBEB"
+    android:background="@color/colorTimeBar"
     tools:context=".Equipment.SubCategoryActivity">
 
 
@@ -25,13 +25,29 @@
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:titleTextColor="@color/colorTextToolbar" />
 
+    <Button
+        android:id="@+id/btn_shop_bask_sum_subcategory"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_order"
+        android:padding="5dp"
+        android:visibility="invisible"
+        android:text="Сумма покупки"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <ListView
         android:id="@+id/list_equip_subcategory"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#F5F5F5"
+        android:background="@color/colorTimeBar"
         android:drawSelectorOnTop="true"
         android:drawingCacheQuality="high"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar_bottom"

@@ -11,13 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
+import l.chernenkiy.aqua.Fish.Items.Product;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
-
-import static l.chernenkiy.aqua.MainActivity.listFish;
 
 public class FishListAdapter extends BaseAdapter {
 
@@ -25,13 +22,9 @@ public class FishListAdapter extends BaseAdapter {
     private final ArrayList<Product> mProductList;
     Support support = new Support();
 
-    private final ArrayList<Product> filteredData = new ArrayList<>();
-
     public FishListAdapter(Context mContext, ArrayList<Product> mProductList) {
         this.mContext = mContext;
         this.mProductList = mProductList;
-        this.filteredData.clear();
-        this.filteredData.addAll(listFish);
     }
 
     @Override
@@ -49,7 +42,7 @@ public class FishListAdapter extends BaseAdapter {
         return i;
     }
 
-    @SuppressLint({"SetTextI18n", "InflateParams"})
+    @SuppressLint({"SetTextI18n", "InflateParams", "ViewHolder"})
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
 
@@ -58,7 +51,6 @@ public class FishListAdapter extends BaseAdapter {
 
         Product product = mProductList.get(i);
 
-        if (hasNotTitle(mProductList, i)) {
             convertView = mInflater.inflate(R.layout.cart_fish_price_list, null);
 
             TextView tvName = convertView.findViewById(R.id.name_pn);
@@ -66,40 +58,14 @@ public class FishListAdapter extends BaseAdapter {
             TextView tvPrice = convertView.findViewById(R.id.price_pn);
             ImageView image = convertView.findViewById(R.id.imageFish_pn);
 
-            tvName.setText(listFish.get(i).getName());
+            tvName.setText(product.getName());
             tvSize.setText(product.getSize() + " см.");
             tvPrice.setText(product.getPrice() + " грн.");
 
             String urlImage = product.getImage();
             support.loadImage(image, urlImage, mContext);
 
-        } else {
-            convertView = mInflater.inflate(R.layout.cart_fish_title_category, null);
-
-            TextView tvTitle = convertView.findViewById(R.id.title_pn);
-            tvTitle.setText(product.getTitle());
-        }
-
 
         return convertView;
-    }
-
-    public boolean hasNotTitle(List<Product> mProductList, int i) {
-        return mProductList.get(i).getTitle().isEmpty();
-    }
-
-    public void myFilter (String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        mProductList.clear();
-        if (charText.length() == 0) {
-            mProductList.addAll(filteredData);
-        } else {
-            for (Product product : filteredData) {
-                if (product.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    mProductList.add(product);
-                }
-            }
-        }
-        notifyDataSetChanged();
     }
 }

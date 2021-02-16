@@ -16,14 +16,15 @@ import java.util.Iterator;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
 import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
-import l.chernenkiy.aqua.Fish.Product;
+import l.chernenkiy.aqua.Fish.Items.FishCategory;
+import l.chernenkiy.aqua.Fish.Items.Product;
 
 
 public class JsonRequest {
 
-    public void makeFishRequest(RequestQueue mQueue, final ArrayList <Product> resultFish) {
+    public void makeFishRequest(RequestQueue mQueue, final ArrayList <FishCategory> resultFish) {
 
-        String url = "https://aqua-m.kh.ua/api/price-list";
+        String url = "https://aqua-m.kh.ua/api/v2/fish";
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -36,8 +37,7 @@ public class JsonRequest {
                             while (keys.hasNext()) {
                                 String key = keys.next();
                                 JSONArray allFish = response.getJSONArray(key);
-
-                                resultFish.add(new Product ("", "", "", key, ""));
+                                ArrayList<Product> childItemFish = new ArrayList<>();
 
                                 for (int i = 0; i < allFish.length(); i++) {
                                     JSONObject fishItem = allFish.getJSONObject(i);
@@ -47,11 +47,10 @@ public class JsonRequest {
                                     String price = fishItem.getString("price");
                                     String image = fishItem.getString("image");
 
-                                    resultFish.add(new Product(name, size, price, "", image));
-
+                                    childItemFish.add(new Product(name, size, price, image));
                                 }
+                                resultFish.add(new FishCategory(key, childItemFish));
                             }
-
 
                         } catch (JSONException e) {
                             e.printStackTrace ();

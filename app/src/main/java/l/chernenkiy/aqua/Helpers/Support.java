@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
+import l.chernenkiy.aqua.Fish.Items.Product;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
 import static l.chernenkiy.aqua.MainActivity.lastClass;
@@ -74,6 +75,16 @@ public class Support {
         Collections.sort(arrayList, new Comparator<ItemEquipment>() {
             @Override
             public int compare(ItemEquipment current, ItemEquipment next) {
+
+                return current.getName().compareToIgnoreCase(next.getName());
+            }
+        });
+    }
+
+    public void sortProductAlphabetical(final ArrayList<Product> arrayList) {
+        Collections.sort(arrayList, new Comparator<Product>() {
+            @Override
+            public int compare(Product current, Product next) {
 
                 return current.getName().compareToIgnoreCase(next.getName());
             }

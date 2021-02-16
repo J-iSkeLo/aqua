@@ -1,4 +1,4 @@
-package l.chernenkiy.aqua.Equipment.Adapters;
+package l.chernenkiy.aqua.Fish;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,17 +12,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
+import l.chernenkiy.aqua.Fish.Items.FishCategory;
 import l.chernenkiy.aqua.R;
 
-public class CategoryAdapter extends BaseAdapter {
+public class CategoryAdapterFish extends BaseAdapter {
 
     private final Context mContext;
-    private final List<ItemCategory> mItemCategory;
+    private final List<FishCategory> mItemCategory;
 
 
 
-    public CategoryAdapter(Context mContext, List<ItemCategory> mItemCategory) {
+    public CategoryAdapterFish(Context mContext, List<FishCategory> mItemCategory) {
         this.mContext = mContext;
         this.mItemCategory = mItemCategory;
     }
@@ -56,15 +56,10 @@ public class CategoryAdapter extends BaseAdapter {
         TextView tvCategory = convertView.findViewById(R.id.name_category);
         TextView tvNumbEquip = convertView.findViewById(R.id.numb_category);
 
-        tvCategory.setText(mItemCategory.get(i).getName());
+        FishCategory item = mItemCategory.get(i);
 
-        ItemCategory item = mItemCategory.get(i);
-
-        int size = item.getItemSubCategories().isEmpty()
-            ? item.getItems().size()
-            : item.getSubCategoryItems().size();
-
-        tvNumbEquip.setText(size + " позиций");
+        tvCategory.setText(item.getName());
+        tvNumbEquip.setText(item.getItems().size() + " позиций");
 
         return convertView;
     }

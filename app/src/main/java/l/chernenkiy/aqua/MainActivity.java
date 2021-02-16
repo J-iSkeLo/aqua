@@ -32,8 +32,8 @@ import java.util.HashMap;
 import l.chernenkiy.aqua.Delivery.Delivery;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemSubCategory;
-import l.chernenkiy.aqua.Fish.Fish;
-import l.chernenkiy.aqua.Fish.Product;
+import l.chernenkiy.aqua.Fish.CategoryFish;
+import l.chernenkiy.aqua.Fish.Items.FishCategory;
 import l.chernenkiy.aqua.Helpers.ApiInfo;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.ConnectionDetector;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<HashMap<String, String> > lastFishShopArray = new ArrayList<>();
     public static ArrayList<HashMap<String, String> > lastEquipShopArray = new ArrayList<>();
 
-    public static ArrayList <Product> listFish = new ArrayList<>();
+    public static ArrayList <FishCategory> listFish = new ArrayList<>();
     public static ArrayList <ItemCategory> listEquip = new ArrayList<>();
     public static ArrayList <ItemCategory> listFeed = new ArrayList<>();
     public static ArrayList <ItemCategory> listDrugs = new ArrayList<>();
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static HashMap<String, String> dateHashMap = new HashMap<>();
     public static ItemCategory nextSubcategory;
+    public static FishCategory nextFishSubcategory;
     public static ItemSubCategory nextItemsSubCategory;
 
     public static Class lastClass;
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    Intent intent = new Intent(MainActivity.this, Fish.class);
+                    Intent intent = new Intent(MainActivity.this, CategoryFish.class);
                     startActivity(intent);finish();
                 }catch (Exception e){
                     e.printStackTrace();

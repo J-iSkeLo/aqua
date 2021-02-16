@@ -24,6 +24,7 @@ import androidx.core.view.MenuItemCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ortiz.touchview.TouchImageView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,8 +40,10 @@ import l.chernenkiy.aqua.MySettings;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
 
+import static l.chernenkiy.aqua.Helpers.CartHelper.finalSumOrder;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
+import static l.chernenkiy.aqua.MainActivity.cartItems;
 import static l.chernenkiy.aqua.MainActivity.lastBottomNavBar;
 import static l.chernenkiy.aqua.MainActivity.lastClassCategory;
 import static l.chernenkiy.aqua.MainActivity.nextItemsSubCategory;
@@ -56,6 +59,9 @@ public class SubCategoryActivity extends AppCompatActivity {
     SearchView searchView;
     ImageButton cartImageBtn;
     MySettings mySettings = new MySettings();
+
+    @SuppressLint("StaticFieldLeak")
+    public static Button btnSumOrderSubcategory;
 
     @Override
     protected void onPause() {
@@ -112,6 +118,7 @@ public class SubCategoryActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,10 +127,14 @@ public class SubCategoryActivity extends AppCompatActivity {
         cd = new ConnectionDetector(getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
         lvSubCategory = findViewById(R.id.list_equip_subcategory);
+        btnSumOrderSubcategory = findViewById(R.id.btn_shop_bask_sum_subcategory);
 
         toolbar(nextItemsSubCategory);
 
         if (nextItemsSubCategory != null){
+
+            viewBtnSumOrderSubcategory();
+
             ArrayList<ItemEquipment> nextItemsSubCategoryItems = nextItemsSubCategory.getItems();
             support.sortItemEquipmentAlphabetical(nextItemsSubCategory.getItems());
             equipmentListAdapter = new EquipmentListAdapter(getApplicationContext(), nextItemsSubCategoryItems);
@@ -136,6 +147,29 @@ public class SubCategoryActivity extends AppCompatActivity {
         NavigationBar.itemSelected (navigation, getApplicationContext (), 0);
         navigation.getMenu().getItem(lastBottomNavBar).setChecked(true);
         overridePendingTransition (0, 0);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void viewBtnSumOrderSubcategory() {
+        BigDecimal sumOrder = finalSumOrder(cartItems , cartEquipmentItem);
+
+        if(sumOrder.doubleValue() == 0.00){
+            btnSumOrderSubcategory.setVisibility(View.INVISIBLE);
+        } else{
+            btnSumOrderSubcategory.setVisibility(View.VISIBLE);
+            lvSubCategory.setPadding(0,0,0,180);
+        }
+        btnSumOrderSubcategory.setText ("Сумма покупки: " + finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
+        btnSumOrderSubcategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SubCategoryActivity.this, ShoppingBasket.class);
+                intent.putExtra ("class", SubCategoryActivity.class);
+                intent.putExtra ("position", getIntent().getSerializableExtra("position"));
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void lvOnItemClickListener(final ArrayList<ItemEquipment> itemEquipmentCategory){
@@ -221,6 +255,7 @@ public class SubCategoryActivity extends AppCompatActivity {
                         {
                             cartEquipmentItem.add(singleEquipItem);
                             CartHelper.calculateItemsCart();
+                            viewBtnSumOrderSubcategory();
                             dialog.dismiss();
                         }
                     }
