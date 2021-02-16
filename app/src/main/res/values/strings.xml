@@ -48,6 +48,8 @@
     <string name="action_settings">Settings</string>
 
     <string name="Title">Моя корзина</string>
+    <string name="ok_order">Спасибо за заказ!\n Менеджеры свяжутся с Вами\n в ближайшее время.</string>
+    <string name="error_order">Ошибка отправки заказа.\n Попробуйте позже!</string>
     <string name="LastShop">Здесь будет отображаться Ваш последний заказ.\n</string>
     <string name="Cart">У Вас нет товаров в Корзине.\n</string>
     <string name="title_activity_delivery">Доставка</string>

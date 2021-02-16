@@ -2,15 +2,21 @@ package l.chernenkiy.aqua.Order;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -145,9 +151,18 @@ public class Order extends AppCompatActivity {
                 }
 
                 if (isInternetPresent){
-                    new AsyncSendMail().execute();
-                    Intent home = new Intent(Order.this, MainActivity.class);
-                    startActivity(home);
+                    final Dialog dialog = new Dialog(Order.this, R.style.FullHeightDialog);
+                    dialog.setContentView(R.layout.dialog_order);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+                    new AsyncSendMail(dialog).execute();
+                    final Intent home = new Intent(Order.this, MainActivity.class);
+                    Runnable dismissRunner = new Runnable() {
+                        public void run() {
+                            if (home != null)
+                                startActivity(home);
+                        }
+                    };
+                    new Handler().postDelayed( dismissRunner, 5000 );
                 } else{
                     support.showToast(getApplicationContext(),"У Вас нет Интернет соединения");
                 }
@@ -252,6 +267,11 @@ public class Order extends AppCompatActivity {
     public class AsyncSendMail extends AsyncTask<Void, Void, Void> {
 
         private int statusCode;
+        private final Dialog dialog;
+
+        public AsyncSendMail(Dialog dialog) {
+            this.dialog = dialog;
+        }
 
         @Override
         protected void onPreExecute() {
@@ -304,10 +324,26 @@ public class Order extends AppCompatActivity {
             CartHelper.calculateItemsCart ();
             CartHelper.calculateItemsCartMain ();
 
-            if(statusCode == 200)
-                support.showToast(getApplicationContext(),"Спасибо за заказ.\nМенеджеры свяжутся с Вами\nв ближайшее время.");
-            else
-                support.showToast(getApplicationContext(),"Возникла ошибка\nпри оформлении заказа\nПопробуйте позже!");
+            ImageView imageDialog = dialog.findViewById(R.id.dialog_order_image);
+            TextView textDialog = dialog.findViewById(R.id.dialog_order_text);
+
+            if(statusCode == 200) {
+                imageDialog.setImageResource(R.drawable.ok_order_image);
+                textDialog.setText(R.string.ok_order);
+            }else{
+                imageDialog.setImageResource(R.drawable.error_order_image);
+                textDialog.setText(R.string.error_order);
+            }
+            dialog.show();
+            dialog.setCancelable(false);
+            Runnable dismissRunner = new Runnable() {
+                public void run() {
+                    if (dialog != null)
+                        dialog.dismiss();
+                }
+            };
+            new Handler().postDelayed( dismissRunner, 5000 );
+
         }
     }
 
