@@ -30,9 +30,7 @@ import l.chernenkiy.aqua.R;
 
 import static l.chernenkiy.aqua.MainActivity.lastEquipShopArray;
 import static l.chernenkiy.aqua.MainActivity.lastFishShopArray;
-import static l.chernenkiy.aqua.MainActivity.listFish;
 import static l.chernenkiy.aqua.MainActivity.orderClass;
-import static l.chernenkiy.aqua.MainActivity.sizeListFish;
 
 
 public class LastOrder extends AppCompatActivity {
@@ -64,7 +62,6 @@ public class LastOrder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.last_order);
 
-        equalityListFish();
         toolbarCreate();
 
         TabLayout tabLayout = findViewById(R.id.tabLayoutLastOrder);
@@ -114,12 +111,6 @@ public class LastOrder extends AppCompatActivity {
             vp.setCurrentItem (1);
         }
         else vp.setCurrentItem (0);
-    }
-
-    private void equalityListFish() {
-        if(sizeListFish == 0){
-            sizeListFish = listFish.size();
-        }
     }
 
     @Override

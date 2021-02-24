@@ -29,9 +29,7 @@ import l.chernenkiy.aqua.R;
 import static l.chernenkiy.aqua.MainActivity.cartAddItemText;
 import static l.chernenkiy.aqua.MainActivity.cartEquipmentItem;
 import static l.chernenkiy.aqua.MainActivity.cartItems;
-import static l.chernenkiy.aqua.MainActivity.listFish;
 import static l.chernenkiy.aqua.MainActivity.orderClass;
-import static l.chernenkiy.aqua.MainActivity.sizeListFish;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.adapterEquip;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.lvShopEquipBasket;
 import static l.chernenkiy.aqua.ShoppingBasket.EquipmentBasket.tvBackToCatalog;
@@ -155,10 +153,6 @@ public class ShoppingBasket extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.basket_shopping);
-
-        if(sizeListFish == 0){
-            sizeListFish = listFish.size();
-        }
 
         toolbar();
 

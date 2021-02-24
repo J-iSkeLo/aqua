@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-import l.chernenkiy.aqua.Fish.Fish;
+import l.chernenkiy.aqua.Fish.CategoryFish;
 import l.chernenkiy.aqua.Helpers.CartHelper;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.R;
@@ -72,7 +72,7 @@ public class FishBasket extends Fragment {
         tvFishBackToCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Fish.class);
+                Intent intent = new Intent(getActivity(), CategoryFish.class);
                 startActivity(intent);
             }
         });

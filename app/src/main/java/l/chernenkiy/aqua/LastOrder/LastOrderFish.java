@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import l.chernenkiy.aqua.Fish.Fish;
+import l.chernenkiy.aqua.Fish.CategoryFish;
 import l.chernenkiy.aqua.R;
 import l.chernenkiy.aqua.ShoppingBasket.AdapterFish;
 
@@ -46,7 +46,7 @@ public class LastOrderFish extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getActivity(), Fish.class);
+                Intent intent = new Intent(getActivity(), CategoryFish.class);
                 startActivity(intent);
             }
         });

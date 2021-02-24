@@ -21,6 +21,8 @@ import com.android.volley.toolbox.Volley;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.WanderingCubes;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -78,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     public RequestQueue mQueue;
     public String date = "";
     public TextView updateDate;
-    public static int sizeListFish;
 
     public static SharedPreferences sharedPreferences;
 
@@ -208,22 +209,29 @@ public class MainActivity extends AppCompatActivity {
             shopBaskButton.setClickable(false);
         }
 
-        final boolean hasEmptyList = listEquip.isEmpty()
+        final boolean hasEmptyList = listFish.isEmpty()
+                || listEquip.isEmpty()
                 || listFeed.isEmpty()
                 || listDrugs.isEmpty()
                 || listAquariums.isEmpty();
 
-        if (isInternetPresent && (listFish.size() != sizeListFish || hasEmptyList)) {
+        if (isInternetPresent && (hasEmptyList)) {
             btnCatalog.setClickable(true);
-            final Dialog dialog = new Dialog(MainActivity.this, R.style.FullHeightDialog);
-            dialog.setContentView(R.layout.dialog_load_main_activity);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+            final Dialog dialog = getDialog();
             clearAllList();
             new AsyncRequestHttp (dialog).execute();
         }
 
         String previouslyLoadedDate = dateHashMap.get ("date");
         if (!listFish.isEmpty ()) updateDate.setText ("Прайс обновлён:\n" + previouslyLoadedDate);
+    }
+
+    @NotNull
+    private Dialog getDialog() {
+        final Dialog dialog = new Dialog(MainActivity.this, R.style.FullHeightDialog);
+        dialog.setContentView(R.layout.dialog_load_main_activity);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return dialog;
     }
 
     private void clearAllList() {
@@ -307,7 +315,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            sizeListFish = listFish.size();
 
             dialog.dismiss ();
             dateHashMap.put ("date", date);
