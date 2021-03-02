@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         mySettings.loadFishShopBask();
 
         CartHelper.calculateItemsCartMain();
-
     }
 
 

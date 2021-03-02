@@ -54,16 +54,13 @@ public class EquipmentBasket extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.basket_equip, container, false);
 
-
         lvShopEquipBasket = view.findViewById(R.id.shopping_basketEquip_list);
-
         tvNotItemsCart = view.findViewById(R.id.tv_equip_not_item_cart);
         tvBackToCatalog = view.findViewById(R.id.tv_equip_back_to_catalog);
 
         if(!cartEquipmentItem.isEmpty()){
             tvNotItemsCart.setVisibility(View.INVISIBLE);
             tvBackToCatalog.setVisibility(View.INVISIBLE);
-
         }
 
         tvBackToCatalog.setOnClickListener(new View.OnClickListener() {

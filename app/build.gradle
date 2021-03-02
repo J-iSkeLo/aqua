@@ -7,9 +7,12 @@ android {
         applicationId "l.chernenkiy.aqua"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 10
+        versionCode 11
         versionName '2.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk{
+            debugSymbolLevel = 'SYMBOL_TABLE'
+        }
     }
     packagingOptions {
         pickFirst 'META-INF/LICENSE.txt' // picks the JavaMail license file
@@ -18,6 +21,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
     }
     compileOptions {

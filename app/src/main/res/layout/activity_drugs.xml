@@ -22,8 +22,8 @@
 
     <ListView
         android:id="@+id/lv_drugs"
-        android:layout_width="402dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="#F5F5F5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
