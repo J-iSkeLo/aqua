@@ -1,6 +1,7 @@
 package l.chernenkiy.aqua;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,10 +9,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.WanderingCubes;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.Task;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView updateDate;
 
     public static SharedPreferences sharedPreferences;
+    public ReviewManager manager;
 
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
@@ -122,81 +128,75 @@ public class MainActivity extends AppCompatActivity {
         cartAddItemTextMain = findViewById (R.id.text_item_cart_main);
         calculateItemsCartMain();
 
-        shopBaskButton.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, ShoppingBasket.class);
-                    lastClass = MainActivity.class;
-                    startActivity(intent);
-                }catch (Exception e){
-                    e.printStackTrace();
+        RelativeLayout btnRating = findViewById(R.id.review_btn);
+        btnRating.setOnClickListener(view -> {
+            manager = ReviewManagerFactory.create(getApplicationContext());
+            Task<ReviewInfo> request = manager.requestReviewFlow();
+            request.addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    ReviewInfo reviewInfo = task.getResult();
+                    StartActivity(MainActivity.this, reviewInfo);
                 }
+            });
+        });
+
+        shopBaskButton.setOnClickListener (view -> {
+            try{
+                Intent intent = new Intent(MainActivity.this, ShoppingBasket.class);
+                lastClass = MainActivity.class;
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         Button btnLastOrder = findViewById(R.id.last_order);
-        btnLastOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, LastOrder.class);
-                    startActivity(intent);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+        btnLastOrder.setOnClickListener(view -> {
+            try{
+                Intent intent = new Intent(MainActivity.this, LastOrder.class);
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         Button btnCatalog = findViewById(R.id.btn_catalog);
-        btnCatalog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, CategoryFish.class);
-                    startActivity(intent);finish();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+        btnCatalog.setOnClickListener(view -> {
+            try{
+                Intent intent = new Intent(MainActivity.this, CategoryFish.class);
+                startActivity(intent);finish();
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         Button btnAboutUs = findViewById(R.id.btn_about_us);
-        btnAboutUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, AboutUs.class);
-                    startActivity(intent);finish();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+        btnAboutUs.setOnClickListener(view -> {
+            try{
+                Intent intent = new Intent(MainActivity.this, AboutUs.class);
+                startActivity(intent);finish();
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         Button btnContacts = findViewById(R.id.btn_contacts);
-        btnContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, Contacts.class);
-                    startActivity(intent);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+        btnContacts.setOnClickListener(view -> {
+            try{
+                Intent intent = new Intent(MainActivity.this, Contacts.class);
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
 
         Button btnDelivery = findViewById(R.id.btn_delivery);
-        btnDelivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent intent = new Intent(MainActivity.this, Delivery.class);
-                    startActivity(intent);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+        btnDelivery.setOnClickListener(view -> {
+            try{
+                Intent intent = new Intent(MainActivity.this, Delivery.class);
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
 
@@ -224,6 +224,13 @@ public class MainActivity extends AppCompatActivity {
 
         String previouslyLoadedDate = dateHashMap.get ("date");
         if (!listFish.isEmpty ()) updateDate.setText ("Прайс обновлён:\n" + previouslyLoadedDate);
+    }
+
+    private void StartActivity(Activity activity, ReviewInfo reviewInfo) {
+        Task<Void> flow = manager.launchReviewFlow(activity, reviewInfo);
+        flow.addOnCompleteListener(task -> {
+
+        });
     }
 
     @NotNull
@@ -328,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
             updateDate.setText("Прайс обновлён:\n" + date);
         }
     }
+
 
     public void onBackPressed(){
         moveTaskToBack(true);

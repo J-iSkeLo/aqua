@@ -334,6 +334,7 @@ public class Order extends AppCompatActivity {
                 imageDialog.setImageResource(R.drawable.error_order_image);
                 textDialog.setText(R.string.error_order);
             }
+
             dialog.show();
             dialog.setCancelable(false);
             Runnable dismissRunner = new Runnable() {
@@ -345,6 +346,8 @@ public class Order extends AppCompatActivity {
             new Handler().postDelayed( dismissRunner, 5000 );
 
         }
+
+
     }
 
     private void saveDataClient() {

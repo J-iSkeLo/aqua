@@ -104,6 +104,7 @@
     <string name="name_nav_feed">Корма</string>
     <string name="name_nav_drugs">Препараты</string>
     <string name="name_nav_aquariums">Аквариумы</string>
+    <string name="rating">Рейтинг</string>
 
 
 </resources>

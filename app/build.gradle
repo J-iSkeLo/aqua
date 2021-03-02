@@ -7,8 +7,8 @@ android {
         applicationId "l.chernenkiy.aqua"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 9
-        versionName '2.0.1'
+        versionCode 10
+        versionName '2.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {
@@ -20,9 +20,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
+    implementation 'com.google.android.play:core:1.9.1'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
