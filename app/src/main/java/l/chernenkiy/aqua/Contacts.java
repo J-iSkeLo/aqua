@@ -18,8 +18,8 @@ public class Contacts extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mySettings.loadEquipShopBask();
-        mySettings.loadFishShopBask();
+        mySettings.loadEquipShopBask(getApplicationContext());
+        mySettings.loadFishShopBask(getApplicationContext());
     }
 
     @Override
