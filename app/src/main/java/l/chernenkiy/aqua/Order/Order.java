@@ -11,7 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -129,43 +129,38 @@ public class Order extends AppCompatActivity {
     }
 
     private void sendOrderToEmail() {
-        btnSendMail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnSendMail.setOnClickListener(view -> {
 
-                if (orderClass == LastOrder.class) {
-                    cartItems = lastFishShopArray;
-                    cartEquipmentItem = lastEquipShopArray;
-                }
+            if (orderClass == LastOrder.class) {
+                cartItems = lastFishShopArray;
+                cartEquipmentItem = lastEquipShopArray;
+            }
 
-                sName = firstLastName.getText().toString();
-                sCity = city.getText().toString();
-                sNumber = phoneNumber.getText().toString();
-                sEmail = email.getText().toString();
-                sComment = commentOrder.getText().toString();
+            sName = firstLastName.getText().toString();
+            sCity = city.getText().toString();
+            sNumber = phoneNumber.getText().toString();
+            sEmail = email.getText().toString();
+            sComment = commentOrder.getText().toString();
 
-                putToHashMap(sName, sCity, sNumber,sEmail, sComment);
-                if(dataIsWrong()){
-                    support.showToast(getApplicationContext(), getError());
-                    return;
-                }
+            putToHashMap(sName, sCity, sNumber,sEmail, sComment);
+            if(dataIsWrong()){
+                support.showToast(getApplicationContext(), getError());
+                return;
+            }
 
-                if (isInternetPresent){
-                    final Dialog dialog = new Dialog(Order.this, R.style.FullHeightDialog);
-                    dialog.setContentView(R.layout.dialog_order);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
-                    new AsyncSendMail(dialog).execute();
-                    final Intent home = new Intent(Order.this, MainActivity.class);
-                    Runnable dismissRunner = new Runnable() {
-                        public void run() {
-                            if (home != null)
-                                startActivity(home);
-                        }
-                    };
-                    new Handler().postDelayed( dismissRunner, 5000 );
-                } else{
-                    support.showToast(getApplicationContext(),"У Вас нет Интернет соединения");
-                }
+            if (isInternetPresent){
+                final Dialog dialog = new Dialog(Order.this, R.style.FullHeightDialog);
+                dialog.setContentView(R.layout.dialog_order);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+                new AsyncSendMail(dialog).execute();
+                final Intent home = new Intent(Order.this, MainActivity.class);
+                Runnable dismissRunner = () -> {
+                    if (home != null)
+                        startActivity(home);
+                };
+                new Handler().postDelayed( dismissRunner, 5000 );
+            } else{
+                support.showToast(getApplicationContext(),"У Вас нет Интернет соединения");
             }
         });
     }
@@ -180,13 +175,10 @@ public class Order extends AppCompatActivity {
     }
 
     private void hideSoftInput(ConstraintLayout constraintLayout) {
-        constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+        constraintLayout.setOnClickListener(view -> {
+            InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
 
-            }
         });
     }
 
@@ -198,12 +190,7 @@ public class Order extends AppCompatActivity {
         }
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setDisplayShowHomeEnabled(true);
-        toolbar3.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar3.setNavigationOnClickListener(v -> finish());
         return false;
     }
 
@@ -286,7 +273,7 @@ public class Order extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
 
             try {
-                String url = "http://aqua-m.com.ua/mail_order.php";
+                String url = "https://aqua-m.com.ua/mail_order.php";
                 URL obj = new URL(url);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
                 con.setRequestMethod("POST");
@@ -331,17 +318,17 @@ public class Order extends AppCompatActivity {
                 imageDialog.setImageResource(R.drawable.ok_order_image);
                 textDialog.setText(R.string.ok_order);
             }else{
+                String stat = String.valueOf(statusCode);
+                Log.e("STATUS_CODE", stat);
                 imageDialog.setImageResource(R.drawable.error_order_image);
                 textDialog.setText(R.string.error_order);
             }
 
             dialog.show();
             dialog.setCancelable(false);
-            Runnable dismissRunner = new Runnable() {
-                public void run() {
-                    if (dialog != null)
-                        dialog.dismiss();
-                }
+            Runnable dismissRunner = () -> {
+                if (dialog != null)
+                    dialog.dismiss();
             };
             new Handler().postDelayed( dismissRunner, 5000 );
 

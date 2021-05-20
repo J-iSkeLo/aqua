@@ -10,10 +10,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -96,16 +94,13 @@ public class Fish extends AppCompatActivity {
             }
         }
 
-        btnBask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View actionView) {
-                try{
-                    Intent intent = new Intent(Fish.this, ShoppingBasket.class);
-                    intent.putExtra ("class", Fish.class);
-                    startActivity(intent);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+        btnBask.setOnClickListener(actionView1 -> {
+            try{
+                Intent intent = new Intent(Fish.this, ShoppingBasket.class);
+                intent.putExtra ("class", Fish.class);
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
 
@@ -155,111 +150,90 @@ public class Fish extends AppCompatActivity {
         }
 
         btnSumOrder.setText ("Сумма покупки: " + finalSumOrder(cartItems , cartEquipmentItem)+ " грн.");
-        btnSumOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Fish.this, ShoppingBasket.class);
-                intent.putExtra ("class", Fish.class);
-                intent.putExtra ("position", getIntent().getSerializableExtra("position"));
-                startActivity(intent);
-            }
+        btnSumOrder.setOnClickListener(view -> {
+            Intent intent = new Intent(Fish.this, ShoppingBasket.class);
+            intent.putExtra ("class", Fish.class);
+            intent.putExtra ("position", getIntent().getSerializableExtra("position"));
+            startActivity(intent);
         });
 
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void hideKeyboard() {
-        lvProduct.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
-                return false;
-            }
+        lvProduct.setOnTouchListener((view, motionEvent) -> {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+            return false;
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void showDialogOnItemClick(final ArrayList<Product> result) {
-        lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final Product product = result.get(i);
+        lvProduct.setOnItemClickListener((adapterView, view, i, l) -> {
+            final Product product = result.get(i);
 
-                final Dialog dialog = new Dialog(Fish.this, R.style.FullHeightDialog);
-                dialog.setContentView(R.layout.dialog_fish_set);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+            final Dialog dialog = new Dialog(Fish.this, R.style.FullHeightDialog);
+            dialog.setContentView(R.layout.dialog_fish_set);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
-                TextView nameDialog = dialog.findViewById(R.id.name_dialog);
-                TextView sizeDialog = dialog.findViewById(R.id.size_dialog);
-                TextView priceDialog = dialog.findViewById(R.id.price_dialog);
-                final EditText quantity = dialog.findViewById(R.id.quantity_dialog);
+            TextView nameDialog = dialog.findViewById(R.id.name_dialog);
+            TextView articleDialog = dialog.findViewById(R.id.article_dialog_fish);
+            TextView sizeDialog = dialog.findViewById(R.id.size_dialog);
+            TextView priceDialog = dialog.findViewById(R.id.price_dialog);
+            final EditText quantity = dialog.findViewById(R.id.quantity_dialog);
 
-                nameDialog.setText(product.getName());
-                sizeDialog.setText(product.getSize() + " см.");
-                priceDialog.setText(product.getPrice() + " грн.");
+            articleDialog.setText(product.getVendorCode());
+            nameDialog.setText(product.getName());
+            sizeDialog.setText(product.getSize() + " см.");
+            priceDialog.setText(product.getPrice() + " грн.");
 
-                TouchImageView touchImageView = dialog.findViewById(R.id.imageTouch);
-                if(isInternetPresent) {
-                    support.loadImage(touchImageView, product.getImage(), getApplicationContext());
-                }
-                else{
-                    support.showToast(getApplicationContext(),"Нет интернет соединения для загрузки изображения!");
-                }
-
-                ImageButton btnCloseDialog = dialog.findViewById (R.id.btn_close_fish_dialog);
-                btnCloseDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                Button btnCancel = dialog.findViewById(R.id.cancel_dialog_btn);
-                btnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-
-                Button btnAddShopBask = dialog.findViewById(R.id.addShopBask_btn);
-                btnAddShopBask.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String quantityFish = quantity.getText().toString();
-
-                        if (quantity.length () < 1) {
-                            support.showToast (getApplicationContext(),"Укажите количество");
-                            return;
-                        }
-
-                        HashMap<String, String> singleItem = new HashMap<>();
-                        singleItem.put("name", product.getName());
-                        singleItem.put("quantity", quantityFish);
-                        singleItem.put("size", product.getSize());
-                        singleItem.put("price", product.getPrice());
-                        singleItem.put ("image", product.getImage ());
-
-                        boolean hasDuplicate = CartHelper.findCartItem(singleItem.get("name"),singleItem.get("price"), cartItems);
-
-                        if (hasDuplicate) {
-                            Toast toast = Toast.makeText
-                                    (getApplicationContext(),"Позиция уже в Корзине",Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER,0,0);
-                            toast.show();
-                        } else {
-                            cartItems.add(singleItem);
-                            CartHelper.calculateItemsCart();
-                            viewBtnSumOrder();
-                            dialog.dismiss();
-                        }
-                    }
-                });
-                dialog.show();
+            TouchImageView touchImageView = dialog.findViewById(R.id.imageTouch);
+            if(isInternetPresent) {
+                support.loadImage(touchImageView, product.getImage(), getApplicationContext());
+            }
+            else{
+                support.showToast(getApplicationContext(),"Нет интернет соединения для загрузки изображения!");
             }
 
+            ImageButton btnCloseDialog = dialog.findViewById (R.id.btn_close_fish_dialog);
+            btnCloseDialog.setOnClickListener(view1 -> dialog.dismiss());
+
+            Button btnCancel = dialog.findViewById(R.id.cancel_dialog_btn);
+            btnCancel.setOnClickListener(view12 -> dialog.dismiss());
+
+
+            Button btnAddShopBask = dialog.findViewById(R.id.addShopBask_btn);
+            btnAddShopBask.setOnClickListener(view13 -> {
+                String quantityFish = quantity.getText().toString();
+
+                if (quantity.length () < 1) {
+                    support.showToast (getApplicationContext(),"Укажите количество");
+                    return;
+                }
+
+                HashMap<String, String> singleItem = new HashMap<>();
+                singleItem.put("name", product.getName());
+                singleItem.put("quantity", quantityFish);
+                singleItem.put("size", product.getSize());
+                singleItem.put("price", product.getPrice());
+                singleItem.put ("image", product.getImage ());
+
+                boolean hasDuplicate = CartHelper.findCartItem(singleItem.get("name"),singleItem.get("price"), cartItems);
+
+                if (hasDuplicate) {
+                    Toast toast = Toast.makeText
+                            (getApplicationContext(),"Позиция уже в Корзине",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                } else {
+                    cartItems.add(singleItem);
+                    CartHelper.calculateItemsCart();
+                    viewBtnSumOrder();
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
         });
     }
 
@@ -278,12 +252,7 @@ public class Fish extends AppCompatActivity {
                 toolbar.setTitle ("Рыба");
             }
             toolbar.setTitle(fishCategory.getName());
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            toolbar.setNavigationOnClickListener(v -> onBackPressed());
         } catch (Exception e) {
             e.printStackTrace();
         }

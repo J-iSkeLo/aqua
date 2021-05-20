@@ -80,31 +80,21 @@ public class ShoppingBasket extends AppCompatActivity {
             dialogClearCart.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
 
             final Button btnCancelClearCart = dialogClearCart.findViewById(R.id.cancel_btn_dialog_clearCart);
-            btnCancelClearCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialogClearCart.dismiss();
-                }
-            });
+            btnCancelClearCart.setOnClickListener(view -> dialogClearCart.dismiss());
 
             final Button btnOkClearCart = dialogClearCart.findViewById(R.id.clear_btn_dialog_clearCart);
-            btnOkClearCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clearFishAndEquipment ( );
+            btnOkClearCart.setOnClickListener(view -> {
+                clearFishAndEquipment ( );
 
-                    calcItemText ( );
+                calcItemText ( );
 
-                    btnOrder.setVisibility(View.INVISIBLE);
+                btnOrder.setVisibility(View.INVISIBLE);
 
-                    updateAdapters ( );
+                updateAdapters ( );
 
-                    visibleTextFragment ( );
+                visibleTextFragment ( );
 
-                    dialogClearCart.dismiss();
-                }
-
-
+                dialogClearCart.dismiss();
             });
             dialogClearCart.setCancelable(false);
             dialogClearCart.show();

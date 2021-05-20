@@ -18,12 +18,12 @@ import l.chernenkiy.aqua.R;
 
 public class FishListAdapter extends BaseAdapter {
 
-    private final Context mContext;
+    private final Context context;
     private final ArrayList<Product> mProductList;
     Support support = new Support();
 
-    public FishListAdapter(Context mContext, ArrayList<Product> mProductList) {
-        this.mContext = mContext;
+    public FishListAdapter(Context context, ArrayList<Product> mProductList) {
+        this.context = context;
         this.mProductList = mProductList;
     }
 
@@ -46,7 +46,7 @@ public class FishListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
 
-        LayoutInflater mInflater = (LayoutInflater) mContext
+        LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         Product product = mProductList.get(i);
@@ -56,14 +56,16 @@ public class FishListAdapter extends BaseAdapter {
             TextView tvName = convertView.findViewById(R.id.name_pn);
             TextView tvSize = convertView.findViewById(R.id.size_pn);
             TextView tvPrice = convertView.findViewById(R.id.price_pn);
+            TextView tvVendorCode = convertView.findViewById(R.id.vendor_code_fish);
             ImageView image = convertView.findViewById(R.id.imageFish_pn);
 
+            tvVendorCode.setText(product.getVendorCode());
             tvName.setText(product.getName());
             tvSize.setText(product.getSize() + " см.");
             tvPrice.setText(product.getPrice() + " грн.");
 
             String urlImage = product.getImage();
-            support.loadImage(image, urlImage, mContext);
+            support.loadImage(image, urlImage, context);
 
 
         return convertView;

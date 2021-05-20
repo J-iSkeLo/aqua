@@ -64,9 +64,23 @@
 
         <TableRow
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/article_dialog_fish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                android:textColor="#666666"
+                android:textSize="11sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/name_dialog"
@@ -93,7 +107,8 @@
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="@color/colorTextCart"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                tools:ignore="RtlCompat" />
 
             <TextView
                 android:id="@+id/price_dialog"

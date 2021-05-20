@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="5dp"
-    >
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +21,14 @@
             android:layout_marginTop="7dp"
             android:stretchColumns="*">
 
+            <TextView
+                android:id="@+id/vendor_code_fish"
+                android:layout_width="169dp"
+                android:layout_height="wrap_content"
+                android:text="Артикул"
+                android:textColor="#3A3A3A"
+                android:textSize="12sp" />
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -32,6 +38,8 @@
                     android:layout_width="30dp"
                     android:layout_height="50dp"
                     android:gravity="center" />
+
+
 
                 <LinearLayout
                     android:layout_width="150dp"

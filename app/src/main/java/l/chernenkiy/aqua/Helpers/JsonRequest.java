@@ -27,36 +27,33 @@ public class JsonRequest {
         String url = "https://aqua-m.kh.ua/api/v2/fish";
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                response -> {
 
-                        try {
-                            Iterator<String> keys = response.keys();
+                    try {
+                        Iterator<String> keys = response.keys();
 
-                            while (keys.hasNext()) {
-                                String key = keys.next();
-                                JSONArray allFish = response.getJSONArray(key);
-                                ArrayList<Product> childItemFish = new ArrayList<>();
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            JSONArray allFish = response.getJSONArray(key);
+                            ArrayList<Product> childItemFish = new ArrayList<>();
 
-                                for (int i = 0; i < allFish.length(); i++) {
-                                    JSONObject fishItem = allFish.getJSONObject(i);
+                            for (int i = 0; i < allFish.length(); i++) {
+                                JSONObject fishItem = allFish.getJSONObject(i);
 
-                                    String name = fishItem.getString("name");
-                                    String size = fishItem.getString("size");
-                                    String price = fishItem.getString("price");
-                                    String image = fishItem.getString("image");
+                                String vendorCode = fishItem.getString("article");
+                                String name = fishItem.getString("name");
+                                String size = fishItem.getString("size");
+                                String price = fishItem.getString("price");
+                                String image = fishItem.getString("image");
 
-                                    childItemFish.add(new Product(name, size, price, image));
-                                }
-                                resultFish.add(new FishCategory(key, childItemFish));
+                                childItemFish.add(new Product(vendorCode, name, size, price, image));
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace ();
+                            resultFish.add(new FishCategory(key, childItemFish));
                         }
-                    }
 
+                    } catch (JSONException e) {
+                        e.printStackTrace ();
+                    }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
