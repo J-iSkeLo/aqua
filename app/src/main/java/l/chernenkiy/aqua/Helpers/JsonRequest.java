@@ -2,8 +2,6 @@ package l.chernenkiy.aqua.Helpers;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
@@ -27,45 +25,33 @@ public class JsonRequest {
         String url = "https://aqua-m.kh.ua/api/v2/fish";
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                response -> {
 
-                        try {
-                            Iterator<String> keys = response.keys();
+                    try {
+                        Iterator<String> keys = response.keys();
 
-                            while (keys.hasNext()) {
-                                String key = keys.next();
-                                JSONArray allFish = response.getJSONArray(key);
-                                ArrayList<Product> childItemFish = new ArrayList<>();
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            JSONArray allFish = response.getJSONArray(key);
+                            ArrayList<Product> childItemFish = new ArrayList<>();
 
-                                for (int i = 0; i < allFish.length(); i++) {
-                                    JSONObject fishItem = allFish.getJSONObject(i);
+                            for (int i = 0; i < allFish.length(); i++) {
+                                JSONObject fishItem = allFish.getJSONObject(i);
 
-                                    String name = fishItem.getString("name");
-                                    String size = fishItem.getString("size");
-                                    String price = fishItem.getString("price");
-                                    String image = fishItem.getString("image");
+                                String name = fishItem.getString("name");
+                                String size = fishItem.getString("size");
+                                String price = fishItem.getString("price");
+                                String image = fishItem.getString("image");
 
-                                    childItemFish.add(new Product(name, size, price, image));
-                                }
-                                resultFish.add(new FishCategory(key, childItemFish));
+                                childItemFish.add(new Product(name, size, price, image));
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace ();
+                            resultFish.add(new FishCategory(key, childItemFish));
                         }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace ();
                     }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace ();
-            }
-
-
-
-        });
+                }, Throwable::printStackTrace);
         mQueue.add(request);
 
     }
@@ -75,76 +61,67 @@ public class JsonRequest {
                                     String url, final String generalColKey) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                response -> {
 
-                        try {
-                            Iterator<String> parentKeys = response.keys();
+                    try {
+                        Iterator<String> parentKeys = response.keys();
 
-                            while (parentKeys.hasNext()) {
-                                String categoryName = parentKeys.next();
-                                Object allEquipment = response.get(categoryName);
-                                ArrayList <ItemEquipment> resultChildrenCategory = new ArrayList<>();
-                                ArrayList<ItemSubCategory> arraySubCategory = new ArrayList<>();
+                        while (parentKeys.hasNext()) {
+                            String categoryName = parentKeys.next();
+                            Object allEquipment = response.get(categoryName);
+                            ArrayList <ItemEquipment> resultChildrenCategory = new ArrayList<>();
+                            ArrayList<ItemSubCategory> arraySubCategory = new ArrayList<>();
 
-                                if (allEquipment instanceof  JSONObject){
-                                    JSONObject allObjectEquipment = (JSONObject) allEquipment;
-                                    Iterator<String> childKeys = allObjectEquipment.keys();
+                            if (allEquipment instanceof  JSONObject){
+                                JSONObject allObjectEquipment = (JSONObject) allEquipment;
+                                Iterator<String> childKeys = allObjectEquipment.keys();
 
 
-                                    while (childKeys.hasNext()){
-                                        String subCategoryName = childKeys.next();
-                                        JSONArray allArraySubCategory = (JSONArray) allObjectEquipment.get(subCategoryName);
-                                        ArrayList<ItemEquipment> itemEquipment = new ArrayList<>();
+                                while (childKeys.hasNext()){
+                                    String subCategoryName = childKeys.next();
+                                    JSONArray allArraySubCategory = (JSONArray) allObjectEquipment.get(subCategoryName);
+                                    ArrayList<ItemEquipment> itemEquipment = new ArrayList<>();
 
-                                        for (int j = 0; j < allArraySubCategory.length(); j++){
-                                            JSONObject subEquipItem = (JSONObject) allArraySubCategory.get(j);
-                                            String article = subEquipItem.getString("article");
-                                            String name = subEquipItem.getString("name");
-                                            String description = subEquipItem.getString("description");
-                                            String generalKey = subEquipItem.getString(generalColKey);
-                                            String price = subEquipItem.getString("price");
-                                            String image = subEquipItem.getString("image");
+                                    for (int j = 0; j < allArraySubCategory.length(); j++){
+                                        JSONObject subEquipItem = (JSONObject) allArraySubCategory.get(j);
+                                        String article = subEquipItem.getString("article");
+                                        String name = subEquipItem.getString("name");
+                                        String description = subEquipItem.getString("description");
+                                        String generalKey = subEquipItem.getString(generalColKey);
+                                        String price = subEquipItem.getString("price");
+                                        String image = subEquipItem.getString("image");
 
-                                            itemEquipment.add(new ItemEquipment(article, name, description, generalKey,  price, image));
-                                        }
-
-                                        arraySubCategory.add(new ItemSubCategory(subCategoryName, itemEquipment));
+                                        itemEquipment.add(new ItemEquipment(article, name, description, generalKey,  price, image));
                                     }
 
-                                } else {
-                                    JSONArray allArrayEquipment = (JSONArray) allEquipment;
-
-                                    for (int i = 0; i < allArrayEquipment.length(); i++) {
-                                        JSONObject equipItem = allArrayEquipment.getJSONObject(i);
-
-                                        String article = equipItem.getString("article");
-                                        String name = equipItem.getString("name");
-                                        String description = equipItem.getString("description");
-                                        String generalKey = equipItem.getString(generalColKey);
-                                        String price = equipItem.getString("price");
-                                        String image = equipItem.getString("image");
-
-                                        resultChildrenCategory.add(new ItemEquipment(article, name, description, generalKey,  price, image));
-                                    }
+                                    arraySubCategory.add(new ItemSubCategory(subCategoryName, itemEquipment));
                                 }
-                                arrayCategory.add(new ItemCategory(categoryName, resultChildrenCategory, arraySubCategory));
+
+                            } else {
+                                JSONArray allArrayEquipment = (JSONArray) allEquipment;
+
+                                for (int i = 0; i < allArrayEquipment.length(); i++) {
+                                    JSONObject equipItem = allArrayEquipment.getJSONObject(i);
+
+                                    String article = equipItem.getString("article");
+                                    String name = equipItem.getString("name");
+                                    String description = equipItem.getString("description");
+                                    String generalKey = equipItem.getString(generalColKey);
+                                    String price = equipItem.getString("price");
+                                    String image = equipItem.getString("image");
+
+                                    resultChildrenCategory.add(new ItemEquipment(article, name, description, generalKey,  price, image));
+                                }
                             }
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace ();
+                            arrayCategory.add(new ItemCategory(categoryName, resultChildrenCategory, arraySubCategory));
                         }
-                    }
 
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace ();
-            }
-        });
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace ();
+                    }
+                }, Throwable::printStackTrace);
         mQueue.add(request);
     }
 }
