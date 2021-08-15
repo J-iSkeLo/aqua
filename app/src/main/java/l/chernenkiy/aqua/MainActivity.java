@@ -289,10 +289,14 @@ public class MainActivity extends AppCompatActivity {
             jsonRequest.makeFishRequest (mQueue, listFish);
 
 
-            jsonRequest.makeAllEquipRequest (mQueue, listEquip, ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
-            jsonRequest.makeAllEquipRequest (mQueue, listFeed, ApiInfo.feed, ApiInfo.feedGeneralColKey);
-            jsonRequest.makeAllEquipRequest (mQueue, listDrugs, ApiInfo.drugs, ApiInfo.drugsGeneralColKey);
-            jsonRequest.makeAllEquipRequest (mQueue, listAquariums, ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
+            jsonRequest.makeAllEquipRequest (getApplicationContext(), mQueue, listEquip,
+                    ApiInfo.equipment, ApiInfo.equipmentGeneralColKey);
+            jsonRequest.makeAllEquipRequest (getApplicationContext(), mQueue, listFeed,
+                    ApiInfo.feed, ApiInfo.feedGeneralColKey);
+            jsonRequest.makeAllEquipRequest (getApplicationContext(), mQueue, listDrugs,
+                    ApiInfo.drugs, ApiInfo.drugsGeneralColKey);
+            jsonRequest.makeAllEquipRequest (getApplicationContext(), mQueue, listAquariums,
+                    ApiInfo.aquariums, ApiInfo.aquariumsGeneralColKey);
         }
 
         private void updatePriceDate(String url) throws IOException {
@@ -304,7 +308,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             connection.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(new InputStreamReader (connection.getInputStream()));
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader (connection.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
