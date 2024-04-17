@@ -1,5 +1,7 @@
 package l.chernenkiy.aqua;
 
+import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -35,6 +37,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import l.chernenkiy.aqua.Delivery.Delivery;
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
@@ -48,8 +51,6 @@ import l.chernenkiy.aqua.Helpers.JsonRequest;
 import l.chernenkiy.aqua.Helpers.Support;
 import l.chernenkiy.aqua.LastOrder.LastOrder;
 import l.chernenkiy.aqua.ShoppingBasket.ShoppingBasket;
-
-import static l.chernenkiy.aqua.Helpers.CartHelper.calculateItemsCartMain;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -140,69 +141,57 @@ public class MainActivity extends AppCompatActivity {
         });
 
         shopBaskButton.setOnClickListener (view -> {
-            try{
+            try {
                 Intent intent = new Intent(MainActivity.this, ShoppingBasket.class);
                 lastClass = MainActivity.class;
                 startActivity(intent);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            } catch (Exception ignored){}
         });
 
         Button btnLastOrder = findViewById(R.id.last_order);
         btnLastOrder.setOnClickListener(view -> {
-            try{
+            try {
                 Intent intent = new Intent(MainActivity.this, LastOrder.class);
                 startActivity(intent);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            } catch (Exception ignored){}
         });
 
         Button btnCatalog = findViewById(R.id.btn_catalog);
         btnCatalog.setOnClickListener(view -> {
-            try{
+            try {
                 Intent intent = new Intent(MainActivity.this, CategoryFish.class);
                 startActivity(intent);finish();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            } catch (Exception ignored){}
         });
 
         Button btnAboutUs = findViewById(R.id.btn_about_us);
         btnAboutUs.setOnClickListener(view -> {
-            try{
+            try {
                 Intent intent = new Intent(MainActivity.this, AboutUs.class);
                 startActivity(intent);finish();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            } catch (Exception ignored){}
         });
 
         Button btnContacts = findViewById(R.id.btn_contacts);
         btnContacts.setOnClickListener(view -> {
-            try{
+            try {
                 Intent intent = new Intent(MainActivity.this, Contacts.class);
                 startActivity(intent);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            } catch (Exception ignored){}
         });
 
         Button btnDelivery = findViewById(R.id.btn_delivery);
         btnDelivery.setOnClickListener(view -> {
-            try{
+            try {
                 Intent intent = new Intent(MainActivity.this, Delivery.class);
                 startActivity(intent);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            } catch (Exception ignored){}
         });
 
         cd = new ConnectionDetector (getApplicationContext());
         isInternetPresent = cd.ConnectingToInternet();
 
-        if (! isInternetPresent){
+        if (!isInternetPresent){
             support.showToast(getApplicationContext(), "Нет интернет соединения!");
             btnCatalog.setClickable(false);
             shopBaskButton.setClickable(false);
@@ -236,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
     private Dialog getDialog() {
         final Dialog dialog = new Dialog(MainActivity.this, R.style.FullHeightDialog);
         dialog.setContentView(R.layout.dialog_load_main_activity);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return dialog;
     }
 
@@ -278,9 +267,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 updatePriceDate(url);
                 requestAll();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException ignored) {}
 
             return null;
         }
@@ -296,11 +283,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void updatePriceDate(String url) throws IOException {
-            URL obj;
-            obj = new URL (url);
+            URL obj = new URL (url);
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
             statusCode = connection.getResponseCode();
-            if (statusCode != 200){
+            if (statusCode != 200) {
                 return;
             }
             connection.setRequestMethod("GET");

@@ -8,8 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
 
 import l.chernenkiy.aqua.Equipment.Items.ItemCategory;
 import l.chernenkiy.aqua.Equipment.Items.ItemEquipment;
@@ -85,12 +88,21 @@ public class JsonRequest {
 
                                     for (int j = 0; j < allArraySubCategory.length(); j++){
                                         JSONObject subEquipItem = (JSONObject) allArraySubCategory.get(j);
+
                                         String article = subEquipItem.getString("article");
                                         String name = subEquipItem.getString("name");
                                         String description = subEquipItem.getString("description");
                                         String generalKey = subEquipItem.getString(generalColKey);
                                         String price = subEquipItem.getString("price");
                                         String image = subEquipItem.getString("image");
+
+                                        if (price.equals("null")) {
+                                            price = "0";
+                                        } else {
+                                            BigDecimal bigDecimal = new BigDecimal(price);
+                                            bigDecimal = bigDecimal.setScale(1, RoundingMode.DOWN);
+                                            price = bigDecimal.toString();
+                                        }
 
                                         itemEquipment.add(new ItemEquipment(article, name, description, generalKey,  price, image));
                                     }

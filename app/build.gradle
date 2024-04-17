@@ -1,21 +1,25 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+
+    compileSdkVersion 34
+    buildToolsVersion "34.0.0"
+
     defaultConfig {
         applicationId "l.chernenkiy.aqua"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 11
-        versionName '2.1'
+        targetSdkVersion 34
+        versionCode 14
+        versionName '2.4'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk{
             debugSymbolLevel = 'SYMBOL_TABLE'
         }
     }
     packagingOptions {
-        pickFirst 'META-INF/LICENSE.txt' // picks the JavaMail license file
+        resources {
+            pickFirsts += ['META-INF/LICENSE.txt']
+        }
     }
     buildTypes {
         release {
@@ -28,10 +32,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'l.chernenkiy.aqua'
 }
 
 dependencies {
-    implementation 'com.google.android.play:core:1.9.1'
+    implementation 'com.google.android.play:core:1.10.3'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
@@ -43,7 +48,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation fileTree(dir: 'C:\\Users\\jiske\\Downloads', include: ['*.aar', '*.jar'], exclude: [])
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.jcminarro:RoundKornerLayouts:0.2.0'
@@ -51,7 +55,7 @@ dependencies {
     implementation 'androidx.mediarouter:mediarouter:1.1.0'
     implementation 'com.sun.mail:android-mail:1.6.2'
     implementation 'com.sun.mail:android-activation:1.6.2'
-    implementation 'com.github.MikeOrtiz:TouchImageView:2.2.0'
+    implementation 'com.github.MikeOrtiz:TouchImageView:3.2.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'

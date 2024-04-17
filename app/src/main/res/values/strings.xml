@@ -35,17 +35,10 @@
         Всегда будем рады сотрудничеству с Вами!</string>
     <string name="contacts_aqua">Всегда рады сотрудничеству с Вами! \n\n
         Наши Менеджеры: \n Мельник Анастасия \n "+380-99-963-25-85, +380-67-217-31-81 \n"
-        Калинина Дарья \n +380-95-127-66-25, +380-67-374-48-30\n
-        Васищева Дарья \n +380-99-686-39-85, +380-67-217-34-94</string>
+        \n +380-95-127-66-25, +380-67-374-48-30\n
+        \n +380-99-686-39-85, +380-67-217-34-94</string>
     <string name="web_aqua">Время работы:\n Пн-Пт - с 9:00 до 17:00\n\n
         E-mail: office@aqua-m.com.ua\n Website: http://aqua-m.com.ua/\n</string>
-    <string name="title_activity_shopping_cart">ShoppingCart</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <string name="Title">Моя корзина</string>
     <string name="ok_order">Спасибо за заказ!\n Менеджеры свяжутся с Вами\n в ближайшее время.</string>
@@ -88,16 +81,7 @@
         В случае форс-мажорных  обстоятельств,  все непредвиденные ситуации обсуждаются  индивидуально.\n\n </string>
 
     <string name="toastFinalShop">Спасибо за заказ.\n Менеджеры свяжутся с Вами\n в ближайшее время.</string>
-    <string name="title_activity_equipment_accessories_">Equipment_accessories_Activity</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
     <string name="finalSum">0 грн.</string>
-    <string name="results_activity_label">Search Item</string>
     <string name="s_btn_send_last_order">Повторить заказ</string>
     <string name="name_nav_fish">Рыба</string>
     <string name="name_nav_equipment">Оборудование</string>
